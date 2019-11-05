@@ -1,0 +1,58 @@
+responsibility_id,value,responsibility_id
+28,Adverse event reporting,28
+41,Analysis,41
+13,Bug-fixes,13
+17,Code review,17
+48,Code review,48
+29,Collation of treatment records,29
+36,Configuration of wireless devices,36
+53,"Contract to Invoice process (Contract, Booking, Billing Run, Invoice Approval) ",53
+19,"Data collection systems (Case Report Forms, lab results, patient questionaires etc)",19
+27,Data-entry,27
+38,Data-entry (BEWT),38
+40,Database backup (BEWT),40
+14,Day-to-day project management,14
+8,"DBA (eg. User / role Management, Maintenance Plans etc) ",8
+42,Design,42
+10,Design specification,10
+16,Enhancement,16
+26,"Entering patients on the trial, via randomisation wizard",26
+55,Factory pattern to derive a dynamic menu ,55
+54,"Finance Config (Tax Codes and Rates, Financial Products, Currency X-Change Rates) ",54
+1,General tidiness of the yard,1
+30,Generating data queries and reports,30
+43,Implementation,43
+37,"Installation & service of terminals, printers, barcode scanners etc",37
+33,Installation & support of servers and desktop PCs,33
+23,Integration & maintenance of the Data Warehouse system,23
+12,Maintenance,12
+44,Maintenance,44
+25,Maintenance of 'Control of Substances Hazardous to Health (COSHH)' database,25
+50,"Manage Customers (Address, Bank Accounts, Contacts, Opening Hours) ",50
+52,"Manage Product and Items (Supplier Products and Price Lists for various currencies, Item Bundles and Prices for various currencies) ",52
+51,"Manage Suppliers (Address, Bank Accounts, Contacts) ",51
+32,Managing participating centres (data warehouse),32
+31,Managing participating clinicians (data warehouse),31
+7,Manoeuvring & parking of vehicles on site,7
+57,"Modal window for info, forms and approval ",57
+35,Monitoring of UNIX fail-over cluster,35
+9,Needs elicitation,9
+34,Offsite Backups,34
+47,Policies & Procedures,47
+6,Presentation of vehicles on sale days,6
+11,Project Implementation,11
+22,Randomisation systems,22
+21,Reports,21
+2,Route planning,2
+24,Sample tracking & storage systems,24
+49,Site Action to manage customer issues with history and context links to the CDM application,49
+3,Speaking to customers,3
+15,Standard Operating Procedures (SOPs),15
+18,Testing,18
+56,User defined Lookup to enable the business to change the values in picklists ,56
+45,User support,45
+46,Using XML based code generation tools,46
+4,Vehicle condition checks,4
+5,Vehicle loading,5
+20,Views,20
+39,Writing data queries (BEWT),39
