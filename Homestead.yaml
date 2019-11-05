@@ -1,0 +1,59 @@
+---
+ip: "192.168.10.25"
+memory: 2048
+cpus: 2
+provider: virtualbox
+name: cv19
+
+authorize: ~/.ssh/id_rsa.pub
+
+keys:
+    - ~/.ssh/id_rsa
+
+folders:
+    -
+        # code #
+        map: 'B:\WEBDEV\projects\cv19\working\application'
+        to: /home/vagrant/application
+    -
+        # sql backup #
+        map: 'B:\WEBDEV\projects\cv19\working\mysql\'
+        to: /home/vagrant/mysql
+        create: true
+        owner: mysql
+        group: mysql
+        mount_options: "[dmode=770,fmode=777]"
+
+
+     
+        # shuffle area for administrative file mgmt #
+    -
+        map: 'B:\WEBDEV\projects\cv19\working\shuffle'
+        to: /home/vagrant/shuffle
+        owner: vagrant
+        create: true
+        mount_options: "[dmode=770,fmode=770]"
+
+sites:
+    - map: cv.test
+      to: /home/vagrant/application/public
+
+databases:
+    - cv
+
+features:
+    - mariadb: false
+    - ohmyzsh: false
+    - webdriver: false
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp
+
+
+hostname: CV19
+
+    
