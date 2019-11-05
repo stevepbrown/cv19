@@ -8,10 +8,10 @@
     {{$title}}
     @endslot
     @slot('keywords')
-    {{$keywords}}
+    "IMPORTANT - add keywords"
     @endslot
     @slot('description')
-    {{$description}}
+    "IMPORTANT - add description"
     @endslot
     @endhead
 </head>
