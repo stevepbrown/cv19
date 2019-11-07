@@ -17,6 +17,7 @@ class CreateResponsibilitiesTable extends Migration
             $table->biginteger('id');
             $table->text('responsibility');
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

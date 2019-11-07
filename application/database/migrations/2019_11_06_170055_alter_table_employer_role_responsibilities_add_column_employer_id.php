@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkillsTable extends Migration
+class AlterTableEmployerRoleResponsibilitiesAddColumnEmployerId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateSkillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('skills', function (Blueprint $table) {
-            $table->bigInteger('id');
-            $table->text('skill');
-            $table->bigInteger('parent_skill_id');
-            $table->timestamps();
-            $table->primary('id');
+        Schema::table('employer_role_responsibilities', function (Blueprint $table) {
+            $table->integer('employer_id')->after('id');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateSkillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skills');
+        Schema::table('employer_role_responsibilities', function (Blueprint $table) {
+            $table->dropColumn('employer_id');
+        });
     }
 }

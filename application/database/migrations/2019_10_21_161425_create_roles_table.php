@@ -18,6 +18,7 @@ class CreateRolesTable extends Migration
             $table->text('role');
             $table->bigInteger('employer_id');
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

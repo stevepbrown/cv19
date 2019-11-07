@@ -19,6 +19,7 @@ class CreateQualificationsTable extends Migration
             $table->integer('institution_id');
             $table->char('year_attained',4);
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

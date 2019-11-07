@@ -1,6 +1,6 @@
--- MySQL dump 10.13  Distrib 5.5.62, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: professional
+-- Host: localhost    Database: cv
 -- ------------------------------------------------------
 -- Server version	5.7.27-0ubuntu0.18.04.1
 
@@ -19,6 +19,7 @@
 -- Table structure for table `employer_role`
 --
 
+DROP TABLE IF EXISTS `employer_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employer_role` (
@@ -26,7 +27,8 @@ CREATE TABLE `employer_role` (
   `employer_id` bigint(20) NOT NULL,
   `role_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -44,14 +46,14 @@ UNLOCK TABLES;
 -- Table structure for table `employer_role_responsibilities`
 --
 
+DROP TABLE IF EXISTS `employer_role_responsibilities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employer_role_responsibilities` (
-  `id` bigint(20) NOT NULL,
-  `role_id` bigint(20) NOT NULL,
-  `responsibility_id` bigint(20) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `id` int(11) DEFAULT NULL,
+  `responsibility_id` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
+  `employer_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +63,7 @@ CREATE TABLE `employer_role_responsibilities` (
 
 LOCK TABLES `employer_role_responsibilities` WRITE;
 /*!40000 ALTER TABLE `employer_role_responsibilities` DISABLE KEYS */;
-INSERT INTO `employer_role_responsibilities` VALUES (1,1,28,NULL,NULL),(2,2,28,NULL,NULL),(3,1,41,NULL,NULL),(4,2,41,NULL,NULL),(5,1,13,NULL,NULL),(6,1,13,NULL,NULL),(7,2,48,NULL,NULL),(8,5,48,NULL,NULL),(9,3,29,NULL,NULL),(10,6,36,NULL,NULL),(11,1,53,NULL,NULL),(12,2,19,NULL,NULL),(13,7,19,NULL,NULL),(14,3,27,NULL,NULL),(15,1,27,NULL,NULL),(16,7,38,NULL,NULL),(17,2,14,NULL,NULL),(18,1,14,NULL,NULL),(19,2,8,NULL,NULL),(20,2,42,NULL,NULL),(21,1,42,NULL,NULL),(22,2,10,NULL,NULL),(23,1,10,NULL,NULL),(24,1,16,NULL,NULL),(25,2,16,NULL,NULL),(26,3,26,NULL,NULL),(27,5,55,NULL,NULL),(28,5,54,NULL,NULL),(29,4,1,NULL,NULL),(30,7,30,NULL,NULL),(31,7,30,NULL,NULL),(32,1,43,NULL,NULL),(33,2,43,NULL,NULL),(34,6,37,NULL,NULL),(35,6,33,NULL,NULL),(36,2,23,NULL,NULL),(37,1,44,NULL,NULL),(38,2,44,NULL,NULL),(39,2,25,NULL,NULL),(40,5,50,NULL,NULL),(41,5,52,NULL,NULL),(42,5,51,NULL,NULL),(43,3,32,NULL,NULL),(44,3,31,NULL,NULL),(45,4,31,NULL,NULL),(46,5,57,NULL,NULL),(47,6,35,NULL,NULL),(48,1,9,NULL,NULL),(49,2,9,NULL,NULL),(50,1,34,NULL,NULL),(51,2,47,NULL,NULL),(52,1,47,NULL,NULL),(53,2,6,NULL,NULL),(54,1,11,NULL,NULL),(55,2,11,NULL,NULL),(56,1,22,NULL,NULL),(57,2,22,NULL,NULL),(58,1,21,NULL,NULL),(59,2,21,NULL,NULL),(60,4,2,NULL,NULL),(61,1,24,NULL,NULL),(62,5,49,NULL,NULL),(63,4,3,NULL,NULL),(64,1,15,NULL,NULL),(65,2,15,NULL,NULL),(66,1,18,NULL,NULL),(67,2,18,NULL,NULL),(68,5,56,NULL,NULL),(69,1,45,NULL,NULL),(70,2,45,NULL,NULL),(71,1,46,NULL,NULL),(72,4,4,NULL,NULL),(73,4,5,NULL,NULL),(74,4,20,NULL,NULL),(75,1,20,NULL,NULL),(76,7,20,NULL,NULL),(77,2,20,NULL,NULL);
+INSERT INTO `employer_role_responsibilities` VALUES (1,28,5,1),(2,28,5,2),(3,41,5,1),(4,41,5,2),(5,13,5,1),(6,13,5,1),(7,48,5,2),(8,48,6,4),(9,29,2,2),(10,36,1,3),(11,53,5,1),(12,19,5,2),(13,19,7,5),(14,27,2,2),(15,27,5,1),(16,38,7,5),(17,14,5,2),(18,14,5,1),(19,8,5,2),(20,42,5,2),(21,42,5,1),(22,10,5,2),(23,10,5,1),(24,16,5,1),(25,16,5,2),(26,26,2,2),(27,55,6,4),(28,54,6,4),(29,1,3,6),(30,30,7,5),(31,30,7,5),(32,43,5,1),(33,43,5,2),(34,37,1,3),(35,33,1,3),(36,23,5,2),(37,44,5,1),(38,44,5,2),(39,25,5,2),(40,50,6,4),(41,52,6,4),(42,51,6,4),(43,32,2,2),(44,31,2,2),(45,31,3,6),(46,57,6,4),(47,35,1,3),(48,9,5,1),(49,9,5,2),(50,34,5,1),(51,47,5,2),(52,47,5,1),(53,6,5,2),(54,11,5,1),(55,11,5,2),(56,22,5,1),(57,22,5,2),(58,21,5,1),(59,21,5,2),(60,2,3,6),(61,24,5,1),(62,49,6,4),(63,3,3,6),(64,15,5,1),(65,15,5,2),(66,18,5,1),(67,18,5,2),(68,56,6,4),(69,45,5,1),(70,45,5,2),(71,46,5,1),(72,4,3,6),(73,5,3,6),(74,20,3,6),(75,20,5,1),(76,20,7,5),(77,20,5,2);
 /*!40000 ALTER TABLE `employer_role_responsibilities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,6 +71,7 @@ UNLOCK TABLES;
 -- Table structure for table `employers`
 --
 
+DROP TABLE IF EXISTS `employers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employers` (
@@ -76,7 +79,8 @@ CREATE TABLE `employers` (
   `employer` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,6 +98,7 @@ UNLOCK TABLES;
 -- Table structure for table `failed_jobs`
 --
 
+DROP TABLE IF EXISTS `failed_jobs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `failed_jobs` (
@@ -120,13 +125,15 @@ UNLOCK TABLES;
 -- Table structure for table `institutions`
 --
 
+DROP TABLE IF EXISTS `institutions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `institutions` (
   `id` bigint(20) NOT NULL,
   `institution` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -144,6 +151,7 @@ UNLOCK TABLES;
 -- Table structure for table `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `migrations` (
@@ -168,6 +176,7 @@ UNLOCK TABLES;
 -- Table structure for table `modules`
 --
 
+DROP TABLE IF EXISTS `modules`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `modules` (
@@ -176,7 +185,8 @@ CREATE TABLE `modules` (
   `qualification_id` bigint(20) NOT NULL,
   `grade` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -194,6 +204,7 @@ UNLOCK TABLES;
 -- Table structure for table `password_resets`
 --
 
+DROP TABLE IF EXISTS `password_resets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `password_resets` (
@@ -217,6 +228,7 @@ UNLOCK TABLES;
 -- Table structure for table `qualifications`
 --
 
+DROP TABLE IF EXISTS `qualifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qualifications` (
@@ -225,7 +237,8 @@ CREATE TABLE `qualifications` (
   `institution_id` int(11) NOT NULL,
   `year_attained` char(4) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,7 +248,7 @@ CREATE TABLE `qualifications` (
 
 LOCK TABLES `qualifications` WRITE;
 /*!40000 ALTER TABLE `qualifications` DISABLE KEYS */;
-INSERT INTO `qualifications` VALUES (3,'Bachelor of Arts (Honours)',2,'1995',NULL,NULL),(4,'Certificate IV in Web Technologies (Equivalent to UK Higher National Certficate',1,'2016',NULL,NULL),(2,'GCE (Advanced Level)',3,'1990',NULL,NULL),(1,'GCSE',4,'1988',NULL,NULL);
+INSERT INTO `qualifications` VALUES (1,'GCSE',4,'1988',NULL,NULL),(2,'GCE (Advanced Level)',3,'1990',NULL,NULL),(3,'Bachelor of Arts (Honours)',2,'1995',NULL,NULL),(4,'Certificate IV in Web Technologies (Equivalent to UK Higher National Certficate',1,'2016',NULL,NULL);
 /*!40000 ALTER TABLE `qualifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -243,13 +256,15 @@ UNLOCK TABLES;
 -- Table structure for table `responsibilities`
 --
 
+DROP TABLE IF EXISTS `responsibilities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `responsibilities` (
   `id` bigint(20) NOT NULL,
   `responsibility` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -259,7 +274,7 @@ CREATE TABLE `responsibilities` (
 
 LOCK TABLES `responsibilities` WRITE;
 /*!40000 ALTER TABLE `responsibilities` DISABLE KEYS */;
-INSERT INTO `responsibilities` VALUES (28,'Adverse event reporting',NULL,NULL),(41,'Analysis',NULL,NULL),(13,'Bug-fixes',NULL,NULL),(17,'Code review',NULL,NULL),(48,'Code review',NULL,NULL),(29,'Collation of treatment records',NULL,NULL),(36,'Configuration of wireless devices',NULL,NULL),(53,'Contract to Invoice process (Contract, Booking, Billing Run, Invoice Approval) ',NULL,NULL),(19,'Data collection systems (Case Report Forms, lab results, patient questionaires etc)',NULL,NULL),(27,'Data-entry',NULL,NULL),(38,'Data-entry (BEWT)',NULL,NULL),(40,'Database backup (BEWT)',NULL,NULL),(14,'Day-to-day project management',NULL,NULL),(8,'DBA (eg. User / role Management, Maintenance Plans etc) ',NULL,NULL),(42,'Design',NULL,NULL),(10,'Design specification',NULL,NULL),(16,'Enhancement',NULL,NULL),(26,'Entering patients on the trial, via randomisation wizard',NULL,NULL),(55,'Factory pattern to derive a dynamic menu ',NULL,NULL),(54,'Finance Config (Tax Codes and Rates, Financial Products, Currency X-Change Rates) ',NULL,NULL),(1,'General tidiness of the yard',NULL,NULL),(30,'Generating data queries and reports',NULL,NULL),(43,'Implementation',NULL,NULL),(37,'Installation & service of terminals, printers, barcode scanners etc',NULL,NULL),(33,'Installation & support of servers and desktop PCs',NULL,NULL),(23,'Integration & maintenance of the Data Warehouse system',NULL,NULL),(12,'Maintenance',NULL,NULL),(44,'Maintenance',NULL,NULL),(25,'Maintenance of \'Control of Substances Hazardous to Health (COSHH)\' database',NULL,NULL),(50,'Manage Customers (Address, Bank Accounts, Contacts, Opening Hours) ',NULL,NULL),(52,'Manage Product and Items (Supplier Products and Price Lists for various currencies, Item Bundles and Prices for various currencies) ',NULL,NULL),(51,'Manage Suppliers (Address, Bank Accounts, Contacts) ',NULL,NULL),(32,'Managing participating centres (data warehouse)',NULL,NULL),(31,'Managing participating clinicians (data warehouse)',NULL,NULL),(7,'Manoeuvring & parking of vehicles on site',NULL,NULL),(57,'Modal window for info, forms and approval ',NULL,NULL),(35,'Monitoring of UNIX fail-over cluster',NULL,NULL),(9,'Needs elicitation',NULL,NULL),(34,'Offsite Backups',NULL,NULL),(47,'Policies & Procedures',NULL,NULL),(6,'Presentation of vehicles on sale days',NULL,NULL),(11,'Project Implementation',NULL,NULL),(22,'Randomisation systems',NULL,NULL),(21,'Reports',NULL,NULL),(2,'Route planning',NULL,NULL),(24,'Sample tracking & storage systems',NULL,NULL),(49,'Site Action to manage customer issues with history and context links to the CDM application',NULL,NULL),(3,'Speaking to customers',NULL,NULL),(15,'Standard Operating Procedures (SOPs)',NULL,NULL),(18,'Testing',NULL,NULL),(56,'User defined Lookup to enable the business to change the values in picklists ',NULL,NULL),(45,'User support',NULL,NULL),(46,'Using XML based code generation tools',NULL,NULL),(4,'Vehicle condition checks',NULL,NULL),(5,'Vehicle loading',NULL,NULL),(20,'Views',NULL,NULL),(39,'Writing data queries (BEWT)',NULL,NULL);
+INSERT INTO `responsibilities` VALUES (1,'General tidiness of the yard',NULL,NULL),(2,'Route planning',NULL,NULL),(3,'Speaking to customers',NULL,NULL),(4,'Vehicle condition checks',NULL,NULL),(5,'Vehicle loading',NULL,NULL),(6,'Presentation of vehicles on sale days',NULL,NULL),(7,'Manoeuvring & parking of vehicles on site',NULL,NULL),(8,'DBA (eg. User / role Management, Maintenance Plans etc) ',NULL,NULL),(9,'Needs elicitation',NULL,NULL),(10,'Design specification',NULL,NULL),(11,'Project Implementation',NULL,NULL),(12,'Maintenance',NULL,NULL),(13,'Bug-fixes',NULL,NULL),(14,'Day-to-day project management',NULL,NULL),(15,'Standard Operating Procedures (SOPs)',NULL,NULL),(16,'Enhancement',NULL,NULL),(17,'Code review',NULL,NULL),(18,'Testing',NULL,NULL),(19,'Data collection systems (Case Report Forms, lab results, patient questionaires etc)',NULL,NULL),(20,'Views',NULL,NULL),(21,'Reports',NULL,NULL),(22,'Randomisation systems',NULL,NULL),(23,'Integration & maintenance of the Data Warehouse system',NULL,NULL),(24,'Sample tracking & storage systems',NULL,NULL),(25,'Maintenance of \'Control of Substances Hazardous to Health (COSHH)\' database',NULL,NULL),(26,'Entering patients on the trial, via randomisation wizard',NULL,NULL),(27,'Data-entry',NULL,NULL),(28,'Adverse event reporting',NULL,NULL),(29,'Collation of treatment records',NULL,NULL),(30,'Generating data queries and reports',NULL,NULL),(31,'Managing participating clinicians (data warehouse)',NULL,NULL),(32,'Managing participating centres (data warehouse)',NULL,NULL),(33,'Installation & support of servers and desktop PCs',NULL,NULL),(34,'Offsite Backups',NULL,NULL),(35,'Monitoring of UNIX fail-over cluster',NULL,NULL),(36,'Configuration of wireless devices',NULL,NULL),(37,'Installation & service of terminals, printers, barcode scanners etc',NULL,NULL),(38,'Data-entry (BEWT)',NULL,NULL),(39,'Writing data queries (BEWT)',NULL,NULL),(40,'Database backup (BEWT)',NULL,NULL),(41,'Analysis',NULL,NULL),(42,'Design',NULL,NULL),(43,'Implementation',NULL,NULL),(44,'Maintenance',NULL,NULL),(45,'User support',NULL,NULL),(46,'Using XML based code generation tools',NULL,NULL),(47,'Policies & Procedures',NULL,NULL),(48,'Code review',NULL,NULL),(49,'Site Action to manage customer issues with history and context links to the CDM application',NULL,NULL),(50,'Manage Customers (Address, Bank Accounts, Contacts, Opening Hours) ',NULL,NULL),(51,'Manage Suppliers (Address, Bank Accounts, Contacts) ',NULL,NULL),(52,'Manage Product and Items (Supplier Products and Price Lists for various currencies, Item Bundles and Prices for various currencies) ',NULL,NULL),(53,'Contract to Invoice process (Contract, Booking, Billing Run, Invoice Approval) ',NULL,NULL),(54,'Finance Config (Tax Codes and Rates, Financial Products, Currency X-Change Rates) ',NULL,NULL),(55,'Factory pattern to derive a dynamic menu ',NULL,NULL),(56,'User defined Lookup to enable the business to change the values in picklists ',NULL,NULL),(57,'Modal window for info, forms and approval ',NULL,NULL);
 /*!40000 ALTER TABLE `responsibilities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,6 +282,7 @@ UNLOCK TABLES;
 -- Table structure for table `roles`
 --
 
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `roles` (
@@ -274,7 +290,8 @@ CREATE TABLE `roles` (
   `role` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `employer_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -292,6 +309,7 @@ UNLOCK TABLES;
 -- Table structure for table `skills`
 --
 
+DROP TABLE IF EXISTS `skills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `skills` (
@@ -299,7 +317,8 @@ CREATE TABLE `skills` (
   `skill` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `parent_skill_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -317,6 +336,7 @@ UNLOCK TABLES;
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
@@ -343,28 +363,68 @@ LOCK TABLES `users` WRITE;
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `vwSkills`
+-- Temporary table structure for view `vwEmployerRoleResponsibility`
 --
 
+DROP TABLE IF EXISTS `vwEmployerRoleResponsibility`;
+/*!50001 DROP VIEW IF EXISTS `vwEmployerRoleResponsibility`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `vwSkills` (
-  `pid` tinyint NOT NULL,
-  `pskill` tinyint NOT NULL,
-  `cid` tinyint NOT NULL,
-  `cskill` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `vwEmployerRoleResponsibility` AS SELECT 
+ 1 AS `EMPLOYER_ID`,
+ 1 AS `EMPLOYER`,
+ 1 AS `ROLE_ID`,
+ 1 AS `ROLE`,
+ 1 AS `RESPONSIBILITY_ID`,
+ 1 AS `RESPONSIBILITY`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping routines for database 'professional'
+-- Temporary table structure for view `vwSkills`
 --
+
+DROP TABLE IF EXISTS `vwSkills`;
+/*!50001 DROP VIEW IF EXISTS `vwSkills`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `vwSkills` AS SELECT 
+ 1 AS `pid`,
+ 1 AS `pskill`,
+ 1 AS `cid`,
+ 1 AS `cskill`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Dumping events for database 'cv'
+--
+
+--
+-- Dumping routines for database 'cv'
+--
+
+--
+-- Final view structure for view `vwEmployerRoleResponsibility`
+--
+
+/*!50001 DROP VIEW IF EXISTS `vwEmployerRoleResponsibility`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`spb`@`%` SQL SECURITY INVOKER */
+/*!50001 VIEW `vwEmployerRoleResponsibility` AS select `employers`.`id` AS `EMPLOYER_ID`,`employers`.`employer` AS `EMPLOYER`,`roles`.`id` AS `ROLE_ID`,`roles`.`role` AS `ROLE`,`responsibilities`.`id` AS `RESPONSIBILITY_ID`,`responsibilities`.`responsibility` AS `RESPONSIBILITY` from (((`employer_role_responsibilities` join `employers` on((`employers`.`id` = `employer_role_responsibilities`.`employer_id`))) join `roles` on((`employer_role_responsibilities`.`role_id` = `roles`.`id`))) join `responsibilities` on((`employer_role_responsibilities`.`responsibility_id` = `responsibilities`.`id`))) order by `employers`.`id`,`roles`.`id`,`responsibilities`.`id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
 -- Final view structure for view `vwSkills`
 --
 
-/*!50001 DROP TABLE IF EXISTS `vwSkills`*/;
+/*!50001 DROP VIEW IF EXISTS `vwSkills`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
 /*!50001 SET @saved_col_connection     = @@collation_connection */;
@@ -387,4 +447,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-23 17:47:55
+-- Dump completed on 2019-11-07 18:19:58

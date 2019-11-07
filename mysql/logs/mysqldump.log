@@ -1,0 +1,77 @@
+[191107-17:51:35] [OK] Found 'mysqldump' bin
+[191107-17:51:35] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:51:50] [OK] Dumping cv
+[191107-17:51:51] [OK] Dumping #mysql50#lost+found
+[191107-17:51:51] [OK] Dumping mysql
+[191107-17:51:51] [OK] Dumping sys
+[191107-17:51:51] [Info] Removing old backups
+[191107-17:51:58] [OK] Found 'mysqldump' bin
+[191107-17:51:58] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:51:58] [OK] Dumping cv
+[191107-17:51:58] [OK] Dumping #mysql50#lost+found
+[191107-17:51:58] [OK] Dumping mysql
+[191107-17:51:58] [OK] Dumping sys
+[191107-17:51:58] [Info] Removing old backups
+[191107-17:52:18] [OK] Found 'mysqldump' bin
+[191107-17:52:18] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:52:22] [OK] Dumping cv
+[191107-17:52:22] [OK] Dumping #mysql50#lost+found
+[191107-17:52:22] [OK] Dumping mysql
+[191107-17:52:22] [OK] Dumping sys
+[191107-17:52:22] [Info] Removing old backups
+[191107-17:52:39] [OK] Found 'mysqldump' bin
+[191107-17:52:39] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:52:56] [OK] Dumping cv
+[191107-17:52:56] [OK] Dumping #mysql50#lost+found
+[191107-17:52:56] [OK] Dumping mysql
+[191107-17:52:57] [OK] Dumping sys
+[191107-17:52:57] [Info] Removing old backups
+[191107-17:53:35] [OK] Found 'mysqldump' bin
+[191107-17:53:35] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:53:35] [OK] Dumping cv
+[191107-17:53:56] [OK] Dumping #mysql50#lost+found
+[191107-17:53:56] [OK] Dumping mysql
+[191107-17:53:56] [OK] Dumping sys
+[191107-17:53:56] [Info] Removing old backups
+[191107-17:54:55] [OK] Found 'mysqldump' bin
+[191107-17:54:55] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:54:55] [OK] Dumping cv
+[191107-17:54:55] [OK] Dumping #mysql50#lost+found
+[191107-17:54:55] [OK] Dumping mysql
+[191107-17:54:55] [OK] Dumping sys
+[191107-17:54:55] [Info] Removing old backups
+[191107-17:55:38] [OK] Found 'mysqldump' bin
+[191107-17:55:38] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:55:38] [OK] Dumping cv
+[191107-17:55:38] [OK] Dumping #mysql50#lost+found
+[191107-17:55:38] [OK] Dumping mysql
+[191107-17:55:38] [OK] Dumping sys
+[191107-17:55:38] [Info] Removing old backups
+[191107-17:58:09] [OK] Found 'mysqldump' bin
+[191107-17:58:09] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-17:58:09] [OK] Dumping cv
+[191107-17:58:09] [OK] Dumping #mysql50#lost+found
+[191107-17:58:09] [OK] Dumping mysql
+[191107-17:58:09] [OK] Dumping sys
+[191107-17:58:09] [Info] Removing old backups
+[191107-18:00:01] [OK] Found 'mysqldump' bin
+[191107-18:00:01] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-18:00:01] [OK] Dumping cv
+[191107-18:00:01] [OK] Dumping #mysql50#lost+found
+[191107-18:00:01] [OK] Dumping mysql
+[191107-18:00:01] [OK] Dumping sys
+[191107-18:00:01] [Info] Removing old backups
+[191107-18:20:14] [OK] Found 'mysqldump' bin
+[191107-18:20:14] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-18:20:14] [OK] Dumping cv
+[191107-18:20:14] [OK] Dumping #mysql50#lost+found
+[191107-18:20:14] [OK] Dumping mysql
+[191107-18:20:14] [OK] Dumping sys
+[191107-18:20:14] [Info] Removing old backups
+[191107-19:00:01] [OK] Found 'mysqldump' bin
+[191107-19:00:01] [Info] /home/vagrant/mysql/db_bkup/20191107/ exists
+[191107-19:00:01] [OK] Dumping cv
+[191107-19:00:01] [OK] Dumping #mysql50#lost+found
+[191107-19:00:01] [OK] Dumping mysql
+[191107-19:00:01] [OK] Dumping sys
+[191107-19:00:01] [Info] Removing old backups

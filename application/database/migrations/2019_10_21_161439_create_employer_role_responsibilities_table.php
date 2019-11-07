@@ -18,6 +18,8 @@ class CreateEmployerRoleResponsibilitiesTable extends Migration
             $table->bigInteger('role_id');
             $table->bigInteger('responsibility_id');
             $table->timestamps();
+            $table->primary('id');
+            
         });
     }
 

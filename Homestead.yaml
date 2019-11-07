@@ -20,7 +20,7 @@ folders:
         map: 'B:\WEBDEV\projects\cv19\working\mysql\'
         to: /home/vagrant/mysql
         create: true
-        owner: mysql
+        owner: vagrant
         group: mysql
         mount_options: "[dmode=770,fmode=777]"
 

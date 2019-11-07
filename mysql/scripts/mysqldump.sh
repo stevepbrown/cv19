@@ -12,14 +12,14 @@ set -o pipefail
 
 
 
-lockFile="~/mysql/.lock/mysqldump.lock"
-errorFile="~/mysql/logs/mysqldump.err"
-logFile="/var/log/mysql/mysqldump.log"
+lockFile="/home/vagrant/mysql/.lock/mysqldump.lock"
+errorFile="/home/vagrant/mysql/logs/mysqldump.err"
+logFile="/home/vagrant/mysql/logs/mysqldump.log"
 mysqlUser=root
 mysqlPort=3306
 remoteHost=localhost
 # backupPath="/root/backups/$(date +%Y%m%d)/"
-backupPath="~/mysql/db_bkup/$(date +%Y%m%d)/"
+backupPath="/home/vagrant/mysql/db_bkup/$(date +%Y%m%d)/"
 # Retention times #
 weekly=4
 daily=7
@@ -36,7 +36,7 @@ function sendAlert () {
         fi
 }
 
-bfunction destructor () {
+function destructor () {
         sendAlert
         rm -f "$lockFile" "$errorFile"
 }
@@ -146,6 +146,6 @@ function removeOldBackup () {
 	popd &> /dev/null
 }
 
-setLockFile
+# setLockFile
 runMysqldump
 removeOldBackup

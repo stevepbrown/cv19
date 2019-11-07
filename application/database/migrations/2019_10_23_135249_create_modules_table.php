@@ -19,6 +19,7 @@ class CreateModulesTable extends Migration
             $table->bigInteger('qualification_id');
             $table->string('grade',3);
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

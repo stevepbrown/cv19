@@ -18,6 +18,9 @@ class CreateEmployersTable extends Migration
             $table->text('employer');
             $table->text('description');
             $table->timestamps();
+            $table->primary('id');
+           
+            
         });
     }
 
