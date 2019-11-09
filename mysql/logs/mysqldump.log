@@ -1,7 +1,0 @@
-[191108-17:00:01] [OK] Found 'mysqldump' bin
-[191108-17:00:01] [Info] /home/vagrant/mysql/db_bkup/20191108/ exists
-[191108-17:00:01] [OK] Dumping cv
-[191108-17:00:01] [OK] Dumping #mysql50#lost+found
-[191108-17:00:01] [OK] Dumping mysql
-[191108-17:00:01] [OK] Dumping sys
-[191108-17:00:01] [Info] Removing old backups
