@@ -32,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('laravel-components.component_head', 'head');
         Blade::component('laravel-components.component_scripts', 'scripts');
+        Blade::component('laravel-components.component_main_nav', 'mainNav');
+
     }
 }

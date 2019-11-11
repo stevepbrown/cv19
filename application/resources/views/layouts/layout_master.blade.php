@@ -5,13 +5,13 @@
 <head>
     @head
     @slot('title')
-    {{$title}}
+    {{$pageProps['title']}}
     @endslot
     @slot('keywords')
-    "IMPORTANT - add keywords"
+        {{$pageProps['keywords']}}
     @endslot
     @slot('description')
-    "IMPORTANT - add description"
+    {{$pageProps['description']}}
     @endslot
     @endhead
 </head>
@@ -21,6 +21,8 @@
     @include('cookieConsent::index')
     @component('laravel-components.component_cookie_policy')
     @endcomponent
+    @mainNav
+    @endmainNav
     @yield('main')
 
 </body>
