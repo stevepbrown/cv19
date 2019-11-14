@@ -18,7 +18,7 @@ class CreateInstitutionsTable extends Migration
             $table->text('institution');
             $table->timestamps();
             $table->primary('id');
-            $table->primary('id');
+ 
         });
     }
 
