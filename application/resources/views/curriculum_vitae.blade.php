@@ -6,13 +6,14 @@
 
 {{$pageProps['title']}}
 
-    {{-- <ul>
+
+    <ul>
     @foreach ($skills as $skill)
 
-        <li>{{$skill}}</li>
+        <li>{{$skill->id}}</li>
         
     @endforeach
-    </ul> --}}
+    </ul>
 
 </div>
 @endsection
