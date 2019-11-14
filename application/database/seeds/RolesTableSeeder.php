@@ -13,13 +13,13 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            ['id'=>'1','role'=>'Track-side Engineer','employer_id'=>'3','created_at'=>'2019-11-14 13:30:10'],
-            ['id'=>'2','role'=>'Data Manager','employer_id'=>'2','created_at'=>'2019-11-14 13:30:10'],
-            ['id'=>'3','role'=>'Auction Driver','employer_id'=>'6','created_at'=>'2019-11-14 13:30:10'],
-            ['id'=>'4','role'=>'Analyst Programmer','employer_id'=>'1','created_at'=>'2019-11-14 13:30:10'],
-            ['id'=>'5','role'=>'Analyst Programmer','employer_id'=>'2','created_at'=>'2019-11-14 13:30:10'],
-            ['id'=>'6','role'=>'Laravel Developer','employer_id'=>'4','created_at'=>'2019-11-14 13:30:10'],
+        DB::table('roles')->insert([
+            ['id'=>'1','role'=>'Track-side Engineer','created_at'=>'2019-11-14 13:30:10'],
+            ['id'=>'2','role'=>'Data Manager','created_at'=>'2019-11-14 13:30:10'],
+            ['id'=>'3','role'=>'Auction Driver','created_at'=>'2019-11-14 13:30:10'],
+            ['id'=>'4','role'=>'Analyst Programmer','created_at'=>'2019-11-14 13:30:10'],
+            ['id'=>'5','role'=>'Analyst Programmer','created_at'=>'2019-11-14 13:30:10'],
+            ['id'=>'6','role'=>'Laravel Developer','created_at'=>'2019-11-14 13:30:10'],
         ]);
     }
 }
