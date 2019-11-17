@@ -10,7 +10,14 @@
     <ul>
     @foreach ($skills as $skill)
 
-        <li>{{$skill->id}}</li>
+        <li>{{$skill->skill}}
+        <ul>
+            @foreach ($skill->childSkills as $child)
+                <li>{{$child->skill}}</li>
+            @endforeach
+
+        </ul>
+        </li>
         
     @endforeach
     </ul>

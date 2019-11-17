@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Skill as Skill;
+use App\ParentSkill as ParentSkill;
 
 class CurriculumVitaeController extends Controller
 {
@@ -15,6 +15,10 @@ class CurriculumVitaeController extends Controller
 
 
     protected $skills;
+    protected $jobs;
+    protected $qualifications;
+    
+
     
 
 /**
@@ -27,12 +31,12 @@ class CurriculumVitaeController extends Controller
     public function __invoke()
     {
         
-        $this->skills= Skill::all();  
+        $this->skills= ParentSkill::with(['childSkills'])->get();
+   
         
-        $vw = view('Curriculum_vitae',['pageProps'=>$this->pageProps,'skills'=>$this->skills]);
+        return view('Curriculum_vitae',['pageProps'=>$this->pageProps,'skills'=>$this->skills]);
 
      
-          return $vw;
     }
 
 

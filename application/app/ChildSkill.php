@@ -4,17 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Employer extends Model
+class ChildSkill extends Model
 {
-     
-      /**
+    /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'employers';
-    
-    
+    protected $table = 'skills';
+
     
     /**
      * The primary key associated with the table.
@@ -22,23 +20,27 @@ class Employer extends Model
      * @var string
      */
     protected $primaryKey = 'id';
+    
 
-    /**
+        /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
      */
     public $incrementing = false;
 
-    public function Roles(){
 
-        return $this->hasManyThrough('App\Role', 'App\EmployerRoleResponsibility');
+    /**
+     * Get the parent skill
+     */
+    public function parentSkill()
+    {
+        return $this->belongsTo('App\ParentSkill', 'parent_skill_id');
+    }
+
     
-    }
+    
+    
 
-    public function Responsibilties() {
-
-        return $this->hasManyThrough('App\Responsibility','App\EmployerRoleResponsibility');
-    }
 
 }

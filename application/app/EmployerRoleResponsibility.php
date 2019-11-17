@@ -11,7 +11,7 @@ class EmployerRoleResponsibility extends Model
      *
      * @var string
      */
-    protected $table = 'ADD THE TABLE HERE';
+    protected $table = 'employer_role_responsibilities';
     
     
     
@@ -20,7 +20,7 @@ class EmployerRoleResponsibility extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'employer_role_responsibilities';
+    protected $primaryKey = 'id';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -28,5 +28,25 @@ class EmployerRoleResponsibility extends Model
      * @var bool
      */
     public $incrementing = false;
+
+
+    public function Employer() {
+
+        $this->belongsTo('app\Employer','employer_id');
+    }
+
+
+    public function Roles() {
+
+        return $this->hasOne('app\Role');
+
+    }
+    public function Responsibilities() {
+
+        return $this->hasOne('app\Responsibility');
+
+    }
+
+    
 }
 

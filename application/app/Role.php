@@ -28,5 +28,14 @@ class Role extends Model
      * @var bool
      */
     public $incrementing = false;
+
+     /**
+     * Get the EmployerRoleResponsibility that owns the role.
+     */
+    public function post()
+    {
+        return $this->belongsTo('App\Post');
+    }
+
 }
-}
+
