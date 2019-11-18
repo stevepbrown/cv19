@@ -1,6 +1,10 @@
 @extends('layouts.layout_master')
 @section('main')
 <div>
+
+  
+
+
     <style>
         #jobs {
             background-color: red;
@@ -10,15 +14,6 @@
 
     <div id="jobs">
 
-        @foreach ($employerRoleResponsibilities as $employerRoleResponsibility)
-        
-            
-     
-     
-        <h4>{{$employers->where('id',($employerRoleResponsibility->employer_id))->groupBy('employer')}}</h4>
-
-        
-        @endforeach
 
 
 

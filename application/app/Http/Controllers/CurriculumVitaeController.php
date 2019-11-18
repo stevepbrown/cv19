@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ParentSkill as ParentSkill;
-use App\Employer as Employer;
-use App\Role as Role;
-use App\Responsibility as Responsibility;
+use Illuminate\Support\Facades\DB;
+
+// TODO(SPB): Check if these use statments are needed
+// use App\Employer as Employer;
+// use App\Role as Role;
+// use App\Responsibility as Responsibility;
+ 
 use App\EmployerRoleResponsibility as EmployerRoleResponsibility;
 
 class CurriculumVitaeController extends Controller
@@ -19,11 +23,13 @@ class CurriculumVitaeController extends Controller
 
 
     protected $skills;
-    protected $employers;
-    protected $roles;
-    protected $responsibilities;    
-    protected $qualifications;
+    // TODO(SPB): Check if these properties need to be retained
+    // protected $employers;
+    // protected $roles;
+    // protected $responsibilities;    
     protected $jobs;
+    protected $qualifications;
+    
     protected $employerRoleResponsibilities;
     private $vw;
     
@@ -40,15 +46,23 @@ class CurriculumVitaeController extends Controller
     public function __invoke()
     {
         
+
+/*
+
+Sub-Query Joins
+
+You may use the joinSub, leftJoinSub, and rightJoinSub methods to join a query to a sub-query. Each of these methods receive three arguments: the sub-query, its table alias, and a Closure that defines the related columns
+
+
+*/
+
         $this->skills= ParentSkill::with(['childSkills'])->get();
         
-        
-        $this->employerRoleResponsibilities = EmployerRoleResponsibility::with(['roles','responsibilities','employers']);
-        $this->employers = Employer::all();
-        $this->roles = Role::all();
-        $this->responsibilities = Responsibility::all();
-        $this->employerRoleResponsibilities = EmployerRoleResponsibility::all();
+        // FIXME(SPB): Investigate subJoin & implement to get correct hierarchy for $jobs
+        $this->jobs = DB::table('employers')
+            ->joinSub
 
+        dd($this->jobs);
        
         
 
@@ -56,9 +70,6 @@ class CurriculumVitaeController extends Controller
                                     [
                                         'pageProps'=>$this->pageProps,
                                         'skills'=>$this->skills,
-                                        'employers'=>$this->employers,
-                                        'roles'=>$this->roles,
-                                        'responsibilities'=> $this->responsibilities,
                                         'employerRoleResponsibilities' => $this->employerRoleResponsibilities]
                                 
                                 );
