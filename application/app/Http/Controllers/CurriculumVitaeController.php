@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ParentSkill as ParentSkill;
+use App\Employer as Employer;
+use App\Role as Role;
+use App\Responsibility as Responsibility;
+use App\EmployerRoleResponsibility as EmployerRoleResponsibility;
 
 class CurriculumVitaeController extends Controller
 {
@@ -15,8 +19,13 @@ class CurriculumVitaeController extends Controller
 
 
     protected $skills;
-    protected $jobs;
+    protected $employers;
+    protected $roles;
+    protected $responsibilities;    
     protected $qualifications;
+    protected $jobs;
+    protected $employerRoleResponsibilities;
+    private $vw;
     
 
     
@@ -32,9 +41,30 @@ class CurriculumVitaeController extends Controller
     {
         
         $this->skills= ParentSkill::with(['childSkills'])->get();
-   
         
-        return view('Curriculum_vitae',['pageProps'=>$this->pageProps,'skills'=>$this->skills]);
+        
+        $this->employerRoleResponsibilities = EmployerRoleResponsibility::with(['roles','responsibilities','employers']);
+        $this->employers = Employer::all();
+        $this->roles = Role::all();
+        $this->responsibilities = Responsibility::all();
+        $this->employerRoleResponsibilities = EmployerRoleResponsibility::all();
+
+       
+        
+
+        $vw = view('Curriculum_vitae',
+                                    [
+                                        'pageProps'=>$this->pageProps,
+                                        'skills'=>$this->skills,
+                                        'employers'=>$this->employers,
+                                        'roles'=>$this->roles,
+                                        'responsibilities'=> $this->responsibilities,
+                                        'employerRoleResponsibilities' => $this->employerRoleResponsibilities]
+                                
+                                );
+
+
+        return $vw;
 
      
     }

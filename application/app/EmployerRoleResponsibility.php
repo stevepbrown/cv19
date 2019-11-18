@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class EmployerRoleResponsibility extends Model
 {
      /**
@@ -29,24 +30,23 @@ class EmployerRoleResponsibility extends Model
      */
     public $incrementing = false;
 
+    public function employers(){
 
-    public function Employer() {
-
-        $this->belongsTo('app\Employer','employer_id');
+        return $this->belongsTo('App\Employer','employer_id');
     }
 
+    public function roles() {
 
-    public function Roles() {
-
-        return $this->hasOne('app\Role');
-
-    }
-    public function Responsibilities() {
-
-        return $this->hasOne('app\Responsibility');
+        return $this->belongsTo('App\Role','role_id');
 
     }
 
+    public function responsibilities() {
+
+        return $this->belongsTo('App\Responsibility', 'responsibility_id');
+    }
+
+   
     
 }
 

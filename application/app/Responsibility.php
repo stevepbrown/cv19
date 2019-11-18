@@ -29,4 +29,4 @@ class Responsibility extends Model
      */
     public $incrementing = false;
 }
-}
+
