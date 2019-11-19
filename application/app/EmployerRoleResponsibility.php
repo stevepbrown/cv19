@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Employer as Employer;
 
 
 class EmployerRoleResponsibility extends Model
@@ -32,7 +33,7 @@ class EmployerRoleResponsibility extends Model
 
     public function employers(){
 
-        return $this->belongsTo('App\Employer','employer_id');
+        return $this->belongsTo('Employer','employer_id');
     }
 
     public function roles() {

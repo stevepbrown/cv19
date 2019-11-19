@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ParentSkill as ParentSkill;
+use App\Qualification as Qualifications;
+use App\Employer as Employers;
+use App\Role as Roles;
+use App\Responsibility as Responsibilities;
+use App\EmployerRoleResponsibility as EmployerRoleResponsibility;
 use Illuminate\Support\Facades\DB;
 
-// TODO(SPB): Check if these use statments are needed
-// use App\Employer as Employer;
-// use App\Role as Role;
-// use App\Responsibility as Responsibility;
- 
-use App\EmployerRoleResponsibility as EmployerRoleResponsibility;
 
 class CurriculumVitaeController extends Controller
 {
@@ -24,13 +23,11 @@ class CurriculumVitaeController extends Controller
 
     protected $skills;
     // TODO(SPB): Check if these properties need to be retained
-    // protected $employers;
-    // protected $roles;
-    // protected $responsibilities;    
+    protected $employers;
+    protected $roles;
+    protected $responsibilities;    
     protected $jobs;
     protected $qualifications;
-    
-    protected $employerRoleResponsibilities;
     private $vw;
     
 
@@ -47,22 +44,28 @@ class CurriculumVitaeController extends Controller
     {
         
 
-/*
-
-Sub-Query Joins
-
-You may use the joinSub, leftJoinSub, and rightJoinSub methods to join a query to a sub-query. Each of these methods receive three arguments: the sub-query, its table alias, and a Closure that defines the related columns
-
-
-*/
-
-        $this->skills= ParentSkill::with(['childSkills'])->get();
         
-        // FIXME(SPB): Investigate subJoin & implement to get correct hierarchy for $jobs
-        $this->jobs = DB::table('employers')
-            ->joinSub
 
-        dd($this->jobs);
+$this->skills= ParentSkill::with(['childSkills'])->get();
+
+
+$this->employers = Employers::with(['employerRoleResponsibilities'])->get();
+
+$this->roles = Roles::with(['employerRoleResponsibilities'])->get();
+
+$this->responsibilities = Responsibilities::with(['employerRoleResponsibilities'])->get();
+
+
+// $this->jobs = DB::table('employers')
+//     ->join('employer_role_responsibilities', 'employer_role_responsibilities.employer_id', '=','employers.id')
+//     ->join('roles', 'roles.id', '=','employer_role_responsibilities.role_id')
+//     ->join('responsibilities', 'responsibilities.id', '=','employer_role_responsibilities.responsibility_id')
+//     ->select('employers.employer','employers.description','roles.role','responsibilities.responsibility')
+//     ->orderBy('employers.employer')     
+//     ->get();
+
+
+        
        
         
 
@@ -70,10 +73,14 @@ You may use the joinSub, leftJoinSub, and rightJoinSub methods to join a query t
                                     [
                                         'pageProps'=>$this->pageProps,
                                         'skills'=>$this->skills,
-                                        'employerRoleResponsibilities' => $this->employerRoleResponsibilities]
+                                        'employers' => $this->employers,
+                                        'roles'=> $this->roles,
+                                        'responsibilities'=> $this->responsibilities
+                                    ]
+
                                 
                                 );
-
+                            
 
         return $vw;
 

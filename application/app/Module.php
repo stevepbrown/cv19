@@ -29,4 +29,4 @@ class Module extends Model
      */
     public $incrementing = false;
 }
-}
+

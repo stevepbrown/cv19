@@ -38,4 +38,4 @@ class EmployerRole extends Model
     }
 }
 
-}
+

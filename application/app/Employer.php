@@ -1,7 +1,7 @@
 <?php
 namespace App;
 use Illuminate\Database\Eloquent\Model;
-use App\EmployerRoleResponsibility;
+
 
 class Employer extends Model
 {
@@ -25,7 +25,11 @@ class Employer extends Model
     public $incrementing = false;
     
     
-   
+   public function employerRoleResponsibilities() {
+
+    return $this->hasMany('App\EmployerRoleResponsibility');
+
+   }
 
     
 

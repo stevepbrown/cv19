@@ -29,7 +29,11 @@ class Role extends Model
      */
     public $incrementing = false;
 
+    public function employerRoleResponsibilities() {
+
+        return $this->hasMany('App\EmployerRoleResponsibility');
     
+       }
 
 }
 

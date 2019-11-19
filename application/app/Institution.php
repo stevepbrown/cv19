@@ -29,4 +29,4 @@ class Institution extends Model
      */
     public $incrementing = false;
 }
-}
+

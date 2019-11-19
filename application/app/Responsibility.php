@@ -28,5 +28,13 @@ class Responsibility extends Model
      * @var bool
      */
     public $incrementing = false;
+
+
+    public function employerRoleResponsibilities() {
+
+        return $this->hasMany('App\EmployerRoleResponsibility');
+    
+       }
+    
 }
 

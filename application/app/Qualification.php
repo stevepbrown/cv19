@@ -29,4 +29,4 @@ class Qualification extends Model
      */
     public $incrementing = false;
 }
-}
+
