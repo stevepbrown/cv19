@@ -28,6 +28,7 @@ class CurriculumVitaeController extends Controller
     protected $responsibilities;    
     protected $jobs;
     protected $qualifications;
+    protected $EmloyerRoleResponsibilties;
     private $vw;
     
 
@@ -49,11 +50,25 @@ class CurriculumVitaeController extends Controller
 $this->skills= ParentSkill::with(['childSkills'])->get();
 
 
-$this->employers = Employers::with(['employerRoleResponsibilities'])->get();
+$this->EmployerRoleResponsibilties = EmployerRoleResponsibility::with(['employers','roles','responsibilities'])->get();
 
-$this->roles = Roles::with(['employerRoleResponsibilities'])->get();
 
-$this->responsibilities = Responsibilities::with(['employerRoleResponsibilities'])->get();
+$this->EmployerRoleResponsibilties->each(function($item,$key) {
+
+   
+    dump($item->roles);
+    // return print_r($item->roles);
+
+});
+die();
+
+
+
+// $this->employers = Employers::with(['employerRoleResponsibilities'])->get();
+
+// $this->roles = Roles::with(['employerRoleResponsibilities'])->get();
+
+// $this->responsibilities = Responsibilities::with(['employerRoleResponsibilities'])->get();
 
 
 // $this->jobs = DB::table('employers')

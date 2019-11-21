@@ -31,7 +31,7 @@ class Role extends Model
 
     public function employerRoleResponsibilities() {
 
-        return $this->hasMany('App\EmployerRoleResponsibility');
+        return $this->belongsTo('App\EmployerRoleResponsibility','role_id');
     
        }
 

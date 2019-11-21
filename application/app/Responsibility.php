@@ -32,7 +32,7 @@ class Responsibility extends Model
 
     public function employerRoleResponsibilities() {
 
-        return $this->hasMany('App\EmployerRoleResponsibility');
+        return $this->belongsTo('App\EmployerRoleResponsibility','responsibility_id');
     
        }
     

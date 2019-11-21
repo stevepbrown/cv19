@@ -11,7 +11,6 @@
         }
     </style>
 
-
  
 
     <div id="jobs">
@@ -21,15 +20,20 @@
     <h3>{{$employer->employer}}</h3>
     <p>{{$employer->description}}</p>
 
-    @foreach($employer->employerRoleResponsibilities as $employerRole)
 
-       {{$employerRole->role_id}};
+    @foreach ($employer->roles as $employerRole)
+  
+        {{dd($employerRole)}}
+   
+    {{-- {{$employerRole->role_id}}</br> --}}
 
-        {{-- {{$roles = $roles->where('id', ($employerRole->pluck('role_id')))}}
-        {{dd($roles)}} --}}
-    @endforeach
-
+    {{-- {{$roles}} --}}
+   
+        @endforeach
+        
+ 
   @endforeach
+
     </div>
 
       <ul id="skills">
