@@ -17,14 +17,12 @@ class DatabaseSeeder extends Seeder
         $this->call(ModulesTableSeeder::class);
         $this->call(EmployersTableSeeder::class);
         $this->call(RolesTableSeeder::class);
-        $this->call(ResponsibilitiesTableSeeder::class);
         $this->call(EmployerRolesTableSeeder::class);
+        $this->call(ResponsibilitiesTableSeeder::class);
         $this->call(RoleResponsibilitiesTableSeeder::class);
-   
+        $this->call(AttributeDataTypesTableSeeder::class);
         
-        
-        
-        
+                   
         
          }
 }

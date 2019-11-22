@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployerRoleResponsibilitiesTable extends Migration
+class CreateRoleResponsibilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateEmployerRoleResponsibilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employer_role_responsibilities', function (Blueprint $table) {
-            $table->bigInteger('id');
+        Schema::create('role_responsibilities', function (Blueprint $table) {
             $table->bigInteger('role_id');
             $table->bigInteger('responsibility_id');
             $table->timestamps();
-            $table->primary('id');
-            
+            $table->primary(['role_id','responsibility_id']);
         });
     }
 
@@ -30,6 +28,6 @@ class CreateEmployerRoleResponsibilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employer_role_responsibilities');
+        Schema::dropIfExists('role_responsibilities');
     }
 }

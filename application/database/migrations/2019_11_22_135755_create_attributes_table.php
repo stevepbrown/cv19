@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class RoleResponsibilitiesSeeder extends Migration
+class CreateAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class RoleResponsibilitiesSeeder extends Migration
      */
     public function up()
     {
-        Schema::create('role_responsibilities', function (Blueprint $table) {
-            $table->bigInteger('role_id');
-            $table->bigInteger('responsibility_id');
+        Schema::create('attributes', function (Blueprint $table) {
+            $table->bigInteger('id');
+            $table->string('attribute',100);
+            $table->smallInteger('attribute_datatype_id')->default(1); // string
+            $table->mediumText('description');
             $table->timestamps();
-            $table->primary(['role_id','responsibility_id']);
         });
     }
 
@@ -28,6 +29,6 @@ class RoleResponsibilitiesSeeder extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_responsibilities');
+        Schema::dropIfExists('attributes');
     }
 }

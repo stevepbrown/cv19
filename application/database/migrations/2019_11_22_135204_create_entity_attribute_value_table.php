@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEmployerRole extends Migration
+class CreateEntityAttributeValueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateEmployerRole extends Migration
      */
     public function up()
     {
-        Schema::create('employer_role', function (Blueprint $table) {
-            $table->bigInteger('id');
-            $table->bigInteger('employer_id');
-            $table->bigInteger('role_id');
+        Schema::create('entity_attribute_value', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('entity_id');
+            $table->smallInteger('attribute_id');
+            $table->string('value');
             $table->timestamps();
-            $table->primary('id');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateEmployerRole extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employer_role');
+        Schema::dropIfExists('entity_attribute_value');
     }
 }
