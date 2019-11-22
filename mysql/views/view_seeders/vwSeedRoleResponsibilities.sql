@@ -1,20 +1,20 @@
-CREATE OR REPLACE VIEW `cv`.`vwSeedEmployerRole` AS
+CREATE OR REPLACE VIEW `cv`.`vwSeedRoleResponsibilities` AS
 
 
 SELECT 
     CONCAT('[',
-            '\'employer_id\'=>\'',
-            `employer_id`,
-            '\',',
             '\'role_id\'=>\'',
             `role_id`,
+            '\',',
+            '\'responsibility_id\'=>\'',
+            `responsibility_id`,
             '\',',
             '\'created_at\'=>\'',
             NOW(),
             '\'',
             '],') `SEEDER`
 FROM
-    `cv`.`employer_roles`;
+    `cv`.`role_responsibilities`;
 
 
 
