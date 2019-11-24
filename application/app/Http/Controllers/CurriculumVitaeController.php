@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ParentSkill as ParentSkill;
 use App\Qualification as Qualifications;
-use App\Employer as Employers;
-use App\Role as Roles;
-use App\Responsibility as Responsibilities;
-use App\EmployerRoleResponsibility as EmployerRoleResponsibility;
-use Illuminate\Support\Facades\DB;
+use App\Employer as Employer;
+use App\Role as Role;
 
 
 class CurriculumVitaeController extends Controller
@@ -23,12 +20,9 @@ class CurriculumVitaeController extends Controller
 
     protected $skills;
     // TODO(SPB): Check if these properties need to be retained
-    protected $employers;
-    protected $roles;
-    protected $responsibilities;    
     protected $jobs;
     protected $qualifications;
-    protected $EmloyerRoleResponsibilties;
+    protected $roles;
     private $vw;
     
 
@@ -38,37 +32,27 @@ class CurriculumVitaeController extends Controller
      * Single invocation function
      * to assemble the various models and return the 
      * data to the view
-     *
+  
+     
      * @return View
      */
     public function __invoke()
     {
-        
 
         
+        /* Eager Loading related data */
+        
+        $this->skills= ParentSkill::with(['childSkills'])->get();
 
-$this->skills= ParentSkill::with(['childSkills'])->get();
+        // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
+        $this->jobs =  Employer::with('roles.responsibilities')->get();
 
 
-$this->EmployerRoleResponsibilties = EmployerRoleResponsibility::with(['employers','roles','responsibilities'])->get();
-
-
-$this->EmployerRoleResponsibilties->each(function($item,$key) {
-
-   
-    dump($item->roles);
-    // return print_r($item->roles);
-
-});
-die();
+      
 
 
 
-// $this->employers = Employers::with(['employerRoleResponsibilities'])->get();
 
-// $this->roles = Roles::with(['employerRoleResponsibilities'])->get();
-
-// $this->responsibilities = Responsibilities::with(['employerRoleResponsibilities'])->get();
 
 
 // $this->jobs = DB::table('employers')
@@ -87,10 +71,8 @@ die();
         $vw = view('Curriculum_vitae',
                                     [
                                         'pageProps'=>$this->pageProps,
-                                        'skills'=>$this->skills,
-                                        'employers' => $this->employers,
-                                        'roles'=> $this->roles,
-                                        'responsibilities'=> $this->responsibilities
+                                        'jobs'=>$this->jobs,
+                                        'skills'=>$this->skills
                                     ]
 
                                 

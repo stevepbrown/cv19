@@ -11,7 +11,7 @@ class EmployerRole extends Model
      *
      * @var string
      */
-    protected $table = 'employer_role';
+    protected $table = 'employer_roles';
     
     
     
@@ -29,13 +29,9 @@ class EmployerRole extends Model
      */
     public $incrementing = false;
 
-    /**
-     * Get the Employer to which EmployerRole belongs
-     */
-    public function employer()
-    {
-        return $this->belongsTo('App\Employer');
-    }
+
+  
+   
 }
 
 

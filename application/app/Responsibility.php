@@ -29,12 +29,14 @@ class Responsibility extends Model
      */
     public $incrementing = false;
 
+    /**
+     * 
+     * Relationsship with roles
+     */
+   public function roles(){
 
-    public function employerRoleResponsibilities() {
+    return $this->belongsToMany('App\Role','role_responsibilities');
 
-        return $this->belongsTo('App\EmployerRoleResponsibility','responsibility_id');
-    
-       }
-    
+   }
 }
 

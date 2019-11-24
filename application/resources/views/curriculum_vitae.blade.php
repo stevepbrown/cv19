@@ -15,9 +15,24 @@
 
     <div id="jobs">
 
+      
         @foreach ($jobs as $job)
 
-        {{dump($job->roles->get())}}
+        <h3>{{$job->employer}}</h3>
+
+
+
+        @foreach ($job->roles as $role )
+
+        <h4>{{$role->role}}</h4>
+
+        <ul>
+            @foreach ($role->responsibilities as $responsibility)
+            <li>{{$responsibility->responsibility}}</li>
+            @endforeach
+        </ul>
+        @endforeach
+
 
         @endforeach
 
