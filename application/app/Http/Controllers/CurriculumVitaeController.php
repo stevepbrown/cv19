@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\ParentSkill as ParentSkill;
 use App\Qualification as Qualifications;
 use App\Employer as Employer;
-use App\Role as Role;
 
 
 class CurriculumVitaeController extends Controller
@@ -22,7 +21,7 @@ class CurriculumVitaeController extends Controller
     // TODO(SPB): Check if these properties need to be retained
     protected $jobs;
     protected $qualifications;
-    protected $roles;
+    // protected $roles;
     private $vw;
     
 
@@ -46,6 +45,12 @@ class CurriculumVitaeController extends Controller
 
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
         $this->jobs =  Employer::with('roles.responsibilities')->get();
+
+        
+        // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
+        // $this->qualifications =  Institution::with('qualifications.modules')->get();
+
+        
 
 
       
