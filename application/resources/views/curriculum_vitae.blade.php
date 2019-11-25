@@ -50,5 +50,27 @@
 
 <div id="qulifications">
     <h2>Qualifications</h2>
+    @foreach($qualifications as $institution)
+        <h3>{{$institution->institution}}</h3>
+            @foreach ($institution->qualifications as $qualification)
+                <h4>{{$qualification->qualification}}</h4>
+                <ul id="ul-modules">
+                    @foreach ($qualification->modules as $module)
+                <li id="li-modules-{{$module->id}}">{{$module->module}} 
+                    
+                        @isset($module->grade)
+                            - {{$module->grade}}
+                         @endisset
+                    
+                    </li>
+                    @endforeach
+                </ul>
+            @endforeach    
+
+      
+        
+     
+
+    @endforeach
 </div>
 @endsection
