@@ -4,7 +4,8 @@ SELECT CONCAT(
 "\'id\'=>\'",`id`,"\',",
 "\'module\'=>\'",`module`,"\',",
 "\'qualification_id\'=>\'",`qualification_id`,"\',",
-"\'grade\'=>\'",`grade`,"\',",
+-- "\'grade\'=>\'",`grade`,"\',",
+"\'grade\'=>",(SELECT IF(`grade` IS NULL, "null,",(CONCAT("\'",`grade`,"\',")))),
 "\'created_at\'=>\'",now(),"\'",
 "],"
 

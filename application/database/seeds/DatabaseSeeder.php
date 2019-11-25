@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ResponsibilitiesTableSeeder::class);
         $this->call(RoleResponsibilitiesTableSeeder::class);
         $this->call(AttributeDataTypesTableSeeder::class);
+        $this->call(AppTablesTableSeeder::class);
         
                    
         

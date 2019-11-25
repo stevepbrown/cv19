@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableEmployerRoleResponsibilitiesAddColumnEmployerId extends Migration
+class CreateAppTablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AlterTableEmployerRoleResponsibilitiesAddColumnEmployerId extends Migratio
      */
     public function up()
     {
-        Schema::table('employer_role_responsibilities', function (Blueprint $table) {
-            $table->integer('employer_id')->after('id');
+        Schema::create('app_tables', function (Blueprint $table) {
+            $table->integer('id');
+            $table->string('table_name',100);
+            $table->string('description')->nullable();
+            $table->timestamps();
+            $table->primary('id');
         });
     }
 
@@ -25,8 +29,6 @@ class AlterTableEmployerRoleResponsibilitiesAddColumnEmployerId extends Migratio
      */
     public function down()
     {
-        Schema::table('employer_role_responsibilities', function (Blueprint $table) {
-            $table->dropColumn('employer_id');
-        });
+        Schema::dropIfExists('app_tables');
     }
 }
