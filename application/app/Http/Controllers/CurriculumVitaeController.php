@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ParentSkill as ParentSkill;
-use App\Qualification as Qualifications;
+use App\Qualification as Qualification;
 use App\Employer as Employer;
+use App\Institution as Institution;
 
 
 class CurriculumVitaeController extends Controller
@@ -21,7 +22,6 @@ class CurriculumVitaeController extends Controller
     // TODO(SPB): Check if these properties need to be retained
     protected $jobs;
     protected $qualifications;
-    // protected $roles;
     private $vw;
     
 
@@ -48,43 +48,27 @@ class CurriculumVitaeController extends Controller
 
         
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
-        // $this->qualifications =  Institution::with('qualifications.modules')->get();
+        $this->qualifications =  Institution::with('qualifications.modules')->get();
 
+              
+
+
+
+     
         
 
-
-      
-
-
-
-
-
-
-// $this->jobs = DB::table('employers')
-//     ->join('employer_role_responsibilities', 'employer_role_responsibilities.employer_id', '=','employers.id')
-//     ->join('roles', 'roles.id', '=','employer_role_responsibilities.role_id')
-//     ->join('responsibilities', 'responsibilities.id', '=','employer_role_responsibilities.responsibility_id')
-//     ->select('employers.employer','employers.description','roles.role','responsibilities.responsibility')
-//     ->orderBy('employers.employer')     
-//     ->get();
-
-
-        
-       
-        
-
-        $vw = view('Curriculum_vitae',
+        return view('Curriculum_vitae',
                                     [
                                         'pageProps'=>$this->pageProps,
                                         'jobs'=>$this->jobs,
-                                        'skills'=>$this->skills
+                                        'skills'=>$this->skills,
+                                        'qualifications'=>$this->qualifications
                                     ]
 
                                 
                                 );
                             
 
-        return $vw;
 
      
     }
