@@ -6,6 +6,8 @@ CREATE OR REPLACE VIEW `cv`.`vwSeedRoles` AS
                 '\',',
                 '\'role\'=>\'',
                 `role`,
+                  '\'tenure\'=>\'',
+                `tenure`,
                 '\',',
                 '\'created_at\'=>\'',
                 NOW(),

@@ -50,13 +50,6 @@ class CurriculumVitaeController extends Controller
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
         $this->qualifications =  Institution::with('qualifications.modules')->get();
 
-              
-
-
-
-     
-        
-
         return view('Curriculum_vitae',
                                     [
                                         'pageProps'=>$this->pageProps,

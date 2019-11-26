@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW `cv`.`vwSeedEmployerRole` AS
+CREATE OR REPLACE VIEW `cv`.`vwSeedEmployerRoles` AS
 
 
 SELECT 
@@ -9,6 +9,9 @@ SELECT
             '\'role_id\'=>\'',
             `role_id`,
             '\',',
+            '\'tenure\'=>\'',
+            `tenure`,
+             '\',',
             '\'created_at\'=>\'',
             NOW(),
             '\'',
