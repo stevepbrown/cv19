@@ -36,10 +36,10 @@
         <h2>Skills</h2>
         <ul>
             @foreach ($skills as $skill)
-            <li>{{$skill->skill}}
+            <li id="parent-skill-{{$skill->id}}">{{$skill->skill}}
                 <ul>
                     @foreach ($skill->childSkills as $child)
-                    <li>{{$child->skill}}</li>
+                    <li id=li-child-skill-{{$child->id}}>{{$child->skill}}</li>
                     @endforeach
                 </ul>
             </li>

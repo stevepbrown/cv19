@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateTableAttributesAddPrimatryKey extends Migration
+class CreateEmployerRole extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class UpdateTableAttributesAddPrimatryKey extends Migration
      */
     public function up()
     {
-        Schema::table('attributes', function (Blueprint $table) {
-            $table->BigInteger('id')->primary()->change();
+        Schema::create('employer_role', function (Blueprint $table) {
+            $table->bigInteger('id');
+            $table->bigInteger('employer_id');
+            $table->bigInteger('role_id');
+            $table->timestamps();
+            $table->primary('id');
         });
     }
 
@@ -25,11 +29,6 @@ class UpdateTableAttributesAddPrimatryKey extends Migration
      */
     public function down()
     {
-        Schema::table('attributes', function (Blueprint $table) {
-        
-        $table->dropPrimary('PRIMARY');
-              
-
-        });
+        Schema::dropIfExists('employer_role');
     }
 }

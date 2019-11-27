@@ -11,8 +11,12 @@ VIEW `vwEmployerRoleResponsibility` AS
         `responsibilities`.`id` AS `RESPONSIBILITY_ID`,
         `responsibilities`.`responsibility` AS `RESPONSIBILITY`
     FROM
-        (((`employer_role_responsibilities`
-        JOIN `employers` ON ((`employers`.`id` = `employer_role_responsibilities`.`employer_id`)))
-        JOIN `roles` ON ((`employer_role_responsibilities`.`role_id` = `roles`.`id`)))
-        JOIN `responsibilities` ON ((`employer_role_responsibilities`.`responsibility_id` = `responsibilities`.`id`)))
+   
+        `employers` 
+        INNER JOIN `employer_roles` ON `employers`.`id` = `employer_roles`.`employer_id`
+        INNER JOIN `roles` ON `employer_roles`.`role_id` = `roles`.`id`
+        INNER JOIN `role_responsibilities` ON `roles`.`id` = `role_responsibilities`.`role_id`
+        INNER JOIN `responsibilities` ON `role_responsibilities`.`responsibility_id` = `responsibilities`.`id`
+        
+
     ORDER BY `employers`.`id` , `roles`.`id` , `responsibilities`.`id`
