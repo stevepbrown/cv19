@@ -12,9 +12,6 @@ class CurriculumVitaeController extends Controller
                             'keywords'=>'Web Developer,CV,curriculum vitae,skills,work experience,qualifications',
                             'description'=>'Web developer with Laravel experience seeking an entry-level position in the North-West of England'];
     private $skills;
-    private $skillRoots; // Skills with no parents
-    private $skillInters; // Skills that are both parents AND children
-    private $skillChildren; // skills with no children
     private $jobs;
     private $qualifications;
 /**
@@ -41,10 +38,7 @@ class CurriculumVitaeController extends Controller
                                         [
                                             'pageProps'=>$this->pageProps,
                                             'jobs'=>$this->jobs,
-                                            'skillRoots'=> $this->skillRoots,
-                                            'skillInters'=> $this->skillInters,
-                                            'skillChildren' => $this->skillChildren,   
-                                            'qualifications'=>$this->qualifications
+                                            'skills'=>$this->skills
                                         ]
                                     );
     }
