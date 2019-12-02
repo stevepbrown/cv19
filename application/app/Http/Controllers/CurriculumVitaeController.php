@@ -22,8 +22,8 @@ class CurriculumVitaeController extends Controller
      */
     public function __invoke()
     {
-        $this->skills = Skill::all();
-  
+        $this->skills = Skill::with('allChildren')->get();
+        
         
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
         $this->jobs =  Employer::with('roles.responsibilities')->get();
