@@ -19,8 +19,6 @@
 <body>
 
     @include('cookieConsent::index')
-    @component('laravel-components.component_cookie_policy')
-    @endcomponent
     @mainNav
     @endmainNav
     @yield('main')
