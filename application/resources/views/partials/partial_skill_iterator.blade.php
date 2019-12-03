@@ -1,33 +1,10 @@
 <div id="div-skill-iterator">
-
-
-{{-- @php
-
-  dump(getType($children));
-    
-@endphp --}}
-
-
-@foreach ($children->allChildren() as $child)
-    
-    {{dump($child)}}
-
-@endforeach
-
-
-
-
-
-
-        {{-- @if (count($project['children']) > 0)
-        <ul>
-        @foreach($project['children'] as $project)
-            @include('partials.project', $project)
-        @endforeach
-        </ul>
-    @endif --}}
-
-
-  
-    
+    <li>
+        {{$skill->skill}}
+        @if (($skill->children->count())!==0)
+            <ul id="ul-parent-skill-{{$skill->id}}">
+                @each('partials.partial_skill_iterator', $skill->children ,'skill')
+            </ul>
+        @endif
+    </li>
 </div>

@@ -1,8 +1,10 @@
 @extends('layouts.layout_master')
 @section('main')
+
 @php
-    $skillsRoots =  $skills->where('parent_skill_id', null);
+    $rootSkills = $skills->where('parent_skill_id',null)
 @endphp
+
 <div>
     {{-- JOBS --}}
     <div id="div-jobs">
@@ -22,26 +24,19 @@
     {{-- SKILLS --}}
     <div id="skills" style="font-size:1.5rem;color:red;background-color:yellow;">
         <h2>Skills</h2>
-        @foreach($skillsRoots as $item)
-               
-        <h4>{{$item->skill}}</h4>
-
         
-        @each('partials.partial_skill_iterator', $item 'children')
+        @foreach ($rootSkills as $rootSkill)
             
-     
-        
-        <ul>
-          
-          
-    
 
-        </ul>
+         <h3>{{$rootSkill->skill}}</h3> 
+            <ul id=skill-root-id-{{$rootSkill->id}}>
+                @each('partials.partial_skill_iterator', $rootSkill->children ,'skill')
+            </ul>  
         @endforeach
+        
+        
     </div>
     {{die()}}
-    
-
 {{-- QUALIFICATIONS --}}
 <div id="div-qualifications">
     <h2>Qualifications</h2>

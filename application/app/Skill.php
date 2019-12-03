@@ -32,30 +32,12 @@ class Skill extends Model
      */
     public $incrementing = false;
 
-  
-  
-  
-  
-    // this relationship will only return one level of child items
-  
-  /**
-   * Function immediatechild()
-   *
-   *  
-   * @return 
-   */
-    public function immediateChild()
-  {
-      return $this->hasMany(Skill::class, 'parent_skill_id');
-  }
+    
+    
+    public function children(){
 
-  // This is method where we implement recursive relationship
-  public function allChildren()
-  {
-      return $this->hasMany(Skill::class, 'parent_skill_id')->with('immediateChild');
-  }
+      return $this->hasMany('app\Skill','parent_skill_id','id');
+
+    }
+
 }
-    
-    
-    
-
