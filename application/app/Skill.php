@@ -40,4 +40,11 @@ class Skill extends Model
 
     }
 
+    
+    // public function getActiveAttribute(){
+
+
+
+    // }
+
 }
