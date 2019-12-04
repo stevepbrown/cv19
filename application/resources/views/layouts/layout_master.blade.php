@@ -18,7 +18,9 @@
 
 <body>
 
-    @include('cookieConsent::index')
+    <div id="div-cookie-container" class="container">
+            @include('cookieConsent::index')
+    </div>
     @mainNav
     @endmainNav
     @yield('main')
