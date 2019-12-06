@@ -3,7 +3,7 @@ CREATE OR REPLACE
     DEFINER = `spb`@`%` 
     SQL SECURITY DEFINER
 VIEW `vwSeedAttributes` AS
-    SELECT 
+    SELECT 'Attributes' AS `TABLE`,
         CONCAT('\'id\'=>\'',
                 `attributes`.`id`,
                 '\',',

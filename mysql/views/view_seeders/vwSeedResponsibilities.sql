@@ -1,6 +1,6 @@
 CREATE OR REPLACE VIEW `cv`.`vwSeedResponsibilities` AS 
 
-SELECT CONCAT(
+SELECT 'Responsibilities' AS `TABLE`,CONCAT(
 
 "[",
 "\'id\'=>\'",`id`,"\',",

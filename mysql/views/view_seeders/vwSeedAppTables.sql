@@ -1,6 +1,6 @@
 CREATE OR REPLACE VIEW `cv`.`vwSeedAppTables` AS
 
-SELECT CONCAT(
+SELECT 'AppTables' AS `TABLE`,CONCAT(
 "[",
 "\'id\'=>\'",`id`,"\',",
 "\'table_name\'=>\'",`table_name`,"\',",

@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW `cv`.`vwSeedEmployerRoles` AS
 
 
 SELECT 
-    CONCAT('[',
+    'EmployerRoles' AS `TABLE`,CONCAT('[',
             '\'employer_id\'=>\'',
             `employer_id`,
             '\',',

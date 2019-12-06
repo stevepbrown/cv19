@@ -1,13 +1,11 @@
 CREATE OR REPLACE VIEW `cv`.`vwSeedRoles` AS
-    SELECT 
+    SELECT 'Roles' AS `TABLE`,
         CONCAT('[',
                 '\'id\'=>\'',
                 `id`,
                 '\',',
                 '\'role\'=>\'',
                 `role`,
-                  '\'tenure\'=>\'',
-                `tenure`,
                 '\',',
                 '\'created_at\'=>\'',
                 NOW(),

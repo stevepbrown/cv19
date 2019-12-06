@@ -2,7 +2,7 @@ CREATE OR REPLACE VIEW `cv`.`vwSeedAttributeDataTypes`
 
 AS
 
-SELECT CONCAT (
+SELECT 'AttributeDataTypes' AS `TABLE`,CONCAT (
 
 "[",
 "\'id\'=>\'",id,"\',",
