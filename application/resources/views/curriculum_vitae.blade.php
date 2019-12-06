@@ -22,12 +22,22 @@
     {{-- SKILLS --}}
     <div id="skills">
         <h2>Skills</h2>
+        {{-- (Defined at top)  --}}
+      
         @foreach ($rootSkills as $rootSkill)
-         <h3>{{$rootSkill->skill}}</h3> 
-            <ul id=skill-root-id-{{$rootSkill->id}}>
-                @each('partials.partial_skill_iterator', $rootSkill->children ,'skill')
-            </ul>  
+            
+            @if($rootSkill->active->first())
+                <h3>{{$rootSkill->skill}}</h3> 
+                <ul id=skill-root-id-{{$rootSkill->id}}>
+                    @each('partials.partial_skill_iterator', $rootSkill->children ,'skill')
+                </ul>
+
+            @else
+            
+                <strong>Skipped *** ROOT EXCLUSION - {{$rootSkill->skill}} - {{$rootSkill->id}} ***</strong><br/>
+            @endif
         @endforeach
+        
     </div>
   {{-- QUALIFICATIONS --}}
 <div id="div-qualifications">
