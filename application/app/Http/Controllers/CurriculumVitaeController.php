@@ -10,13 +10,14 @@ use App\EmployerRole as EmployerRole;
 
 class CurriculumVitaeController extends Controller
 {
-    private $pageProps = [
+    protected $pageProps = [
                             'title'=>'CV',
                             'keywords'=>'Web Developer,CV,curriculum vitae,skills,work experience,qualifications',
                             'description'=>'Web developer with Laravel experience seeking an entry-level position in the North-West of England'];
-    private $skills;
-    private $jobs;
-    private $qualifications;
+    protected $skills;
+    protected $jobs;
+    protected $qualifications;
+    
 /**
      * Single invocation function
      * to assemble the various models and return the 
@@ -26,13 +27,20 @@ class CurriculumVitaeController extends Controller
     public function __invoke()
     {
         $this->skills = Skill::with('children')->get();
-        // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
      
-        
+        // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
        $this->jobs =  Employer::with('roles.responsibilities')->get();
 
+    
+
         
-       // Iterate jobs collection and for each role get the adsociated sort index
+       
+    
+ 
+       
+       
+       
+       // Iterate jobs collection and for each role get the associated sort index
        
        // Return the sort index & add to a new collection
        

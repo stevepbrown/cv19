@@ -31,6 +31,7 @@ class EmployerRole extends Model
      */
     public $incrementing = false;
 
+ 
 
     public function sortIndex(){
 

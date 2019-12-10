@@ -12,6 +12,7 @@ VIEW
         `A`.`attribute` `ATTRIBUTE`,        
         `EAV`.`app_table_id` `TABLE_ID`,
         `T`.`table_name` `TABLE`,
+		`EAV`.`field` `FIELD`, 
         `EAV`.`key` `FK`,
         CONCAT(UPPER(`T`.`table_name`),
                 (IF(! ISNULL(`field`),
@@ -22,7 +23,6 @@ VIEW
                 '> {',
                 `DT`.`type`,
                 '}') `DESCRIPTION`,
-         `EAV`.`field` `FIELD`,       
         `EAV`.`value` `VALUE`
     FROM
         `cv`.`entity_attribute_value` `EAV`
