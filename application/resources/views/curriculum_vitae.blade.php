@@ -31,10 +31,6 @@
                 <ul id=skill-root-id-{{$rootSkill->id}}>
                     @each('partials.partial_skill_iterator', $rootSkill->children ,'skill')
                 </ul>
-
-            @else
-            
-                <strong>Skipped *** ROOT EXCLUSION - {{$rootSkill->skill}} - {{$rootSkill->id}} ***</strong><br/>
             @endif
         @endforeach
         

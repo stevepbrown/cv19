@@ -16,10 +16,6 @@
                             </ul>
                         @endif
                     </li>
-
-                @else
-                        <strong>Skipped *** child exclusion {{$skill->skill}} - {{$skill->id}}  ***</strong>
-                    
                 @endif
             
       
