@@ -57,6 +57,14 @@ class Employer extends Model
      */
       public function roles(){
 
+      /*
+      
+      Each Role model we retrieve is automatically assigned a pivot attribute. This attribute contains a model representing the intermediate table, and may be used like any other Eloquent model.
+
+      By default, only the model keys will be present on the pivot object. If your pivot table contains extra attributes, you must specify them when defining the relationship:
+      
+      */  
+
       return $this->belongsToMany('App\Role','employer_roles');
 
     }

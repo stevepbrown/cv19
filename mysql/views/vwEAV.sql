@@ -22,6 +22,7 @@ VIEW
                 '> {',
                 `DT`.`type`,
                 '}') `DESCRIPTION`,
+         `EAV`.`field` `FIELD`,       
         `EAV`.`value` `VALUE`
     FROM
         `cv`.`entity_attribute_value` `EAV`

@@ -1,8 +1,10 @@
 <?php
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+
+
+
 
 class EmployerRole extends Model
 {
@@ -30,8 +32,16 @@ class EmployerRole extends Model
     public $incrementing = false;
 
 
-  
+    public function sortIndex(){
+
+      return $this->hasOne('App\EntityAttributeValue','key')
+                    ->where('attribute_id',2) // 'sort index'
+                    ->where('app_table_id',4) // 'employer_roles'
+                    ->where('field','tenure'); // tenure - the column the index is linked to
+    }
+
    
-}
+   
+} 
 
 

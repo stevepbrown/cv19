@@ -23,21 +23,26 @@ class Skill extends Model
      * @var bool
      */
     public $incrementing = false;
+    
+    /**
+     * function children
+     *
+     * @return relation
+     */
     public function children(){
       return $this->hasMany('app\Skill','parent_skill_id','id');
     }
+    
+    
     public function getactiveAttribute() {
       
-      
-      
+            
       $activeStatus = DB::table('vwEAV')
                     ->where('TABLE', $this->table)
                     ->where('ATTRIBUTE','active' )
                     ->where('FK',($this->id))->get();
 
    
-
-
       // $activeStatus returns a collection, get the individual object and get column
       $rtnVal =   $activeStatus->pluck('VALUE');
   

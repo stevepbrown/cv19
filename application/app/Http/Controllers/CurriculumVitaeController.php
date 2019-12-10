@@ -5,6 +5,9 @@ use App\Qualification as Qualification;
 use App\Employer as Employer;
 use App\Institution as Institution;
 use App\Skill as Skill;
+use App\EmployerRole as EmployerRole;
+// use App\EntityAttributeValue as EntityAttributeValue;
+
 class CurriculumVitaeController extends Controller
 {
     private $pageProps = [
@@ -22,22 +25,23 @@ class CurriculumVitaeController extends Controller
      */
     public function __invoke()
     {
-
-        
-
-        
-        
         $this->skills = Skill::with('children')->get();
-
-       
-
-                
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
-        $this->jobs =  Employer::with('roles.responsibilities')->get();
+     
         
+       $this->jobs =  Employer::with('roles.responsibilities')->get();
+
+        
+       // Iterate jobs collection and for each role get the adsociated sort index
+       
+       // Return the sort index & add to a new collection
+       
+       // Order the jobs by sort index where the pivot FK = sort-index FK
+
+
+   
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
         $this->qualifications =  Institution::with('qualifications.modules')->get();
-        
         return view('Curriculum_vitae',
                                         [
                                             'pageProps'=>$this->pageProps,
