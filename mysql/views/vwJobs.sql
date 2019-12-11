@@ -1,53 +1,51 @@
-CREATE OR REPLACE VIEW `cv`.`vwJobs`
-AS
-SELECT
-
- --  NEED TO CODE EAV RESP ACTIVE AND ROLE SORT INDEX
- 
-LPAD(CONCAT(`Employers`.`id`,`Roles`.`role_id`,`Responsibilities`.`id`),5,'0')`ID`,
-`Employers`.`id` `EMPLOYER_ID`,
-`Employers`.`employer` `EMPLOYER`,
-`Roles`.`role_id` `ROLE_ID`,
-`Roles`.`role` `ROLE`,
--- `ROLE_SORT_INDEX`
-`Responsibilities`.`id` `RESPONSIBILITY_ID`,
-`Responsibilities`.`responsibility` `RESPONSIBILITY`
--- `RESPONSIBILITY_ACTIVE`
-
-FROM `cv`.`employers` `Employers`
-
-INNER JOIN 
+CREATE OR REPLACE
+    ALGORITHM = UNDEFINED 
+    DEFINER = `spb`@`%` 
+    SQL SECURITY DEFINER
+VIEW `cv`.`vwJobs` AS
+    SELECT 
+        LPAD(CONCAT(`Employers`.`id`,
+                `EmployerRoles`.`ER_ROLE_ID`,
+                `RoleResponsibilities`.`RR_RESP_ID`),5,0) AS `JOB_ID`,
+        `Employers`.`id` AS `EMPLOYER_ID`,
+        `Employers`.`employer` AS `EMPLOYER`,
+        `EmployerRoles`.`ER_ROLE_ID` AS `ROLE_ID`,
+        `EmployerRoles`.`ER_ROLE` AS `ROLE`,
+        `EmployerRoles`.`ER_TENURE` AS `TENURE`,
+        `RoleResponsibilities`.`RR_RESP_ID` AS `RESPONSIBILITY_ID`,
+        `RoleResponsibilities`.`RR_RESP` AS `RESPONSIBILITY`,
+        `EmployerRoles`.`ER_ID` `EMPLOYER_ROLES_PK`,
+        `RoleResponsibilities`.`RR_ID` `ROLE_RESPONSIBILITIES_PK`,
+         `RoleSort`.`value` AS `ROLE_SORT`
+    FROM
+        (((`cv`.`employers` `Employers`
+        JOIN (SELECT 
+            `cv`.`employer_roles`.`id` AS `ER_ID`,
+                `cv`.`employer_roles`.`employer_id` AS `ER_EMPLOYER_ID`,
+                `cv`.`employer_roles`.`role_id` AS `ER_ROLE_ID`,
+                `cv`.`employer_roles`.`tenure` AS `ER_TENURE`,
+                `cv`.`roles`.`role` AS `ER_ROLE`
+        FROM
+            (`cv`.`employer_roles`
+        JOIN `cv`.`roles` ON ((`cv`.`employer_roles`.`role_id` = `cv`.`roles`.`id`)))) `EmployerRoles` ON ((`Employers`.`id` = `EmployerRoles`.`ER_EMPLOYER_ID`)))
+        JOIN (SELECT 
+            `cv`.`role_responsibilities`.`id` AS `RR_ID`,
+                `cv`.`role_responsibilities`.`role_id` AS `RR_ROLE_ID`,
+                `cv`.`role_responsibilities`.`responsibility_id` AS `RR_RESP_ID`,
+                `cv`.`responsibilities`.`responsibility` AS `RR_RESP`
+        FROM
+            (`cv`.`role_responsibilities`
+        JOIN `cv`.`responsibilities` ON ((`cv`.`role_responsibilities`.`responsibility_id` = `cv`.`responsibilities`.`id`)))) `RoleResponsibilities` ON ((`EmployerRoles`.`ER_ROLE_ID` = `RoleResponsibilities`.`RR_ROLE_ID`)))
+        LEFT JOIN (SELECT 
+            `cv`.`entity_attribute_value`.`key` AS `key`,
+                `cv`.`entity_attribute_value`.`value` AS `value`
+        FROM
+            ((`cv`.`entity_attribute_value`
+        JOIN `cv`.`attributes` ON ((`cv`.`entity_attribute_value`.`attribute_id` = `cv`.`attributes`.`id`)))
+        JOIN `cv`.`app_tables` ON ((`cv`.`entity_attribute_value`.`app_table_id` = `cv`.`app_tables`.`id`)))
+        WHERE
+            ((`cv`.`app_tables`.`table_name` = 'employer_roles')
+                AND (`cv`.`attributes`.`attribute` = 'sort index'))) `RoleSort` ON ((`EmployerRoles`.`ER_ID` = `RoleSort`.`key`)))
+                
+         ORDER BY    `RoleSort`.`value` DESC   
   
-
-(SELECT `employer_roles`.`employer_id`,`employer_roles`.`role_id`,`roles`.`role` FROM `cv`.`employer_roles` 
-INNER JOIN `cv`.`roles`
-ON `employer_roles`.`role_id` = `roles`.`id`) AS `Roles`
-
-ON `Employers`.`id` = `Roles`.`employer_id`
-
-INNER JOIN  
- 
- 
-(SELECT `role_responsibilities`.`id`,`role_responsibilities`.`role_id`,`role_responsibilities`.`responsibility_id`,`responsibilities`.`responsibility` FROM `cv`.`role_responsibilities`
- INNER JOIN `cv`.`responsibilities`
- ON  `role_responsibilities`.`responsibility_id` = `responsibilities`.`id`) `Responsibilities`
- 
- ON `Roles`.`role_id` =  `Responsibilities`.`role_id`
-
-,
-(SELECT DISTINCT `entity_attribute_value`.`attribute_id`,`attributes`.`attribute`
- FROM `cv`.`entity_attribute_value`
- INNER JOIN `cv`.`attributes`
- ON `entity_attribute_value`.`attribute_id` = `attributes`.`id`
- ) AS `LKUP_ATTRIBUTE`
- ,
-
- (SELECT DISTINCT `entity_attribute_value`.`app_table_id`,`app_tables`.`table_name` 
- FROM `cv`.`entity_attribute_value`
- INNER JOIN `cv`.`app_tables`
- ON `entity_attribute_value`.`app_table_id` = `app_tables`.`id` ) AS `LKUP_APP_TABLE`
- 
-
-
-
-

@@ -2,10 +2,13 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Qualification as Qualification;
-use App\Employer as Employer;
+// FIXME(SPB): use App\Employer as Employer;
 use App\Institution as Institution;
 use App\Skill as Skill;
-use App\EmployerRole as EmployerRole;
+// FIXME(SPB): use App\EmployerRole as EmployerRole;
+// FIXME(SPB): use App\Job as Job;
+use Illuminate\Support\Facades\DB;
+
 // use App\EntityAttributeValue as EntityAttributeValue;
 
 class CurriculumVitaeController extends Controller
@@ -14,9 +17,6 @@ class CurriculumVitaeController extends Controller
                             'title'=>'CV',
                             'keywords'=>'Web Developer,CV,curriculum vitae,skills,work experience,qualifications',
                             'description'=>'Web developer with Laravel experience seeking an entry-level position in the North-West of England'];
-    protected $skills;
-    protected $jobs;
-    protected $qualifications;
     
 /**
      * Single invocation function
@@ -26,36 +26,46 @@ class CurriculumVitaeController extends Controller
      */
     public function __invoke()
     {
-        $this->skills = Skill::with('children')->get();
+        $skills = Skill::with('children')->get();
      
-        // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
-       $this->jobs =  Employer::with('roles.responsibilities')->get();
+        $jobs =  DB::table('vwJobs')->get();
 
-    
+        // Array of employers keyed by employer_id
+        $employers = $jobs->groupBy('EMPLOYER');
+        
+
+        // Array of roles keyed by role_id
+        $roles = $jobs->groupBy('ROLE');
+     
+
+       
+     
+        
+        // Array of roles keyed by role_id
+        $responsibilities = $jobs->groupBy('RESPONSIBILITY');
 
         
-       
-    
- 
-       
-       
-       
-       // Iterate jobs collection and for each role get the associated sort index
-       
-       // Return the sort index & add to a new collection
-       
-       // Order the jobs by sort index where the pivot FK = sort-index FK
 
-
-   
+        
+        
+        
+       
+       
+      
+          
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
-        $this->qualifications =  Institution::with('qualifications.modules')->get();
+        $qualifications =  Institution::with('qualifications.modules')->get();
         return view('Curriculum_vitae',
                                         [
                                             'pageProps'=>$this->pageProps,
-                                            'jobs'=>$this->jobs,
-                                            'qualifications'=>$this->qualifications,
-                                            'skills'=>$this->skills
+                                            'jobs'=>$jobs,
+                                            'qualifications'=>$qualifications,
+                                            'skills'=>$skills,
+                                            'rootSkills'=>$skills->where('parent_skill_id',null),
+                                            'jobs'=>$jobs,
+                                            'employers'=>$employers,
+                                            'roles'=> $roles,
+                                            'responsibilities'=>$responsibilities 
                                         ]
                                     );
     }
