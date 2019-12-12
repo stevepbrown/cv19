@@ -2,11 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Qualification as Qualification;
-// FIXME(SPB): use App\Employer as Employer;
 use App\Institution as Institution;
 use App\Skill as Skill;
-// FIXME(SPB): use App\EmployerRole as EmployerRole;
-// FIXME(SPB): use App\Job as Job;
 use Illuminate\Support\Facades\DB;
 
 // use App\EntityAttributeValue as EntityAttributeValue;
@@ -28,31 +25,16 @@ class CurriculumVitaeController extends Controller
     {
         $skills = Skill::with('children')->get();
      
-        $jobs =  DB::table('vwJobs')->get();
+        $jobs =  DB::table('vwJobs');
 
-        // Array of employers keyed by employer_id
-        $employers = $jobs->groupBy('EMPLOYER');
+        $employers= $jobs->select('EMPLOYER_ID','EMPLOYER')->orderByDesc('ROLE_SORT')->get()->unique();
         
+        $employerRoles = $jobs->select('ROLE_ID','EMPLOYER_ID','ROLE')->orderBy('ROLE_SORT')->get()->unique();
 
-        // Array of roles keyed by role_id
-        $roles = $jobs->groupBy('ROLE');
-     
+        $roleResponsibilities = $jobs->select('RESPONSIBILITY_ID','ROLE_ID','RESPONSIBILITY')->where('RESPONSIBILITY_IS_ACTIVE',false)->orderBy('RESPONSIBILITY')->get()->unique();
 
-       
-     
-        
-        // Array of roles keyed by role_id
-        $responsibilities = $jobs->groupBy('RESPONSIBILITY');
-
-        
-
-        
-        
-        
-       
-       
-      
-          
+           
+ 
         // Nested Eager Loading - To eager load nested relationships, you may use "dot" syntax.
         $qualifications =  Institution::with('qualifications.modules')->get();
         return view('Curriculum_vitae',
@@ -62,10 +44,9 @@ class CurriculumVitaeController extends Controller
                                             'qualifications'=>$qualifications,
                                             'skills'=>$skills,
                                             'rootSkills'=>$skills->where('parent_skill_id',null),
-                                            'jobs'=>$jobs,
                                             'employers'=>$employers,
-                                            'roles'=> $roles,
-                                            'responsibilities'=>$responsibilities 
+                                            'employerRoles'=> $employerRoles,
+                                            'roleResponsibilities'=>$roleResponsibilities 
                                         ]
                                     );
     }

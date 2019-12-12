@@ -1,30 +1,33 @@
 @extends('layouts.layout_master')
 @section('main')
-@php
-// FIXME(SPB): 
 
-@endphp
 <div>
     {{-- JOBS --}}
     <div id="div-jobs">
         <h2>Employment History</h2>
 
 
-        @foreach ($employers as $key=>$employer)
-            <h3>{{$key}}</h3>
-            <ul>
-                <li><h4>{{$key}}</h4></li>
-                   
-                    @foreach ($roles as $role)
-                       
-                    
-                    {{var_dump($role)}}
-                        
-                    @endforeach
-                
+        @foreach ($employers as $employer)
+            <h3>{{$employer->EMPLOYER}}</h3>
+            <ul id="ul-employer-{{$employer->EMPLOYER_ID}}">
+            @foreach ($employerRoles->where('EMPLOYER_ID',($employer->EMPLOYER_ID)) as $roles)
+                <li>
+                    <h4>{{$roles->ROLE}}</h4>
+                    <ul id="ul-role-{{$roles->ROLE_ID}}">
+                        @foreach ($roleResponsibilities->where('ROLE_ID',($roles->ROLE_ID)) as $responsibility)
+                            
+                            <li id="li-responsibility-{{$responsibility->RESPONSIBILITY_ID}}">
+                                {{var_dump($responsibility)}}
+                                {{-- {{$responsibility->RESPONSIBILITY}} - {{$responsibility->RESPONSIBILITY_IS_ACTIVE}} --}}
+                            </li>
+                               
+                        @endforeach
+                    </ul>
+                <li>
+            @endforeach    
         @endforeach
 
-        {{die()}}
+  
 
         
 
