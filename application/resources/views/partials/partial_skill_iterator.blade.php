@@ -7,9 +7,8 @@
 
 
                 @if($skill->active->first())
-                    <li>  
+                    <li id="li-skill-{{$skill->id}}">  
                         {{$skill->skill}}
-                                                    
                         @if (($skill->children->count())!==0)
                             <ul id="ul-parent-skill-{{$skill->id}}">
                                 @each('partials.partial_skill_iterator', $skill->children ,'skill')

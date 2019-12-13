@@ -31,7 +31,7 @@ class CurriculumVitaeController extends Controller
         
         $employerRoles = $jobs->select('ROLE_ID','EMPLOYER_ID','ROLE')->orderBy('ROLE_SORT')->get()->unique();
 
-        $roleResponsibilities = $jobs->select('RESPONSIBILITY_ID','ROLE_ID','RESPONSIBILITY')->where('RESPONSIBILITY_IS_ACTIVE',false)->orderBy('RESPONSIBILITY')->get()->unique();
+        $roleResponsibilities = $jobs->select('RESPONSIBILITY_ID','ROLE_ID','RESPONSIBILITY')->where('RESPONSIBILITY_IS_ACTIVE',true)->orderBy('RESPONSIBILITY')->get()->unique();
 
            
  

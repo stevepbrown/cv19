@@ -2,11 +2,13 @@ CREATE OR REPLACE
     ALGORITHM = UNDEFINED 
     DEFINER = `spb`@`%` 
     SQL SECURITY DEFINER
-VIEW `cv`.`vwJobs` AS
+VIEW `vwJobs` AS
     SELECT 
         LPAD(CONCAT(`Employers`.`id`,
-                `EmployerRoles`.`ER_ROLE_ID`,
-                `RoleResponsibilities`.`RR_RESP_ID`),5,0) AS `JOB_ID`,
+                        `EmployerRoles`.`ER_ROLE_ID`,
+                        `RoleResponsibilities`.`RR_RESP_ID`),
+                5,
+                0) AS `JOB_ID`,
         `Employers`.`id` AS `EMPLOYER_ID`,
         `Employers`.`employer` AS `EMPLOYER`,
         `EmployerRoles`.`ER_ROLE_ID` AS `ROLE_ID`,
@@ -14,9 +16,10 @@ VIEW `cv`.`vwJobs` AS
         `EmployerRoles`.`ER_TENURE` AS `TENURE`,
         `RoleResponsibilities`.`RR_RESP_ID` AS `RESPONSIBILITY_ID`,
         `RoleResponsibilities`.`RR_RESP` AS `RESPONSIBILITY`,
-        `EmployerRoles`.`ER_ID` `EMPLOYER_ROLES_PK`,
-        `RoleResponsibilities`.`RR_ID` `ROLE_RESPONSIBILITIES_PK`,
-         `RoleSort`.`value` AS `ROLE_SORT`
+		(SELECT convert(`LKUPACTIVE`.`value`,SIGNED)) `RESPONSIBILITY_IS_ACTIVE`,
+        `EmployerRoles`.`ER_ID` AS `EMPLOYER_ROLES_PK`,
+        `RoleResponsibilities`.`RR_ID` AS `ROLE_RESPONSIBILITIES_PK`,
+        `RoleSort`.`value` AS `ROLE_SORT`
     FROM
         (((`cv`.`employers` `Employers`
         JOIN (SELECT 
@@ -43,9 +46,14 @@ VIEW `cv`.`vwJobs` AS
             ((`cv`.`entity_attribute_value`
         JOIN `cv`.`attributes` ON ((`cv`.`entity_attribute_value`.`attribute_id` = `cv`.`attributes`.`id`)))
         JOIN `cv`.`app_tables` ON ((`cv`.`entity_attribute_value`.`app_table_id` = `cv`.`app_tables`.`id`)))
+        
+       
+        
         WHERE
             ((`cv`.`app_tables`.`table_name` = 'employer_roles')
                 AND (`cv`.`attributes`.`attribute` = 'sort index'))) `RoleSort` ON ((`EmployerRoles`.`ER_ID` = `RoleSort`.`key`)))
                 
-         ORDER BY    `RoleSort`.`value` DESC   
-  
+                
+          LEFT JOIN (SELECT `key`,`value` from `cv`.`entity_attribute_value` WHERE `attribute_id` = 1 AND `app_table_id` = 12) `LKUPACTIVE`
+          ON `LKUPACTIVE`.`key` = `RoleResponsibilities`.`RR_ID`
+    ORDER BY `RoleSort`.`value` DESC
