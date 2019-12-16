@@ -23,6 +23,8 @@ class Skill extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    protected $appends = array('active','sortOrder');
     
     /**
      * function children
@@ -45,8 +47,23 @@ class Skill extends Model
    
       // $activeStatus returns a collection, get the individual object and get column
       $rtnVal =   $activeStatus->pluck('VALUE');
-  
+
+
+       
       return $rtnVal;
     
+
+    }
+
+    public function getsortOrderAttribute(){
+
+      $sortIndex = DB::table('vwEAV')
+                ->where('TABLE', $this->table)
+                ->where('ATTRIBUTE','sort index')
+                ->where('FK',($this->id))->get();
+
+      $rtnVal =  $sortIndex->pluck('VALUE');
+
+      return $rtnVal;
     }
 }

@@ -5,14 +5,12 @@
 <div id="skills">
         <h2>Skills</h2>
         {{-- (Defined at top)  --}}
-        @foreach ($rootSkills as $rootSkill)
-            @if($rootSkill->active->first())
+        @foreach ($rootSkills as $rootSkill) 
             <h3 id="h-skill-{{$rootSkill->id}}">{{$rootSkill->skill}}</h3>
-                <ul id=skill-root-id-{{$rootSkill->id}}>
-                    @each('partials.partial_skill_iterator', $rootSkill->children ,'skill')
-                </ul>
-            @endif
-        @endforeach
+            <ul id=skill-root-id-{{$rootSkill->ID}}>
+                @each('partials.partial_skill_iterator', $rootSkill->children ,'skill')
+            </ul>
+@endforeach
     </div>
 
 <div>
