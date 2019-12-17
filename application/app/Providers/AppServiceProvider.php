@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+           /*        
+        Aliasing Components
+        If your Blade components are stored in a sub-directory, you may wish to alias them for easier access. You may use the component method to alias the component from components.alert to alert. Typically, this should be done in the boot method of your AppServiceProvider:
+        */
+
+
+        Blade::component('laravel_components.component_head', 'head');
+        Blade::component('laravel_components.component_scripts', 'scripts');
+        Blade::component('laravel_components.component_main_nav', 'mainNav');
+      
+
     }
 }

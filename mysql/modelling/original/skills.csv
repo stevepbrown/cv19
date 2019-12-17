@@ -1,0 +1,71 @@
+skill,id,parent,parent_id,
+Accessibility / standards compliance,1,,0,TRUE
+AGILE ,2,Development Methodologies,19,TRUE
+Analysis / Design Methodologies,3,,0,TRUE
+ASP.NET ,4,Server-side Languages,53,TRUE
+Atom ,5,Integrated Development Environments ,25,TRUE
+AXE,6,Accessibility / standards compliance,1,TRUE
+"Backup (full,differential,transactional)",7,Database ,18,TRUE
+Bootstrap (v4) ,8,Client-side Frameworks,12,TRUE
+Build Tools,9,,0,TRUE
+C# ,10,Server-side Languages,53,TRUE
+Client-side Development ,11,,0,TRUE
+Client-side Frameworks,12,,0,TRUE
+Client-side Languages,13,,0,TRUE
+Client-side tools,14,,0,TRUE
+Composer ,15,Server Administration ,50,TRUE
+Connection Management ,16,Database ,18,TRUE
+CSS3 ,17,Markup & Styling,32,TRUE
+Database ,18,,0,TRUE
+Development Methodologies,19,,0,TRUE
+Emmet ,20,Miscellaneous ,35,TRUE
+GIT,21,Version Control ,61,TRUE
+Hashicorp Vagrant ,22,Virtualisation ,63,TRUE
+HTML5,23,,0,TRUE
+HTML5 ,24,Markup & Styling,32,TRUE
+Integrated Development Environments ,25,,0,TRUE
+Jquery,26,Client-side Languages,13,TRUE
+JS (including AJAX & JSON) ,27,Client-side Languages,13,TRUE
+LAMP stack configuration ,28,Server-side Languages,53,TRUE
+Laravel ,29,Server-side Languages,53,TRUE
+Laravel Homestead,30,Virtualisation ,63,TRUE
+Laravel Mix ,31,Build Tools,9,TRUE
+Markup & Styling,32,,0,TRUE
+Microdata,33,Accessibility / standards compliance,1,TRUE
+Microsoft SQL Server,34,Database ,18,TRUE
+Miscellaneous ,35,,0,TRUE
+MySQL,36,Database ,18,TRUE
+MySQL Workbench,37,Database ,18,TRUE
+Navicat,38,Database ,18,TRUE
+Node,39,Build Tools,9,TRUE
+Oracle Virtualbox ,40,Virtualisation ,63,TRUE
+PHP ,41,Server-side Languages,53,TRUE
+PHP Storm,42,Integrated Development Environments ,25,TRUE
+Policies & procedures ,43,Accessibility / standards compliance,1,TRUE
+Replication ,44,Database ,18,TRUE
+Reporting & Logging ,45,Database ,18,TRUE
+Responsive Web Design,46,Accessibility / standards compliance,1,TRUE
+SASS,47,Build Tools,9,TRUE
+Semantic HTML',48,Standards / Validation,56,TRUE
+SEO,49,,0,TRUE
+Server Administration ,50,,0,TRUE
+Server-side Development,51,,0,TRUE
+Server-side Frameworks,52,,0,TRUE
+Server-side Languages,53,,0,TRUE
+Server-side Tools,54,,0,TRUE
+SQL Server Management Studio (SSMS),55,Database ,18,TRUE
+Standards / Validation,56,,0,TRUE
+Storage configuration & monitoring ,57,Database ,18,TRUE
+Triggers ,58,Database ,18,TRUE
+User & Role Management ,59,Database ,18,TRUE
+Vb.net ,60,Server-side Languages,53,TRUE
+Version Control ,61,,0,TRUE
+Views ,62,Database ,18,TRUE
+Virtualisation ,63,,0,TRUE
+Visual Studio Code ,64,Integrated Development Environments ,25,TRUE
+Vue,65,Client-side Frameworks,12,TRUE
+Vuetify,66,Client-side Frameworks,12,TRUE
+W3C,67,Accessibility / standards compliance,1,TRUE
+WAI/ARIA,68,Accessibility / standards compliance,1,TRUE
+Waterfall ,69,Development Methodologies,19,TRUE
+Yarn ,70,Build Tools,9,TRUE
