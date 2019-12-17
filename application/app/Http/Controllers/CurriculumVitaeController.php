@@ -46,7 +46,7 @@ class CurriculumVitaeController extends Controller
     
         $jobs =  DB::table('vwJobs');
 
-        $employers= $jobs->select('EMPLOYER_ID','EMPLOYER')->orderByDesc('ROLE_SORT')->get()->unique();
+        $employers= $jobs->select('EMPLOYER_ID','EMPLOYER','EMPLOYER_DESCRIPTION')->orderByDesc('ROLE_SORT')->get()->unique();
 
         $employerRoles = $jobs->select('ROLE_ID','EMPLOYER_ID','ROLE')->orderBy('ROLE_SORT')->get()->unique();
 

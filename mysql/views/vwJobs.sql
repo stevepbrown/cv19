@@ -11,6 +11,7 @@ VIEW `vwJobs` AS
                 0) AS `JOB_ID`,
         `Employers`.`id` AS `EMPLOYER_ID`,
         `Employers`.`employer` AS `EMPLOYER`,
+        `Employers`.`description` AS `EMPLOYER_DESCRIPTION`,
         `EmployerRoles`.`ER_ROLE_ID` AS `ROLE_ID`,
         `EmployerRoles`.`ER_ROLE` AS `ROLE`,
         `EmployerRoles`.`ER_TENURE` AS `TENURE`,

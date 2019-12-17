@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Print CV</title>
-</head>
-<body>
-    <h1>Your printed CV will be rendered here</h1>
-</body>
-</html>
+
+<h1>Steve Brown - Curriculum Vitae</h1>
+<div id="div-print-spiel">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias soluta inventore pariatur, voluptate, fugiat similique suscipit eveniet possimus dolorem commodi adipisci explicabo et nobis ullam voluptates amet mollitia? Veritatis, magnam. Sunt tempora itaque maiores sapiente est. Architecto veniam velit alias quo fugiat labore quasi perferendis eveniet libero dolorum! Optio hic rem laudantium voluptatibus magnam maiores, quo reprehenderit aliquam harum modi voluptatem cum culpa perferendis repudiandae voluptas beatae aspernatur totam officiis ducimus. Unde blanditiis doloremque, corrupti nisi magnam doloribus ullam est accusantium incidunt esse alias quod optio reprehenderit temporibus at possimus tempora harum? Debitis eos est velit distinctio saepe autem culpa!
+</div>
+
+
+dd($skills);
+
+@include('partials.print.partial_print_skills', $skills)
+
