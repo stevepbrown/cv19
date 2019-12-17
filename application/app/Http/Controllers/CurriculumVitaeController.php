@@ -5,7 +5,8 @@ use App\Qualification as Qualification;
 use App\Institution as Institution;
 use App\Skill as Skill;
 use Illuminate\Support\Facades\DB;
-// use App\EntityAttributeValue as EntityAttributeValue;
+
+
 class CurriculumVitaeController extends Controller
 {
     protected $pageProps = [
