@@ -5,7 +5,8 @@
 </div>
 
 
-dd($skills);
-
 @include('partials.print.partial_print_skills', $skills)
+@include('partials.print.partial_print_jobs', $jobs)
+{{-- @include('partials.print.partial_print_qualifications', $qualifications) --}}
+
 
