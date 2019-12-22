@@ -15,6 +15,7 @@ class PrintController extends Controller
     protected $roles;
     protected $roleResponsibilities;
     protected $skills;
+    protected $rootSkills;
     protected $qualifications;
 
     public function show(){
@@ -32,33 +33,44 @@ class PrintController extends Controller
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
       
-        // Return the active skills
-        $skills = Skills::with('children')->get()->reject(function ($value, $key) {
-        if ($key = 'active'){
-            return $value->active == false;
-        }
-        });
+         // Return the active skills
+         $skills = Skills::all()->reject(function ($value, $key) {
+                
+            if ($key = 'active'){
+                return $value->active == false;
+                }
+            }
+        );
 
-    // TODO(SPB): Implement sorting via relationship to EAV
-    $skills = $skills->where('parent_skill_id',null);
+        // Return only skills which have no antecedents (ie. root skills)
+        $rootSkills = $skills->reject(function ($value, $key) {
+            if ($key = 'parent_skill_id'){
+                return $value->parent_skill_id !== null;            
+            }
+          });
+
+       
     
-    $qualifications = Qualifications::all();
+        $qualifications = Qualifications::all();
     
-   
-    $this->skills = $skills;
-    $this->employers = $employersKeyed;
-    $this->roles = $roles;
-    $this->responsibilities = $responsibilities;
-    $this->qualifications = $qualifications;
     
+        $this->skills = $skills;
+        $this->rootSkills = $rootSkills;
+        $this->employers = $employersKeyed;
+        $this->roles = $roles;
+        $this->responsibilities = $responsibilities;
+        $this->qualifications = $qualifications;
         
-    $this->vw = view('print_cv',
-                   ['skills'=>$this->skills,
-                     'employers'=>$this->employers,
-                     'roles'=>$this->roles,
-                     'responsibilities'=>$this->responsibilities,
-                     'qualifications'=>$this->qualifications
-                    ])->render();
+        
+        $this->vw = view('print_cv',
+                    [
+                        'rootSkills'=>$this->rootSkills,
+                        'skills'=>$this->skills,
+                        'employers'=>$this->employers,
+                        'roles'=>$this->roles,
+                        'responsibilities'=>$this->responsibilities,
+                        'qualifications'=>$this->qualifications
+                        ])->render();
 
            
     

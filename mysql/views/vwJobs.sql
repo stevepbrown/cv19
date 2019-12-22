@@ -2,7 +2,7 @@ CREATE OR REPLACE
     ALGORITHM = UNDEFINED 
     DEFINER = `spb`@`%` 
     SQL SECURITY DEFINER
-VIEW `vwJobs` AS
+VIEW `cv`.`vwJobs` AS
     SELECT 
         LPAD(CONCAT(`Employers`.`id`,
                         `EmployerRoles`.`ER_ROLE_ID`,

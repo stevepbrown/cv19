@@ -14,7 +14,14 @@ class AlterTableEmployerRoleDropColumnId extends Migration
     public function up()
     {
         Schema::table('employer_roles', function (Blueprint $table) {
-            $table->dropColumn('id');
+            
+       
+            if (Schema::hasColumn('employer_roles','id')) {
+                $table->dropColumn('id');
+            }
+            
+            
+            
           });
     }
 
@@ -25,8 +32,8 @@ class AlterTableEmployerRoleDropColumnId extends Migration
      */
     public function down()
     {
-        Schema::table('employer_roles', function (Blueprint $table) {
-            $table->integer('id')->after('updated_at')->change();
-          });
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('id');
+        });
     }
 }

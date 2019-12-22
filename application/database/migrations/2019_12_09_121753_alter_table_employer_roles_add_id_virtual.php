@@ -26,7 +26,16 @@ class AlterTableEmployerRolesAddIdVirtual extends Migration
     public function down()
     {
         Schema::table('employer_roles', function (Blueprint $table) {
-            $table->dropColumn('id');
-        });
+            
+            if ($table::hasColumn('id')) {
+
+                echo('Trying to drop colum');
+                $table->dropColumn('id');
+                   }
+    
+             });
+
+        
+
     }
 }
