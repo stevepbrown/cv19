@@ -10,5 +10,5 @@ class Job extends Model
     
     public $incrementing = false;
 
-    public $primaryKey = 'JOB_ID';
+    public $primaryKey = 'job_id';
 }

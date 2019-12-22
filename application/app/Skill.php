@@ -24,6 +24,12 @@ class Skill extends Model
      */
     public $incrementing = false;
 
+    
+    /**
+     * Appended attributes
+     *
+     * @var array
+     */
     protected $appends = array('active','sortOrder');
     
     /**
