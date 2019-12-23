@@ -17,4 +17,4 @@ Route::get('/', function () {
 
 Route::get('/cv','CurriculumVitaeController');
 
-Route::get('/print','PrintController@show');
+Route::get('/print','PrintController');

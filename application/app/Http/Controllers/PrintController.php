@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use App;
 use App\Job as Jobs;
 use App\Skill as Skills;
-use App\Qualification as Qualifications;
+use App\Institution as Institutions;
 
 
 
@@ -18,7 +18,7 @@ class PrintController extends Controller
     protected $rootSkills;
     protected $qualifications;
 
-    public function show(){
+    public function __invoke(){
      
         
         $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
@@ -51,7 +51,7 @@ class PrintController extends Controller
 
        
     
-        $qualifications = Qualifications::all();
+          $qualifications =  Institutions::with('qualifications.modules')->get();
     
     
         $this->skills = $skills;
