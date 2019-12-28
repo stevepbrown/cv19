@@ -33,29 +33,26 @@ class PrintController extends Controller
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
       
-         // Return the active skills
-         $skills = Skills::all()->reject(function ($value, $key) {
-                
-            if ($key = 'active'){
-                return $value->active == false;
-                }
-            }
-        );
+        // return all skills
+        $skills =   Skills::with('children')->get();
 
-        // Return only skills which have no antecedents (ie. root skills)
-        $rootSkills = $skills->reject(function ($value, $key) {
-            if ($key = 'parent_skill_id'){
-                return $value->parent_skill_id !== null;            
-            }
-          });
 
+              
+        // Return only the active skills
+        $skills = $skills->where('is_active',true);
+        
+     
+        
+        // Sort the skills
+        $skills = $skills->orderBy('sort_order');
+       
        
     
-          $qualifications =  Institutions::with('qualifications.modules')->get();
+         $qualifications =  Institutions::with('qualifications.modules')->get();
     
+       
     
         $this->skills = $skills;
-        $this->rootSkills = $rootSkills;
         $this->employers = $employersKeyed;
         $this->roles = $roles;
         $this->responsibilities = $responsibilities;
@@ -64,7 +61,7 @@ class PrintController extends Controller
         
         $this->vw = view('print_cv',
                     [
-                        'rootSkills'=>$this->rootSkills,
+                        // FIXME(SPB): 'rootSkills'=>$this->rootSkills,
                         'skills'=>$this->skills,
                         'employers'=>$this->employers,
                         'roles'=>$this->roles,
@@ -72,7 +69,7 @@ class PrintController extends Controller
                         'qualifications'=>$this->qualifications
                         ])->render();
 
-           
+                       
     
 
                     return $this->vw;

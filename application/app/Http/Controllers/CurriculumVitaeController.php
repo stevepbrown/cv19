@@ -34,15 +34,16 @@ class CurriculumVitaeController extends Controller
 
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
+        // Get skills & eager-load skills children
+        $skills = Skills::with('children')->get();
+
       
-         // Return the active skills
-         $skills = Skills::all()->reject(function ($value, $key) {
-                
-            if ($key = 'active'){
-                return $value->active == false;
-                }
-            }
-        );
+        // Order the skills
+        $skills = $skills->sortBy('sortOrder');
+
+       
+
+        
 
         // Return only skills which have no antecedents (ie. root skills)
         $rootSkills = $skills->reject(function ($value, $key) {

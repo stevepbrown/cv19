@@ -14,7 +14,7 @@ class AttributesTableSeeder extends Seeder
         DB::table('attributes')->insert(
 
             [
-                'id'=>'1','attribute'=>'active','attribute_datatype_id'=>'3','description'=>'A boolean flag to set the record as active status','created_at'=>'2019-11-26 16:22:41']
+                'id'=>'1','attribute'=>'active','attribute_datatype_id'=>'3','description'=>'A boolean flag to set the record as active status','created_at'=>'2019-11-26 16:22:41'
 
             ]
 

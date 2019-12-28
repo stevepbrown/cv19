@@ -5,13 +5,29 @@
     {{-- SKILLS --}}
     <div id="skills">
         <h2>Skills</h2>
-            @foreach ($skills as $skill)
-                <h3 id="h3-skill-{{$skill->id}}">{{$skill->skill}}</h3>
-                <ul id="ul-skill-{{$skill->id}}">
-                    @each('partials.partial_skill_iterator', $skill->children ,'skill')
-                </ul>       
+        @foreach ($skills->where('parent_skill_id',null)as $parentSkill)
+        <h3 id="h3-skill-{{$parentSkill->id}}">{{$parentSkill->skill}}</h3>
+        
+       
+        
+        {{-- @for (($i = 1); $i < ($parentSkill->children->count())); $i++)
+            $parentSkill->children->first()->id;
+        @endfor
+             --}}
+
+             @for ($i = 1 ; $i < $parentSkill->children->count(); $i++)
+             {{$parentSkill->children->get($i)}}
+             
+                          
+             @endfor
+        @endforeach
+            
+   
+        {{-- @foreach ($rootSkills as $rootSkill)
+                <h3 id="h3-skill-{{$rootSkill->id}}">{{$rootSkill->skill}}</h3>
+                @each('partials.partial_skill_iterator', $skills->where('parent_skill_id',$rootSkill->id) ,'skills')
             @endforeach
-    </div>
+    </div> --}}
 
 
     {{-- JOBS --}}
