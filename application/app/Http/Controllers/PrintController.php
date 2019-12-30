@@ -17,8 +17,10 @@ class PrintController extends Controller
     protected $skills;
     protected $rootSkills;
     protected $qualifications;
+    public const INIT_HEADER_LEVEL = 3; // Determines the initial header level for the skills iteration
 
     public function __invoke(){
+
      
         
         $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
@@ -33,18 +35,23 @@ class PrintController extends Controller
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
       
-        // return all skills
+        // return all skills with their children 
         $skills =   Skills::with('children')->get();
 
+        // Reject any skills which are not active
+        $skills = $skills->reject(function ($value,$key){
 
-              
-        // Return only the active skills
-        $skills = $skills->where('is_active',true);
+            if($key == 'is_active') {
+
+                return $value === false;
+
+            }
+
+        });
+
+        // Sort the skills by their sort order index
+        $skills = $skills->sortBy('SortOrder');
         
-     
-        
-        // Sort the skills
-        $skills = $skills->orderBy('sort_order');
        
        
     
@@ -58,21 +65,23 @@ class PrintController extends Controller
         $this->responsibilities = $responsibilities;
         $this->qualifications = $qualifications;
         
+
+
         
-        $this->vw = view('print_cv',
-                    [
-                        // FIXME(SPB): 'rootSkills'=>$this->rootSkills,
+        $this->vw = view('print_cv',[
                         'skills'=>$this->skills,
                         'employers'=>$this->employers,
                         'roles'=>$this->roles,
                         'responsibilities'=>$this->responsibilities,
-                        'qualifications'=>$this->qualifications
+                        'qualifications'=>$this->qualifications,
+                        'initialHeaderLevel'=>$this::INIT_HEADER_LEVEL
                         ])->render();
 
-                       
-    
+                         
 
                     return $this->vw;
+    
+    // FIXME(SPB): Nedd to return a pdf!
     // $pdf = App::make('dompdf.wrapper');
     // $pdf->loadHTML($this->vw);
     // return $pdf->stream();

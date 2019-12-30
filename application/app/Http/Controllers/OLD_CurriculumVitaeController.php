@@ -6,7 +6,7 @@ use App\Job as Jobs;
 use App\Skill as Skills;
 use App\Institution as Institutions;
 
-// FIXME(SPB): 
+
 class CurriculumVitaeController extends Controller
 {
     protected $vw;

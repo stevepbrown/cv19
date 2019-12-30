@@ -71,6 +71,12 @@ class Skill extends Model
     
     }
     
+    
+    /**
+     * Undocumented function
+     *
+     * @return colllection item
+     */
     public function getSortOrderAttribute() {
 
       $qry = DB::table('entity_attribute_value')->select('value')
