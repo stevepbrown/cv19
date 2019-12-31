@@ -79,11 +79,10 @@ class PrintController extends Controller
 
                          
 
-                    return $this->vw;
+                   
     
-    // FIXME(SPB): Nedd to return a pdf!
-    // $pdf = App::make('dompdf.wrapper');
-    // $pdf->loadHTML($this->vw);
-    // return $pdf->stream();
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($this->vw);
+        return $pdf->stream();
     }
 }

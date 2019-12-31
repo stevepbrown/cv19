@@ -1,9 +1,5 @@
 <div id="div-print-skills">
     <h2>Skills</h2>
-
-    
-    
-    
     @php
         $rootSkills = $skills->where('parent_skill_id',null)
     @endphp
