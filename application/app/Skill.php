@@ -31,7 +31,8 @@ class Skill extends Model
      /*
        Appending values to the model will enable those values to be accessible form within the model, as if they were columns in the database, see https://laravel.com/docs/6.x/eloquent-serialization#appending-values-to-json
      */
-    protected $appends = array('is_active','sort_order');
+    protected $appends = array('is_active','sort_order','suppress_on_print');
+    
     /**
      * function children
      *
@@ -73,9 +74,9 @@ class Skill extends Model
     
     
     /**
-     * Undocumented function
+     * function getSortOrderAttribute
      *
-     * @return colllection item
+     * @return boolean
      */
     public function getSortOrderAttribute() {
 
@@ -87,4 +88,39 @@ class Skill extends Model
       return $qry->pluck('value')->first();
 
     }
+
+    /**
+     *  function getSuppressOnPrintAttribute
+     *
+     * @return void
+     */
+    public function getSuppressOnPrintAttribute(){
+      $qry = DB::table('entity_attribute_value')->select('value')
+        ->where('app_table_id',13) // 'skills'
+        ->where('attribute_id',3) // 'suppress_on_print'
+        ->where('key',$this->id);
+
+       
+         switch ($qry->pluck('value')->first()) {
+          case 0:
+            $result = false;
+            break;
+          
+          case 1:
+            $result= true;
+            break;
+          
+          default:
+            $result = false;
+            break;
+        }
+
+       
+
+        
+        return (bool) $result;
+    
+    }
+    
+
 }

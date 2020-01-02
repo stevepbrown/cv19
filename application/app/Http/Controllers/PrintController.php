@@ -34,26 +34,16 @@ class PrintController extends Controller
 
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
-      
-        // return all skills with their children 
-        $skills =   Skills::with('children')->get();
+      // Return a collection of skills (with children
+       $skills = Skills::with('children')->get();
 
-        // Reject any skills which are not active
-        $skills = $skills->reject(function ($value,$key){
-
-            if($key == 'is_active') {
-
-                return $value === false;
-
-            }
-
-        });
-
-        // Sort the skills by their sort order index
-        $skills = $skills->sortBy('SortOrder');
-        
-       
-       
+       // Active skills which are not print suppressed, ordered by their sort index
+        $skills= $skills->where('is_active',true)
+                        ->where('suppress_on_print',false)
+                        ->sortBy('SortOrder');
+                        
+                
+  
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
     
@@ -78,11 +68,14 @@ class PrintController extends Controller
                         ])->render();
 
                          
-
-                   
+ 
+          return  $this->vw;       
     
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($this->vw);
         return $pdf->stream();
+    
+        
     }
+
 }

@@ -45,25 +45,14 @@ class CurriculumVitaeController extends Controller
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
       
-        // return all skills with their children 
-        $skills =   Skills::with('children')->get();
+        // Return a collection of skills (with children)
+        $skills = Skills::with('children')->get();
 
-        // Reject any skills which are not active
-        $skills = $skills->reject(function ($value,$key){
-
-            if($key == 'is_active') {
-
-                return $value === false;
-
-            }
-
-        });
-
-        // Sort the skills by their sort order index
-        $skills = $skills->sortBy('SortOrder');
-        
-       
-       
+        // Active skills ordered by their sort index
+         $skills= $skills->where('is_active',true)
+                         ->sortBy('SortOrder');
+                         
+                         
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
     
