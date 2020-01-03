@@ -6,8 +6,8 @@
 
 
 @include('partials.print.partial_print_skills')
-@include('partials.print.partial_print_qualifications')
-@include('partials.print.partial_print_jobs')
+{{-- @include('partials.print.partial_print_qualifications')
+@include('partials.print.partial_print_jobs') --}}
 
 
 

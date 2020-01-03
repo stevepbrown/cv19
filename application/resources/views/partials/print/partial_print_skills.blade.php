@@ -1,18 +1,19 @@
 <div id="div-print-skills">
     <h2>Skills</h2>
-    @php
-        $rootSkills = $skills->where('parent_skill_id',null)
-    @endphp
-    
-    @foreach ($rootSkills as $rootSkill)
-    @php
-        //  Reinitiliase the heading depth
-        
-        $depth = $initialHeaderLevel;
-    @endphp
 
-    
-<h{{$depth}} id="h{{$depth}}-skill-{{$rootSkill->id}}">{{$rootSkill->skill}}</h{{$depth}}>
-        @include('partials.partial_skill_iterator',[$childSkills = $rootSkill->children])
-    @endforeach 
-</div>
+
+  
+    @foreach (($skills->where('parent_skill_id',null)) as $skill)
+        @php        
+            $level = null;
+        @endphp
+            {{-- Render main skills (top-level)  --}}
+          <h{{$initialHeaderLevel}} id="h{{$initialHeaderLevel}}-skill-{{$skill->id}}">{{$skill->skill}}</h{{$initialHeaderLevel}}>
+
+        {{-- Iterate through any children (recursive)   --}}
+         @if ($skill->children)
+            @include('partials.print.partial_print_skill_iterator',[$level,($skills = $skill->children)])
+        @endif
+       
+    @endforeach
+

@@ -1,9 +1,7 @@
 <div id="div-skill-iterator">
    
     @php
-    $depth =++$depth;
-    
-    
+       $depth =++$depth;
     @endphp
 
 
@@ -13,7 +11,7 @@
     @foreach ($childSkills as $childSkill)
 
     
-   @unless(!$childSkill->is_active)
+   @unless(!$childSkill->is_active | $childSkill->suppress_on_print)
  
       @if (($depth < ($initialHeaderLevel + 1))) <h{{$depth}} id="h{{$depth}}-skill-{{$childSkill->id}}">
       {{$childSkill->skill}}</h{{$depth}}>
@@ -48,12 +46,12 @@
                      <li>{{$childSkill->skill}}
                            <ul>
                            @foreach ($childSkill->children as $item)
-                           <li>{{$item->skill}}</li>
+                           <li>YYYY {{$item->skill}}</li>
                            @endforeach
                            </ul>
                      </li>
                   @else
-                     <li>{{$childSkill->skill}}</li>
+                     <li>XXX {{$childSkill->skill}}</li>
                   @endif
                </ul>
             @endif

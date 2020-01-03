@@ -41,23 +41,22 @@ class PrintController extends Controller
         $skills= $skills->where('is_active',true)
                         ->where('suppress_on_print',false)
                         ->sortBy('SortOrder');
-                        
-                
-  
+          
+
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
     
        
     
         $this->skills = $skills;
+
+        
         $this->employers = $employersKeyed;
         $this->roles = $roles;
         $this->responsibilities = $responsibilities;
         $this->qualifications = $qualifications;
-        
 
-
-        
+               
         $this->vw = view('print_cv',[
                         'skills'=>$this->skills,
                         'employers'=>$this->employers,
