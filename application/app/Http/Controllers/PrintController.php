@@ -49,8 +49,6 @@ class PrintController extends Controller
        
     
         $this->skills = $skills;
-
-        
         $this->employers = $employersKeyed;
         $this->roles = $roles;
         $this->responsibilities = $responsibilities;
@@ -65,10 +63,11 @@ class PrintController extends Controller
                         'qualifications'=>$this->qualifications,
                         'initialHeaderLevel'=>$this::INIT_HEADER_LEVEL
                         ])->render();
-
+                        
+                        
+                        
                          
  
-          return  $this->vw;       
     
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($this->vw);

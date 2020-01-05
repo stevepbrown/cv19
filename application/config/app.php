@@ -175,6 +175,12 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        
+        /*
+            you should remove the TelescopeServiceProvider service provider registration from your app configuration file.
+            Instead, manually register the service provider in the register method of your AppServiceProvider
+        */
+        //App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
     ],
