@@ -13,7 +13,7 @@
         
         {{-- Iterate through any children (recursive)   --}}
          @if ($skill->children)
-            @include('partials.print.partial_print_skill_iterator',[$level,($skills = $skill->children)])
+            @include('partials.partial_skill_iterator',[$level,($skills = $skill->children)])
         @endif
     @endforeach
 
