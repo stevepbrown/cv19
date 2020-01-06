@@ -8,9 +8,8 @@ use App\Institution as Institutions;
 
 
 
-class CurriculumVitaeController extends Controller
+class PrintController extends Controller
 {
-
     protected $vw;
     protected $employers;
     protected $roles;
@@ -20,19 +19,10 @@ class CurriculumVitaeController extends Controller
     protected $qualifications;
     public const INIT_HEADER_LEVEL = 3; // Determines the initial header level for the skills iteration
 
+    public function __invoke(){
 
-    protected $pageProps = [
-                            'title'=>'CV',
-                            'keywords'=>'Web Developer,CV,curriculum vitae,skills,work experience,institutions',
-                            'description'=>'Web developer with Laravel experience seeking an entry-level position in the North-West of England'];
-/**
-     * Single invocation function
-     * to assemble the various models and return the 
-     * data to the view
-     * @return View
-     */
-    public function __invoke()
-    {
+     
+        
         $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
         
         $employersKeyed  = $employersRoleSort->get()->keyBy('employer_id');
@@ -44,15 +34,15 @@ class CurriculumVitaeController extends Controller
 
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
-      
-        // Return a collection of skills (with children)
-        $skills = Skills::with('children')->get();
+      // Return a collection of skills (with children
+       $skills = Skills::with('children')->get();
 
-        // Active skills ordered by their sort index
-         $skills= $skills->where('is_active',true)
-                         ->sortBy('SortOrder');
-                         
-                         
+       // Active skills which are not print suppressed, ordered by their sort index
+        $skills= $skills->where('is_active',true)
+                        ->where('suppress_on_print',false)
+                        ->sortBy('SortOrder');
+          
+
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
     
@@ -63,22 +53,31 @@ class CurriculumVitaeController extends Controller
         $this->roles = $roles;
         $this->responsibilities = $responsibilities;
         $this->qualifications = $qualifications;
-        
 
-
-        
-        $this->vw = view('curriculum_vitae',[
+               
+        $this->vw = view('print_cv',[
                         'skills'=>$this->skills,
                         'employers'=>$this->employers,
                         'roles'=>$this->roles,
                         'responsibilities'=>$this->responsibilities,
                         'qualifications'=>$this->qualifications,
-                        'initialHeaderLevel'=>$this::INIT_HEADER_LEVEL,
-                        'pageProps'=>$this->pageProps]);
+                        'initialHeaderLevel'=>$this::INIT_HEADER_LEVEL
+                        ]);
+                        
+                               
+                        
+                        // DEBUGONLY(SPB): Not for use in production - use to check formatting etc
+                        return $this->vw;
 
-        return $this->vw;                 
 
-                   
-    
+
+
+                        // FIXME(SPB): Enable & check this in production
+                        // $pdf = App::make('dompdf.wrapper');
+                        // $pdf->loadHTML($this->vw);
+                        //  return $pdf->stream();
+                        
+                                
     }
+
 }

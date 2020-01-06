@@ -17,13 +17,14 @@
 </head>
 
 <body>
-
-    <div id="div-cookie-container" class="container">
-            @include('cookieConsent::index')
+    <div id="div-document-container" class="container-fluid">
+        <div id="div-cookie-container" class="container">
+                @include('cookieConsent::index')
+        </div>
+        @mainNav
+        @endmainNav
+        @yield('main')
     </div>
-    @mainNav
-    @endmainNav
-    @yield('main')
 
 </body>
 @scripts
