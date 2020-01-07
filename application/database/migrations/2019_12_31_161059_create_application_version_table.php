@@ -15,16 +15,11 @@ class CreateApplicationVersionTable extends Migration
     {
         Schema::create('application_version', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedTinyInteger('main_version');
-            $table->unsignedSmallInteger('incremental_version');
+            $table->decimal('version',3,1);
             $table->string('name', 75);
-            $table->string('full_version_number',6)->storedAs("
-                
-               main_version.\'.\'.incremental_version"
-                );
             $table->string('commit_SHA')->nullable();
             $table->string('commit_tag')->nullable();
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->timestamps();
         });
     }
