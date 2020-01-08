@@ -18,3 +18,8 @@ Route::get('/', function () {
 Route::get('/cv','CurriculumVitaeController');
 
 Route::get('/print','PrintController');
+
+/* 3rd Party Vendor Routes */
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
