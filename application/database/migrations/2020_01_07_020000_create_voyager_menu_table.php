@@ -32,7 +32,7 @@ class CreateVoyagerMenuTable extends Migration
         });
 
         Schema::table('voyager_menu_items', function (Blueprint $table) {
-            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('voyager_menus')->onDelete('cascade');
         });
     }
 

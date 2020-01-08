@@ -27,13 +27,13 @@ class VoyagerAddRouteToMenuItemsTable extends Migration
     public function down()
     {
         if (Schema::hasColumn('voyager_menu_items', 'route')) {
-            Schema::table('menu_items', function (Blueprint $table) {
+            Schema::table('voyager_menu_items', function (Blueprint $table) {
                 $table->dropColumn('route');
             });
         }
 
-        if (Schema::hasColumn('menu_items', 'parameters')) {
-            Schema::table('menu_items', function (Blueprint $table) {
+        if (Schema::hasColumn('voyager_menu_items', 'parameters')) {
+            Schema::table('voyager_menu_items', function (Blueprint $table) {
                 $table->dropColumn('parameters');
             });
         }
