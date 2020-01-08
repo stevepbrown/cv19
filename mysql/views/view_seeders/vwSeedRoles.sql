@@ -1,5 +1,5 @@
 CREATE OR REPLACE VIEW `cv`.`vwSeedRoles` AS
-    SELECT 'Roles' AS `TABLE`,
+    SELECT 'Job Roles' AS `TABLE`,
         CONCAT('[',
                 '\'id\'=>\'',
                 `id`,
@@ -12,4 +12,4 @@ CREATE OR REPLACE VIEW `cv`.`vwSeedRoles` AS
                 '\'',
                 '],') `SEEDER`
     FROM
-        `cv`.`roles`
+        `cv`.`job_roles`

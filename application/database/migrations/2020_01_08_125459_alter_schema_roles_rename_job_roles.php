@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class VoyagerAddOrderToDataRowsTable extends Migration
+class AlterSchemaRolesRenameJobRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,7 @@ class VoyagerAddOrderToDataRowsTable extends Migration
      */
     public function up()
     {
-        Schema::table('voyager_data_rows', function (Blueprint $table) {
-            $table->integer('order')->default(1)->after('details');
-        });
+        Schema::rename('roles', 'job_roles');
     }
 
     /**
@@ -25,8 +23,6 @@ class VoyagerAddOrderToDataRowsTable extends Migration
      */
     public function down()
     {
-        Schema::table('voyager_data_rows', function (Blueprint $table) {
-            $table->dropColumn('order');
-        });
+        Schema::rename('job_roles','roles'); 
     }
 }
