@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AttributeDataTypesTableSeeder::class);
         $this->call(AppTablesTableSeeder::class);
         $this->call(EntityAttributeValueSeeder::class);
-        $this->call(VoyagerDatabaseSeeder::class);
+        // $this->call(VoyagerDatabaseSeeder::class);
         
         
          }

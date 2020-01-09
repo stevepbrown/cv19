@@ -84,7 +84,7 @@ return [
         ],
 
         // If you want to change migrations, for example to use a different table for users, don't migrate. Instead copy Voyagers migrations to database/migrations, make your changes, turn off the config option database.autoload_migrations and then migrate.
-        'autoload_migrations' => false,
+        'autoload_migrations' => true,
     ],
 
     /*
