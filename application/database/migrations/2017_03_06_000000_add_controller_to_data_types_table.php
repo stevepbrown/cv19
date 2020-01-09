@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterSchemaRolesRenameJobRoles extends Migration
+class AddControllerToDataTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,9 @@ class AlterSchemaRolesRenameJobRoles extends Migration
      */
     public function up()
     {
-        Schema::rename('roles', 'job_roles');
+        Schema::table('data_types', function (Blueprint $table) {
+            $table->string('controller')->nullable()->after('model_name');
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class AlterSchemaRolesRenameJobRoles extends Migration
      */
     public function down()
     {
-        Schema::rename('job_roles','roles'); 
+        Schema::table('data_types', function (Blueprint $table) {
+            $table->dropColumn('controller');
+        });
     }
 }
