@@ -1,9 +1,9 @@
+You're using code navigation to jump to definitions or references.
+Learn more or give us feedback
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 class CreateFailedJobsTable extends Migration
 {
     /**
@@ -22,7 +22,6 @@ class CreateFailedJobsTable extends Migration
             $table->timestamp('failed_at')->useCurrent();
         });
     }
-
     /**
      * Reverse the migrations.
      *

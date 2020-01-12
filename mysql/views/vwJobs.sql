@@ -28,10 +28,10 @@ VIEW `cv`.`vwJobs` AS
                 `cv`.`employer_roles`.`employer_id` AS `ER_EMPLOYER_ID`,
                 `cv`.`employer_roles`.`role_id` AS `ER_ROLE_ID`,
                 `cv`.`employer_roles`.`tenure` AS `ER_TENURE`,
-                `cv`.`roles`.`role` AS `ER_ROLE`
+                `cv`.`job_roles`.`role` AS `ER_ROLE`
         FROM
             (`cv`.`employer_roles`
-        JOIN `cv`.`roles` ON ((`cv`.`employer_roles`.`role_id` = `cv`.`roles`.`id`)))) `EmployerRoles` ON ((`Employers`.`id` = `EmployerRoles`.`ER_EMPLOYER_ID`)))
+        JOIN `cv`.`job_roles` ON ((`cv`.`employer_roles`.`role_id` = `cv`.`job_roles`.`id`)))) `EmployerRoles` ON ((`Employers`.`id` = `EmployerRoles`.`ER_EMPLOYER_ID`)))
         JOIN (SELECT 
             `cv`.`role_responsibilities`.`id` AS `RR_ID`,
                 `cv`.`role_responsibilities`.`role_id` AS `RR_ROLE_ID`,

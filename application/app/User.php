@@ -3,10 +3,12 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+// FIXME(SPB): 
+// use Illuminate\Foundation\Auth\User as Authenticatable;
+USE \TCG\Voyager\Models\User as VoyagerUser;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends VoyagerUser
 {
     use Notifiable;
 
