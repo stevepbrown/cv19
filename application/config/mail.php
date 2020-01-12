@@ -60,6 +60,22 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Global "Reply To" Address
+    |--------------------------------------------------------------------------
+    |
+    | You may wish for all e-mail replies to be sent by your application to be sent to
+    | the same address. Here, you may specify a name and address that is
+    | used globally for all e-mails that are sent by your application.
+    |
+    */
+    'reply_to' => [
+        'address' => env('MAIL_REPLY_TO_ADDRESS'),
+        'name' =>  env('MAIL_REPLY_TO_NAME'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

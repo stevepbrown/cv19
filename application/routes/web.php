@@ -19,7 +19,13 @@ Route::get('/cv','CurriculumVitaeController');
 
 Route::get('/print','PrintController');
 
+
+Route::get('/mail/create', 'MailController@create');
+
+
 /* 3rd Party Vendor Routes */
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
+
+Route::post('/sendmail', $callback);
