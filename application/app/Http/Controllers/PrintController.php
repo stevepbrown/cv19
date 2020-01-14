@@ -66,16 +66,11 @@ class PrintController extends Controller
                         
                                
                         
-                        // DEBUGONLY(SPB): Not for use in production - use to check formatting etc
-                        return $this->vw;
-
-
-
-
-                        // FIXME(SPB): Enable & check this in production
-                        // $pdf = App::make('dompdf.wrapper');
-                        // $pdf->loadHTML($this->vw);
-                        //  return $pdf->stream();
+                      
+                        
+                        $pdf = App::make('dompdf.wrapper');
+                        $pdf->loadHTML($this->vw);
+                         return $pdf->stream();
                         
                                 
     }

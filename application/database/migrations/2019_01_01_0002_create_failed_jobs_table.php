@@ -1,5 +1,3 @@
-You're using code navigation to jump to definitions or references.
-Learn more or give us feedback
 <?php
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
