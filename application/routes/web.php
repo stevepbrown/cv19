@@ -23,6 +23,12 @@ Route::get('/print','PrintController');
 Route::get('/mail/create/{template_id}', 'MailController@create');
 
 
+Route::get('/mail/send/{batch_id}', 'MailController@mailBatch');
+
+
+
+
+
 /* 3rd Party Vendor Routes */
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();

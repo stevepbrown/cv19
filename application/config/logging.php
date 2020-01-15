@@ -95,6 +95,13 @@ return [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
         ],
+
+
+        'mailing' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/mailings.log'),
+            'level' => 'info',
+],
     ],
 
 ];
