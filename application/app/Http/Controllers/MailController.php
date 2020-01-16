@@ -5,12 +5,12 @@ use \App\UserFuncs\UserFunctions as UserFuncs;
 use App\EmailBatch;
 use App\Organisation;
 use App\EmailLog;
+use App\mail\BatchMail;
 use Illuminate\Support\Facades\DB;
+use  Illuminate\Support\Facades\Mail;
 class MailController extends Controller
 {
     public function create(Request $request){
-// TODO(SPB): Run through auth middleware!!
-    
 
 
     // Create a new batch_id based upon the highest existing batch_id
@@ -62,7 +62,8 @@ class MailController extends Controller
             if ($validEntries->isNotEmpty()){
 
             // Get all recipient emails as a string (with email delimiter)
-            $emailBatch->recipients = $validEntries->pluck('person_email')->implode(';');
+
+            $emailBatch->recipients = $validEntries->pluck('person_email')->flatten();
                
             // Save the batch row
             $emailBatch->save();
@@ -75,12 +76,43 @@ class MailController extends Controller
             else {
 
                 unset($emailBatch);
-                dump("There are no entries for $organisation->name");
-
+            
             }
        
-       
+      
     }
 
+    return 'Finished';
 }
+
+public function send($batch_id) {
+
+    
+
+    $batches = EmailBatch::where('batch_id',$batch_id)->get();
+    
+   
+
+    // Iterate the batch to send email for each organisation
+    foreach($batches as $batch){
+
+        $recipients =   Str::replaceFirst('[', '',$batch->recipients);
+
+        
+
+        
+        // TODO(SPB): Need to parse retrieved JSON to a valid RFC string!
+        return("Need to parse retrieved JSON to a valid RFC string:<br/><br/>$recipients");
+        
+        // TODO(SPB): Enable in production
+
+        // Mail::to($recipients)->queue(new BatchMail($batch->recipients,$batch->template_id)); 
+        
+        
+    } 
+   
+
+    return 'Mails have been queued.';
+}
+
 }

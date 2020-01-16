@@ -23,7 +23,7 @@ Route::get('/print','PrintController');
 Route::get('/mail/create/{template_id}', 'MailController@create');
 
 
-Route::get('/mail/send/{batch_id}', 'MailController@mailBatch');
+Route::get('/mail/send/{batch_id}', 'MailController@send');
 
 
 
