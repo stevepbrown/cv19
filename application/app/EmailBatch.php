@@ -48,41 +48,38 @@ class EmailBatch extends Model
      * @param Person $person
      * @return boolean
      */
-    public function mailAlreadySent(Person $person) {
+    public function mailAlreadySent($person_id,$template_id) {
 
-        $person_id = $person->id;
-        $template_id = $this->template_id;
-          
+       
+        if (DB::table('email_logs')->where('person_id', $person_id)->where('template_id', $template_id)->exists()){
 
+            return true;
+
+        }
         
-        if (DB::table('email_logs')->where('person_id', $person_id)->where('template_id', $person_id)->exists() == true){
+        else {
+            return false;
+        };
 
-                return true;
-
-            }
             
-            else {
-
-                return false;
-            };
-
-             
-
-    }
+        }
 
    
     
-    public function createEmailLogs($emails){
+    public function createEmailLog($recipients){
 
         
         
-        foreach($emails as $email){
+        foreach($recipients as $recipient){
 
+       
             $emailLog = new EmailLog;
-         
-            $emailLog->batch_id = $this->batch_id;
-            $emailLog->person_id  = $email;
-            $emailLog->template_id = $this->template_id;
+          
+                                
+            $emailLog->batch_id = $recipient['batch_id'];
+            $emailLog->person_id  = $recipient['person_id'];
+            $emailLog->template_id = $recipient['template_id'];
+            $emailLog->dispatched = false;
             $emailLog->save();
             
 
