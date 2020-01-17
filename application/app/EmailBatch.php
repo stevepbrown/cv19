@@ -48,10 +48,11 @@ class EmailBatch extends Model
      * @param Person $person
      * @return boolean
      */
-    public function mailAlreadySent($person_id,$template_id) {
+    public function mailAlreadySent($person,$template_id) {
 
-       
-        if (DB::table('email_logs')->where('person_id', $person_id)->where('template_id', $template_id)->exists()){
+        
+
+        if (DB::table('email_logs')->where('person_id', $person->id)->where('template_id', $template_id)->exists()){
 
             return true;
 
@@ -66,7 +67,7 @@ class EmailBatch extends Model
 
    
     
-    public function createEmailLog($recipients){
+    public function createEmailLog(array $recipients){
 
         
         
@@ -75,7 +76,7 @@ class EmailBatch extends Model
        
             $emailLog = new EmailLog;
           
-                                
+                                      
             $emailLog->batch_id = $recipient['batch_id'];
             $emailLog->person_id  = $recipient['person_id'];
             $emailLog->template_id = $recipient['template_id'];

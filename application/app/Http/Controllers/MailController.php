@@ -8,6 +8,7 @@ use App\EmailLog;
 use App\mail\BatchMail;
 use Illuminate\Support\Facades\DB;
 use  Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Arr;
 class MailController extends Controller
 {
     public function create(Request $request){
@@ -40,16 +41,22 @@ class MailController extends Controller
             
             
             
-            if(!$emailBatch->mailAlreadySent($person->id,$emailBatch->template_id)){
+            if(!$emailBatch->mailAlreadySent($person,$emailBatch->template_id)){
 
-                echo("<p>$person->given_name $person->family_name has been accepted<p>");    
+                echo("<p>Accepted: $person->given_name $person->family_name</p>");    
 
-              $validEntries->push(['person_id'=>$person->id,
+                $validEntries->push(['person_id'=>$person->id,
                                     'person_email'=>$person->email,
                                     'template_id' =>$emailBatch->template_id,
                                     'batch_id'=>$emailBatch->batch_id,
-                                    'dispatched'=>0
-                                    ]); 
+                                    'organisation_id'=>$person->organisation_id,
+                                    'dispatched'=>false]
+                                    ); 
+            }
+
+            else{
+
+                echo("<p><strong>REJECTED: $person->given_name $person->family_name</strong></p>");    
             }
 
               
@@ -69,7 +76,7 @@ class MailController extends Controller
             $emailBatch->save();
 
            // Log an an email for each of the people in the batch
-           $emailBatch->createEmailLog($validEntries);
+           $emailBatch->createEmailLog($validEntries->toArray());
       
             }
 
@@ -88,25 +95,17 @@ class MailController extends Controller
 public function send($batch_id) {
 
     
+    $pendingMails  = EmailLog::with('people')->where('email_logs.batch_id',$batch_id)->get();
 
-    $batches = EmailBatch::where('batch_id',$batch_id)->get();
-    
-   
-
+  
     // Iterate the batch to send email for each organisation
-    foreach($batches as $batch){
+    foreach($pendingMails as $pendingMail){
 
-        $recipients =   Str::replaceFirst('[', '',$batch->recipients);
-
-        
-
-        
-        // TODO(SPB): Need to parse retrieved JSON to a valid RFC string!
-        return("Need to parse retrieved JSON to a valid RFC string:<br/><br/>$recipients");
-        
-        // TODO(SPB): Enable in production
-
-        // Mail::to($recipients)->queue(new BatchMail($batch->recipients,$batch->template_id)); 
+ 
+      
+      
+        // Queue the mail
+        Mail::queue(new BatchMail($pendingMail)); 
         
         
     } 
