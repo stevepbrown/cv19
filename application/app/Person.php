@@ -9,6 +9,7 @@ use App\Scopes\ActiveScope;
 class Person extends Model
 {
     
+    protected $appends = array('name');
     
       /*
     
@@ -35,4 +36,17 @@ class Person extends Model
        return  $this->hasOne('App\Organisation');
 
     } 
+
+    /**
+     *  function getNameAttribute
+     *
+     * Mutator:Concatenates given & family names
+     * 
+     * @return string
+     */
+    public function getnameAttribute(){
+
+        return "$this->given_name $this->family_name";
+
+    }
 }

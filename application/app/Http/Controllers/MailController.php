@@ -1,11 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use \App\UserFuncs\UserFunctions as UserFuncs;
 use App\EmailBatch;
 use App\Organisation;
 use App\EmailLog;
-use App\mail\BatchMail;
+use App\mail\BatchMail as BatchMail;
 use Illuminate\Support\Facades\DB;
 use  Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Arr;
@@ -93,25 +92,20 @@ class MailController extends Controller
 }
 
 public function send($batch_id) {
-
-    
-    $pendingMails  = EmailLog::with('people')->where('email_logs.batch_id',$batch_id)->get();
-
-  
-    // Iterate the batch to send email for each organisation
-    foreach($pendingMails as $pendingMail){
-
- 
-      
-      
-        // Queue the mail
-        Mail::queue(new BatchMail($pendingMail)); 
+    // Fetch all email logs for the batch_id
+    $emailBatches = EmailBatch::where('batch_id',$batch_id)->with('people')->get();
+    dd($emailBatches);
+      // Iterate batches to fetch people associated with each batch
+        foreach($emailBatches as $emailBatch){
+            $recipients = $emailBatch->emailLogs->with('emailLogs.people')->get();
+            dd($recipients);
+            Mail::to()->send(new OrderShipped($order));
+            
+        }
+        die();
+    }
+} 
         
-        
-    } 
-   
 
-    return 'Mails have been queued.';
-}
 
-}
+
