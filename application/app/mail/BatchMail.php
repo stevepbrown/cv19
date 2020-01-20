@@ -7,10 +7,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 
+
 class BatchMail extends Mailable
 {
     use Queueable, SerializesModels;
-
 
   protected $template;
 
@@ -19,12 +19,36 @@ class BatchMail extends Mailable
      *
      * @return void
      */
-    public function __construct($emailBatch)
+    public function __construct($emailLog)
     {
      
-      // FIXME(SPB): 
-      dd($emailLogs->people->all());
-      // $this->template = $$emailBatch->template;
+      $recipient = $emailLog->people->toArray();
+      $template = $emailLog->template->toArray();
+
+      $address = $recipient['email'];
+      $subject = $template['subject'];
+      $view = 'view.mail.'.$template['name'];
+      $name = $recipient['name'];
+      $data = [];
+
+         
+      
+      
+      // set the 'to'
+      $this->to($address,$name);
+  
+
+      // set the subject
+      $this->subject($subject);
+
+
+      dd($this);
+      // set the view
+      $this->view($view,$data); 
+
+     
+
+      
               
     }
 
