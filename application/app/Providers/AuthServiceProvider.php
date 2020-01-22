@@ -25,6 +25,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('mail_create_mail', function ($user) {
+            return $user->hasPermission('mail_create_mail');
+        });
+
+        Gate::define('mail_send_mail', function ($user) {
+            return $user->hasPermission('mail_send_mail');
+        });
     }
 }

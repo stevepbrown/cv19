@@ -1,8 +1,4 @@
 
-
-dd('The view has been called');
-
-
 <h1>This is a test email, it is not designed for public transmission</h1>
 
 

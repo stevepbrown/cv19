@@ -1,8 +1,8 @@
-<nav>
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/cv">CV</a></li>
-        <li><a href="/print">PDF</a></li>
-        <li><a href="/faq">FAQ</a></li>
+<nav class="nav-bar navbar-expand-lg">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/cv">CV</a></li>
+        <li class="nav-item"><a class="nav-link"href="/print">PDF</a></li>
+        <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
     </ul>
 </nav>

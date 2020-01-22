@@ -11,7 +11,7 @@
 <title>{{$title}}</title>
 
 <!-- default stylesheet -->
-<link rel="stylesheet" type="text/css" href="css/app.css">
+<link rel="stylesheet" type="text/css" href="/css/app.css">
 
 
 

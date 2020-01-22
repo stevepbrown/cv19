@@ -80,7 +80,46 @@ return [
 
     'database' => [
         'tables' => [
-            'hidden' => ['migrations', 'data_rows', 'data_types', 'menu_items', 'password_resets', 'permission_role', 'settings'],
+            'hidden' => ['migrations', 'data_rows', 'data_types', 'menu_items', 'password_resets', 'permission_role', 'settings','app_tables',
+        
+            
+            // 'app_version',
+            // 'attributes',
+            // 'attribute_datatypes',
+            // 'data_rows',
+            // 'data_types',
+            // 'email_logs',
+            // 'email_templates',
+            'employers',
+            'employer_roles',
+            'entity_attribute_value',
+            'failed_jobs',
+            'institutions',
+            'job_roles',
+            // 'menus',
+            // 'menu_items',
+            'migrations',
+            'modules',
+            // 'organisations',
+            'organisation_types',
+            // 'password_resets',
+            // 'people',
+            // 'permissions',
+            // 'permission_role',
+            'qualifications',
+            'responsibilities',
+            'roles',
+            'role_responsibilities',
+            // 'settings',
+            // 'skills',
+            'telescope_entries',
+            'telescope_entries_tags',
+            'telescope_monitoring',
+            'translations',
+            'users',
+            'user_roles'
+        
+        ],
         ],
 
         // If you want to change migrations, for example to use a different table for users, don't migrate. Instead copy Voyagers migrations to database/migrations, make your changes, turn off the config option database.autoload_migrations and then migrate.

@@ -15,23 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/cv','CurriculumVitaeController');
 
 Route::get('/print','PrintController');
 
 
-Route::get('/mail/create/{template_id}', 'MailController@create');
-
-
-Route::get('/mail/send/{batch_id}', 'MailController@send');
-
-
-
-
-
 /* 3rd Party Vendor Routes */
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+
+    Route::resource('mail', 'MailController');
+        
+
+        
 });
-
-

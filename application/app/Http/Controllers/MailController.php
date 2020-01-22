@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use  Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Carbon;
 use App\EmailLog;
 use App\EmailTemplate;
 use App\Person;
@@ -10,9 +11,68 @@ use App\mail\BatchMail as BatchMail;
 
 class MailController extends Controller
 {
-    public function create(Request $request){
+    
+    protected $request;
+    /*
+    
+    A standard resource controller does not suffice here, because the uri action
+    verbs eg. mail/create are not compatible with Voyager guards (admin/mail is supported, admin/mail/create)
+    is not. Hence the need to utilise and verify query parameters!
+    
+    */
+   
+    public function __construct(Request $request)
+    {
+        $this->middleware('auth');
+        $this->request = $request;
 
-    // Fetch the existing logged emails
+    }
+
+
+    protected function guard()
+  {
+      return Auth::guard(app('VoyagerGuard'));
+  }
+
+ public function index(){
+
+
+    // Ensure that the correct query parameters have been passed
+    if($this->request->query('action') && $this->request->query('id')){
+
+        switch($this->request->query('action')){
+
+
+            case 'create':
+                $this->create();
+                break;
+
+            case 'send':
+                $this->send();
+                break;
+            
+                default:
+
+            session(['alert' =>'Incorrect query parameters!']);
+            return view('error');
+
+
+        }
+        
+    }
+
+    else {
+
+        session(['alert' =>'Incorrect query parameters!']);
+        return view('error');
+   
+ }
+}   
+    protected function create(){
+
+     $this->authorize('mail_create_mail');
+    
+     // Fetch the existing logged emails
     $emailLogs = EmailLog::all();
 
     // Fetch all people
@@ -22,7 +82,7 @@ class MailController extends Controller
     $insBatchId =  ($emailLogs->max('batch_id')+1);
    
     // Fetch the template from the request
-    $template =  EmailTemplate::where('id',$request->template_id)->first();
+    $template =  EmailTemplate::where('id',$this->request->id)->first();
     
 
     
@@ -33,11 +93,12 @@ class MailController extends Controller
         
         // proceed only if no existing log
         if (!$emailLog->mailAlreadyLogged($person->id,$template->id)){
+            
             $emailLog->template_id = $template->id;
             $emailLog->batch_id = $insBatchId;
             $emailLog->person_id = $person->id;
             $emailLog->save();
-                    
+                   
         
             echo("<p>$person->given_name $person->family_name logged for sending</p>");    
         
@@ -49,9 +110,17 @@ class MailController extends Controller
     return 'Finished';
 }
 
-public function send($batch_id) {
+protected  function send() {
+
+    $this->authorize('mail_send_mail');
+
     // Fetch all email logs for the batch_id
-    $emailLogs = EmailLog::where('batch_id',$batch_id)
+
+    $batchId = $this->request->query('id');
+  
+    
+         
+    $emailLogs = EmailLog::where('batch_id',$batchId)
                 ->with('people')
                 ->with('template')
                 ->get();
@@ -59,11 +128,16 @@ public function send($batch_id) {
           // Iterate batches to fetch people associated with each batch
         foreach($emailLogs as $emailLog){
 
-        
-            Mail::queue(new BatchMail($emailLog));
-
+            $address = $emailLog->people->email;
+            $name = $emailLog->people->name;
+            
+            
+            Mail::to($address,$name)->queue(new BatchMail($emailLog));
+            
         }
-        
+     
+    return 'Mails sent!';    
+
     }
 } 
         
