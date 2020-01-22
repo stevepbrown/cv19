@@ -25,8 +25,7 @@ Route::get('/print','PrintController');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
-    Route::resource('mail', 'MailController');
-        
+          
 
         
 });
