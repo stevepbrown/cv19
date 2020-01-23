@@ -54,7 +54,6 @@ class batchMailController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
   
          $this->createBatch($this->currentRequest);
 
-       return;
 
       
 
