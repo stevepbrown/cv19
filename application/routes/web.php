@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\BatchMailController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,11 +24,14 @@ Route::get('/cv','CurriculumVitaeController');
 Route::get('/print','PrintController');
 
 
+
+
 /* 3rd Party Vendor Routes */
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
-          
+    
+ 
+    Route::get('mailings/create/{template_id}','BatchMailController@create');
 
-        
 });
