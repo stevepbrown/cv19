@@ -14,10 +14,7 @@ use App\Http\Controllers\BatchMailController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'GenericPageController@index');
 
 Route::get('/cv','CurriculumVitaeController');
 
