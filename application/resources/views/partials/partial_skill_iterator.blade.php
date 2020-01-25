@@ -19,7 +19,7 @@
   
 
    <ul id="ul-skill-parent-{{$skills->first->skill_parent_id}}">
-      @foreach ($skills as $skill)
+      @foreach ($skills->where('isActive','true') as $skill)
       <li id="li-skill-{{$skill->id}}">   
                @if($level <= $maxLevel)
                   <h{{$level}} id="h{{$level}}-skill-{{$skill->id}}">{{$skill->skill}}</h{{$level}}>

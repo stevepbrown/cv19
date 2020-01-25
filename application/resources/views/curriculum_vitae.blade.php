@@ -5,7 +5,7 @@
     <div id="div-cv-skills">
         <h2>Skills</h2>
             
-        @foreach (($skills->where('parent_skill_id',null)) as $skill)
+        @foreach (($skills->where('parent_skill_id',null))->where('isActive','true') as $skill)
             @php        
                 $level = null;
                 $maxLevel = 6;
