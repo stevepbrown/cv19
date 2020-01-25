@@ -65,7 +65,6 @@ class CurriculumVitaeController extends Controller
         $this->qualifications = $qualifications;
         
 
-
         
         $this->vw = view('curriculum_vitae',[
                         'skills'=>$this->skills,

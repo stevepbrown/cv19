@@ -22,6 +22,12 @@ public function links(){
 
     return $this->hasMany('App\PageLink', 'page_id', $this->pageId);
 
-}    
+}
+
+public function keywords(){
+
+    
+
+}
 
 }

@@ -20,7 +20,6 @@ class CreatePageLinksTable extends Migration
             $table->string('link_type')->comment('String of media type eg. text\/css');
             $table->string('href')->comment('The URL');
             $table->string('rel')->comment('String of rel attribute, specifying the relationship between the current document and the linked document resource eg. stylesheet');
-            $table->string('link_type')->comment('String of media type eg. text\/css');
             $table->string('media')->nullable()->comment('String of what media/device the target resource is optimized for eg. print');
             $table->timestamps();
         });

@@ -42,7 +42,6 @@ class PrintController extends Controller
                         ->where('suppress_on_print',false)
                         ->sortBy('SortOrder');
           
-
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
     

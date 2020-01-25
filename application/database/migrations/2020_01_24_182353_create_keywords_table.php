@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTablePagePropsAddColumnRequestPath extends Migration
+class CreateKeywordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AlterTablePagePropsAddColumnRequestPath extends Migration
      */
     public function up()
     {
-        Schema::table('page_props', function (Blueprint $table) {
-           $table->string('request_path')->nullable()->unique()->after('name');
+        Schema::create('keywords', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('text',100);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AlterTablePagePropsAddColumnRequestPath extends Migration
      */
     public function down()
     {
-        Schema::table('page_props', function (Blueprint $table) {
-            $table->dropIfExists('request_path');
-        });
+        Schema::dropIfExists('keywords');
     }
 }
