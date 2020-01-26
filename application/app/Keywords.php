@@ -7,6 +7,15 @@ use lluminate\Support\Facades\DB;
 
 class Keywords extends Model
 {
+    
+    
+    public function pageKeywords(){
+
+        return $this->hasMany('App\PageKeyword');
+
+    }
+    
+    
     public function getactiveAttribute(){
 
 

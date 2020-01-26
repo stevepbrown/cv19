@@ -9,9 +9,15 @@ class GenericPageController extends Controller
 {
 public function index(Request $request){
 
-    $pageProps = PageProps::where('$requestPath',$request->path)->with('keywords','active');
 
-    return view($pageProps->name)->with($pageProps);
+    $requestPath = (!$request->path?'/':$request->path);
+
+
+    $pageProps = PageProps::with('links','keywords')->where('slug',$requestPath)->first()->toArray();
+
+    $vw = view($pageProps['name'])->with($pageProps);
+
+    return view($pageProps['name'])->with($pageProps);
 
 }
 }

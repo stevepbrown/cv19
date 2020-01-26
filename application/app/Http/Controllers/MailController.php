@@ -97,8 +97,6 @@ public function() {}
 
      $this->authorize('add_email_logs');
 
-     // DEBUGONLY(SPB):
-    dd('In create');
     
     
      // Fetch the existing logged emails
@@ -143,15 +141,11 @@ protected  function send() {
 
     $this->authorize('browse_send_mailing');
 
-    // DEBUGONLY(SPB):
-    dd('In send');
     
     // Fetch all email logs for the batch_id
-
     $batchId = $this->request->query('id');
   
      
-
          
     $emailLogs = EmailLog::where('batch_id',$batchId)
                 ->with('people')

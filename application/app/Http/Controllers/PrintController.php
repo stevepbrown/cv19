@@ -38,10 +38,14 @@ class PrintController extends Controller
        $skills = Skills::with('children')->get();
 
        // Active skills which are not print suppressed, ordered by their sort index
-        $skills= $skills->where('is_active',true)
+        
+       
+    $skills= $skills->where('is_active',true)
                         ->where('suppress_on_print',false)
                         ->sortBy('SortOrder');
-          
+                        
+
+    
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
     

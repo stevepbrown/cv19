@@ -2,16 +2,17 @@
 
 <html lang="en-GB">
 
+
 <head>
     @head
     @slot('title')
-    {{$pageProps['title']}}
+    $title
     @endslot
     @slot('keywords')
-        {{$pageProps['keywords']}}
+        {{$keywords}}
     @endslot
     @slot('description')
-    {{$pageProps['description']}}
+        {{$description}}
     @endslot
     @endhead
 </head>
