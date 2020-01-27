@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PageLink extends Model
+class LinkPage extends Model
 {
     public function link() {
 

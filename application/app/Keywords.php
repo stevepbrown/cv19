@@ -8,12 +8,8 @@ use lluminate\Support\Facades\DB;
 class Keywords extends Model
 {
     
+    protected $table = 'keywords';
     
-    public function pageKeywords(){
-
-        return $this->hasMany('App\PageKeyword');
-
-    }
     
     
     public function getactiveAttribute(){
