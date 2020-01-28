@@ -1,3 +1,4 @@
+{{-- home.blade.php --}}
 @extends('layouts.layout_master')
 
 

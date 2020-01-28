@@ -1,20 +1,30 @@
+
+
+
 <!DOCTYPE html>
-
 <html lang="en-GB">
-
 
 <head>
     @head
-    @slot('title')
-    $title
-    @endslot
-    @slot('keywords')
-        {{$keywords}}
-    @endslot
-    @slot('description')
-        {{$description}}
-    @endslot
+        @slot('title')
+            {{$pageProps['title']}}
+        @endslot
+        @slot('keywords')
+            {{$pageProps['keywords']}}
+        @endslot
+        @slot('meta_description')
+            {{$pageProps['meta_description']}}
+        @endslot
     @endhead
+
+
+    @foreach ($pageProps['links'] as $link)
+    
+        <link id="{{$link['attr_id']}}" type="{{$link['link_type']}}" rel="{{$link['rel']}}"  href="{{$link['href']}}" media="{{$link['media']}}">
+
+    @endforeach
+  
+
 </head>
 
 <body>

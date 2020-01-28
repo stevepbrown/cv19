@@ -3,49 +3,59 @@
 namespace App\Http\Controllers;
 use App\PageProps;
 use App\Link;
+use Illuminate\Support\Collection;
+use illuminate\Support\Str;
+use illuminate\Support\Arr;
+
 
 use Illuminate\Http\Request;
 
 class GenericPageController extends Controller
 {
 
-
+protected $pageProps;
 protected $links;
-protected $keywords;
+
 
 
 public function index(Request $request){
 
-
     $requestPath = (!$request->path?'/':$request->path);
-
-
-
-    // DEBUGONLY(SPB): 
     $pageProps = PageProps::with('links','keywords')->where('slug',$requestPath)->first();
-    
-
-    $this->links = collect();
-    
-    foreach($pageProps->links as $link)  {
-
         
-        $this->links->push(($this->buildLink($link)));
+ // TODO(SPB): Remove this
+    // $links= collect(); 
 
-    }  
+    // foreach($pageProps->links as $link)  {
 
+    //     $strLink = $this->buildLink($link);
 
-    $this->keywords= $pageProps->keywords;
+    //     $links->push($strLink);
+        
+    // }  
     
+    // $links = $links->toArray();
+    // $links = Arr::flatten($links);
+    
+    
+    
+    $keywords= $this->buildKeywords($pageProps->keywords);
+    $links =  $pageProps->links->toArray();
+
 
     
-    // DEBUGONLY(SPB): 
-    dump($this->links);
-    dump($this->keywords);
+        
+    $pageProps = $pageProps->select('name','meta_description', 'title')->first()->toArray();
 
-    die();
+      
 
-    return view($pageProps['name'])->with($pageProps);
+    $this->pageProps = arr::collapse([$pageProps,['keywords'=>$keywords],['links'=>collect($links)]]);
+      
+    
+        
+    return view($this->pageProps['name'])->with(['pageProps'=>$this->pageProps]);
+
+
 
 }
 
@@ -68,10 +78,31 @@ public function index(Request $request){
         $media = ($link['media'] !== 'null'? null: $link['media']);
 
 
-        $str = "<link id=\"{$id}\" type=\"{$type}\" href=\"{$href}\" rel=\"{$rel}\" media=\"{$media}\"></link>";
+
+        $str = "<link id=\"{$id}\" type=\"{$type}\" href=\"{$href}\" rel=\"{$rel}\" media=\"{$media}\">";
+      
 
       
         return $str;
 
+    }
+
+    
+    /**
+     * function buildKeywords
+     *
+     * Creates a string of all the keyword values,
+     * with a comma separator
+     * 
+     * @param [collection] $keywords
+     * @return string
+     */
+    protected function buildKeywords(collection $keywords){
+        
+        foreach($keywords as $keyword){
+            $str = Str::finish((!isset($str)?"":$str),"{$keyword->text},");
+        }
+        
+        return Str::replaceLast(',','', $str);
     }
 }
