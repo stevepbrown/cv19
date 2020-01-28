@@ -28,19 +28,29 @@
 </head>
 
 <body>
-    <div id="div-document-container" class="container-fluid">
-        <div id="div-cookie-container" class="container">
-                @include('cookieConsent::index')
+    <div id="div-document-container" class="container-fluid px-5">
+        <div id="div-document-container" class="container-fluid">
+            <div id="div-cookie-container" class="container">
+                    @include('cookieConsent::index')
+            </div>
+            
+            <nav>
+                @include('partials.partial_main_nav')
+            </nav>
+            <main>
+                @yield('main')
+            </main>
+            <footer>
+                @include('partials.partial_footer')
+            </footer>
         </div>
-        @mainNav
-        @endmainNav
-        @yield('main')
     </div>
 
+    @scripts
+    @slot('sup-scripts')
+    @endslot
+    @endscripts
 </body>
-@scripts
-@slot('sup-scripts')
-@endslot
-@endscripts
+
 
 </html>
