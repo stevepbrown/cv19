@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\PageProps;
 use App\Link;
 use Illuminate\Support\Collection;
-use illuminate\Support\Str;
 use illuminate\Support\Arr;
+use illuminate\Support\Str;
 
 
 use Illuminate\Http\Request;
@@ -18,75 +18,54 @@ protected $links;
 
 
 
-public function index(Request $request){
 
-    $requestPath = (!$request->path?'/':$request->path);
+/**
+ * function show 
+ *
+ * Parses the request string, fetches page properties
+ * & related links, keywords etc.
+ * 
+ * Calls the appropriate view.
+ * 
+ * 
+ * @param Request $request
+ * @return view instance
+ */
+public function show(Request $request){
+
+    
+
+    $requestPath = ($request->path() !== '/'?"/{$request->path()}":$request->path());
+
     $pageProps = PageProps::with('links','keywords')->where('slug',$requestPath)->first();
-        
- // TODO(SPB): Remove this
-    // $links= collect(); 
 
-    // foreach($pageProps->links as $link)  {
 
-    //     $strLink = $this->buildLink($link);
-
-    //     $links->push($strLink);
-        
-    // }  
-    
-    // $links = $links->toArray();
-    // $links = Arr::flatten($links);
-    
-    
-    
     $keywords= $this->buildKeywords($pageProps->keywords);
     $links =  $pageProps->links->toArray();
-
-
+    $name = $pageProps->name;
+    $title = $pageProps->title;
+    $description = $pageProps->meta_description;
     
+    $this->pageProps = arr::add($this->pageProps, 'title',$title);
+    $this->pageProps = arr::add($this->pageProps, 'description',$description);
+    $this->pageProps = arr::add($this->pageProps, 'keywords',$keywords);
+    $this->pageProps = arr::add($this->pageProps, 'links',$links);
+   
+   
+    // decide whether to return simple view, or hand-off to a specialised controller
+    switch ($this->pageProps['name']) {
+        case 'cv':
+            return route('profile', ['id' => 1]);
+            break;
         
-    $pageProps = $pageProps->select('name','meta_description', 'title')->first()->toArray();
-
-      
-
-    $this->pageProps = arr::collapse([$pageProps,['keywords'=>$keywords],['links'=>collect($links)]]);
-      
+        default:
+            return view($pageProps->name)->with($this->pageProps);
+            break;
+    }
     
-        
-    return view($this->pageProps['name'])->with(['pageProps'=>$this->pageProps]);
-
-
+   
 
 }
-
-
-    /**
-     *  function buildLink
-     *
-     * Returns a complete html link
-     * 
-     * @param Link $link
-     * @return str
-     */
-        protected function buildLink(Link $link) {
-
-   
-        $id = $link['attr_id'];
-        $type = $link['link_type'];
-        $href = $link['href'];
-        $rel = $link['rel'];
-        $media = ($link['media'] !== 'null'? null: $link['media']);
-
-
-
-        $str = "<link id=\"{$id}\" type=\"{$type}\" href=\"{$href}\" rel=\"{$rel}\" media=\"{$media}\">";
-      
-
-      
-        return $str;
-
-    }
-
     
     /**
      * function buildKeywords
@@ -99,6 +78,8 @@ public function index(Request $request){
      */
     protected function buildKeywords(collection $keywords){
         
+        
+
         foreach($keywords as $keyword){
             $str = Str::finish((!isset($str)?"":$str),"{$keyword->text},");
         }

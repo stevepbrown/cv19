@@ -8,7 +8,7 @@ use App\Institution as Institutions;
 
 
 
-class CurriculumVitaeController extends Controller
+class CurriculumVitaeController extends GenericPageController
 {
 
     protected $vw;
@@ -21,17 +21,14 @@ class CurriculumVitaeController extends Controller
     public const INIT_HEADER_LEVEL = 3; // Determines the initial header level for the skills iteration
 
 
-    protected $pageProps = [
-                            'title'=>'CV',
-                            'keywords'=>'Web Developer,CV,curriculum vitae,skills,work experience,institutions',
-                            'description'=>'Web developer with Laravel experience seeking an entry-level position in the North-West of England'];
+   
 /**
      * Single invocation function
      * to assemble the various models and return the 
      * data to the view
      * @return View
      */
-    public function __invoke()
+    public function __invoke($pageProps)
     {
         $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
         
@@ -66,7 +63,7 @@ class CurriculumVitaeController extends Controller
         
 
         
-        $this->vw = view('curriculum_vitae',[
+        $this->vw = view('cv',[
                         'skills'=>$this->skills,
                         'employers'=>$this->employers,
                         'roles'=>$this->roles,

@@ -7,18 +7,18 @@
 <head>
     @head
         @slot('title')
-            {{$pageProps['title']}}
+            {{title}}
         @endslot
         @slot('keywords')
-            {{$pageProps['keywords']}}
+            {{$keywords}}
         @endslot
         @slot('meta_description')
-            {{$pageProps['meta_description']}}
+            {{$description}}
         @endslot
     @endhead
 
 
-    @foreach ($pageProps['links'] as $link)
+    @foreach ($links as $link)
     
         <link id="{{$link['attr_id']}}" type="{{$link['link_type']}}" rel="{{$link['rel']}}"  href="{{$link['href']}}" media="{{$link['media']}}">
 
@@ -30,7 +30,7 @@
 <body>
     <div id="div-document-container" class="container-fluid px-5">
         <div id="div-document-container" class="container-fluid">
-            <div id="div-cookie-container" class="container">
+            <div id="div-cookie-container" class="container bg-secondary text-light my-5 p-4">
                     @include('cookieConsent::index')
             </div>
             
