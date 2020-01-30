@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\PageProps;
+use App\PageProps as PageProps;
 use App\Link;
 use Illuminate\Support\Collection;
 use illuminate\Support\Arr;
@@ -10,62 +10,69 @@ use illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
-class GenericPageController extends Controller
+ class GenericPageController extends Controller
 {
 
-protected $pageProps;
-protected $links;
+    protected $requestPath;
 
 
 
 
-/**
- * function show 
- *
- * Parses the request string, fetches page properties
- * & related links, keywords etc.
- * 
- * Calls the appropriate view.
- * 
- * 
- * @param Request $request
- * @return view instance
- */
-public function show(Request $request){
+    public function __construct(Request $request){
 
-    
-
-    $requestPath = ($request->path() !== '/'?"/{$request->path()}":$request->path());
-
-    $pageProps = PageProps::with('links','keywords')->where('slug',$requestPath)->first();
-
-
-    $keywords= $this->buildKeywords($pageProps->keywords);
-    $links =  $pageProps->links->toArray();
-    $name = $pageProps->name;
-    $title = $pageProps->title;
-    $description = $pageProps->meta_description;
-    
-    $this->pageProps = arr::add($this->pageProps, 'title',$title);
-    $this->pageProps = arr::add($this->pageProps, 'description',$description);
-    $this->pageProps = arr::add($this->pageProps, 'keywords',$keywords);
-    $this->pageProps = arr::add($this->pageProps, 'links',$links);
-   
-   
-    // decide whether to return simple view, or hand-off to a specialised controller
-    switch ($this->pageProps['name']) {
-        case 'cv':
-            return route('profile', ['id' => 1]);
-            break;
+        $this->setRequestPath($request);
         
-        default:
-            return view($pageProps->name)->with($this->pageProps);
-            break;
-    }
-    
-   
 
-}
+    }
+
+    public function setRequestPath($request){
+
+        $this->requestPath =  ($request->path() !== '/'?"/{$request->path()}":$request->path());
+
+    }
+
+
+    protected function getRequestPath(){
+
+        return $this->requestPath;
+    }
+
+
+    protected function getProps(){
+
+        return PageProps::with('links','keywords')->where('slug',$this->getRequestPath())->first();
+    }
+
+    protected function getKeywords(){
+
+        return $this->buildKeywords($this->getProps()->keywords);
+
+    }
+
+    protected function getLinks() {
+
+        return $this->getProps()->links->toArray();
+            
+    } 
+
+
+    protected function getPageAttributes(){
+
+        $props = $this->getProps()->toArray();
+
+        $attributes = array();
+        $attributes = arr::add($attributes, 'name',$props['name']);
+        $attributes = arr::add($attributes, 'title',$props['title']);
+        $attributes = arr::add($attributes, 'description',$props['meta_description']);
+        $attributes = arr::add($attributes, 'keywords',$this->getkeywords());
+        $attributes = arr::add($attributes, 'links',$this->getLinks());
+
+        
+        return $attributes;
+
+    }
+
+
     
     /**
      * function buildKeywords
@@ -86,4 +93,15 @@ public function show(Request $request){
         
         return Str::replaceLast(',','', $str);
     }
+
+    public function show(){
+
+        $props = $this->getPageAttributes();
+        
+
+  
+        return view($props['name'],$props);
+        
+    }
+   
 }

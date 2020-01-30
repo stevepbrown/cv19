@@ -16,7 +16,7 @@ use App\Http\Controllers\BatchMailController;
 
 Route::get('/', 'GenericPageController@show');
 
-Route::get('/cv','GenericPageController@show');
+Route::get('/cv','CVController');
 
 Route::get('/print','PrintController');
 

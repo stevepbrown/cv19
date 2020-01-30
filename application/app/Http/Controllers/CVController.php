@@ -8,7 +8,7 @@ use App\Institution as Institutions;
 
 
 
-class CurriculumVitaeController extends GenericPageController
+class CVController extends GenericPageController
 {
 
     protected $vw;
@@ -28,7 +28,7 @@ class CurriculumVitaeController extends GenericPageController
      * data to the view
      * @return View
      */
-    public function __invoke($pageProps)
+    public function __invoke()
     {
         $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
         
@@ -61,8 +61,10 @@ class CurriculumVitaeController extends GenericPageController
         $this->responsibilities = $responsibilities;
         $this->qualifications = $qualifications;
         
+        $props = $this->getPageAttributes();
 
-        
+
+      
         $this->vw = view('cv',[
                         'skills'=>$this->skills,
                         'employers'=>$this->employers,
@@ -70,7 +72,12 @@ class CurriculumVitaeController extends GenericPageController
                         'responsibilities'=>$this->responsibilities,
                         'qualifications'=>$this->qualifications,
                         'initialHeaderLevel'=>$this::INIT_HEADER_LEVEL,
-                        'pageProps'=>$this->pageProps]);
+                        'title'=> $props['title'],
+                        'description' => $props['description'],
+                        'keywords' => $props['keywords'],
+                        'links' => $props['links']]);
+
+            
 
         return $this->vw;                 
 

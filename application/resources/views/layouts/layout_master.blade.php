@@ -7,12 +7,12 @@
 <head>
     @head
         @slot('title')
-            {{title}}
+            {{$title}}
         @endslot
         @slot('keywords')
             {{$keywords}}
         @endslot
-        @slot('meta_description')
+        @slot('description')
             {{$description}}
         @endslot
     @endhead
