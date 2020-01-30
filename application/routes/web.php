@@ -16,6 +16,15 @@ use App\Http\Controllers\BatchMailController;
 
 Route::get('/', 'GenericPageController@show');
 
+
+Route::get('/contact','GenericPageController@show');
+
+Route::get('/faq','GenericPageController@show');
+
+Route::get('/bio','GenericPageController@show');
+
+Route::get('/aboutapp','GenericPageController@show');
+
 Route::get('/cv','CVController');
 
 Route::get('/print','PrintController');

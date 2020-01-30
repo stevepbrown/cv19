@@ -97,9 +97,9 @@ use Illuminate\Http\Request;
     public function show(){
 
         $props = $this->getPageAttributes();
-        
 
-  
+   
+
         return view($props['name'],$props);
         
     }

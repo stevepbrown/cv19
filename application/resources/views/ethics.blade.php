@@ -3,6 +3,6 @@
 
 @section('main')
 
-<h1>FAQ!</h1>
+<h1>ETHICS!</h1>
 
 @endsection
