@@ -30,19 +30,30 @@
 <body>
     <div id="div-document-container" class="container-fluid px-5">
         <div id="div-document-container" class="container-fluid">
-            <div id="div-cookie-container" class="container bg-secondary text-light my-5 p-4">
-                    @include('cookieConsent::index')
-            </div>
             
-            <nav>
-                @include('partials.partial_main_nav')
-            </nav>
+            {{-- Uses Spatie/Cooke --}}
+            @include('cookieConsent::index')
+
+            <div class="container mx-auto">
+                <h1 class="display-3">{{$title}}</h1>
+            </div>           
+            {{-- Main navigation --}}
+            {{-- Voyager menu , "you can even specify your own view and stylize your menu however you would like. Say for instance that we had a file located at resources/views/my_menu.blade.php ... Then anywhere you wanted to display your menu you can now call:
+
+            menu('main', 'my_menu')""
+            
+            --}}
+            {{menu('main_nav','partials.partial_main_nav')}}
+
+
+   
+
             <main>
                 @yield('main')
             </main>
-            <footer>
-                @include('partials.partial_footer')
-            </footer>
+           {{-- footer --}}
+            @include('partials.partial_footer')
+            
         </div>
     </div>
 
