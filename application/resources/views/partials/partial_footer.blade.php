@@ -1,15 +1,16 @@
-<footer class="h-25 fixed-bottom my-0">
+{{-- <footer class="container container-fluid"> --}}
+<footer class="fix-bottom">
     <div class="container container-fluid">
-        <div class="row">
+        <div class="row align-items-top">
             <div class="col-12 col-md-6">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">Useful Links</h5>
-                            {{menu('main_footer_nav')}}
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Useful Links</h5>
+                        {{menu('main_footer_nav')}}
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6  ">
+            <div class="col-12 col-md-6">
                 <div class="card h-100">
                     <div class="card-body">
                         <h5 class="card-title">Resources</h5>
@@ -18,9 +19,15 @@
                     </div>
                 </div>
             </div>
-            <p width="90%" class="mx-auto">&copy; Steve Brown {{date('Y')}}</p>
         </div>
     </div>
-
- 
 </footer>
+
+{{-- <div class="row">
+        <div class="col-0"></div>
+        <div class="col-10">
+            &copy; Steve Brown {{date('Y')}}
+</div>
+<div class="col-0"></div>
+</div> --}}
+{{-- </footer> --}}

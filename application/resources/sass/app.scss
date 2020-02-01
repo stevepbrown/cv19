@@ -9,6 +9,28 @@
 
 
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+//   margin-bottom: 60px; /* Margin bottom by footer height */
+  margin-bottom:270px; /* Margin bottom by footer height */
+}
+
+.fix-bottom {
+  box-sizing:border-box;
+  position: absolute;
+  // height:250px;
+  bottom: 0;
+  width:90%;
+  margin-top:5px;
+  margin-bottom:15px;
+
+
+   
+}
 
 
 
