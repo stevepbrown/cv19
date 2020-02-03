@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('telescope:prune')->daily();
         $schedule->command('hook:check')->sundays()->at('12:00');
+        $schedule->command('sitemap:generate')->daily();
     }
 
     /**

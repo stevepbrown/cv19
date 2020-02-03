@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLinkPageTable extends Migration
+class CreateLinkPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLinkPageTable extends Migration
      */
     public function up()
     {
-        Schema::create('link_page', function (Blueprint $table) {
-            $table->increments('id')->primaryKey();
-            $table->integer('page_props_page_id');
+        Schema::create('link_pages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('page_props_page_id')->unique();
             $table->bigInteger('link_id');
             $table->timestamps();
-            $table->unique(['page_props_page_id','link_id']);
-            $table->foreign('page_props_page_id')->references('page_props')->on('page_id');
             
         });
     }
@@ -31,6 +29,6 @@ class CreateLinkPageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('link_page');
+        Schema::drop('link_pages');
     }
 }

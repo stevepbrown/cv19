@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTablePageLinksAdFkPagePropsOnPagePropsPageId extends Migration
+class AlterTableLinkPagesAddFkConstraintPagePropsPageId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterTablePageLinksAdFkPagePropsOnPagePropsPageId extends Migration
      */
     public function up()
     {
-        Schema::table('page_links', function (Blueprint $table) {
-            $table->foreign('page_props_page_id')->references('page_props')->on('page_id');
+        Schema::table('link_pages', function (Blueprint $table) {
+            $table->foreign('page_props_page_id')->references('page_id')->on('page_props');
         });
     }
 
@@ -25,8 +25,9 @@ class AlterTablePageLinksAdFkPagePropsOnPagePropsPageId extends Migration
      */
     public function down()
     {
-        Schema::table('page_links', function (Blueprint $table) {
-           $table->dropForeign('page_links_page_props_page_id_foreign'); 
+        Schema::table('link_pages', function (Blueprint $table) {
+         
+            $table->dropForeign('link_pages_page_props_page_id_foreign');
         });
     }
 }
