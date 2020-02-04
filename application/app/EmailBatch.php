@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use App\Person;
 use App\EmailLog;
+use App\Mail\BatchMail;
 
 
 
@@ -66,10 +67,15 @@ class EmailBatch extends Model
 
    
     
-    public function createEmailLog($recipients){
+        /**
+         * Undocumented function
+         *
+         * @param [type] $recipients
+         * @return void
+         */
+        public function createEmailLog($recipients){
 
-        
-        
+               
         foreach($recipients as $recipient){
 
        
@@ -82,6 +88,26 @@ class EmailBatch extends Model
             $emailLog->dispatched = false;
             $emailLog->save();
             
+
+        }
+
+    }
+
+    
+    public function send($request){
+
+        
+        
+        
+        // Fetch all the logs for mail batch that have not been invoked
+        $batchLogs = EmailLog::where('batch_id',$batchId)->where('invoked',!true);
+
+        foreach($batchLogs as $batchLog){
+
+                
+            $batchLog->
+
+
 
         }
 

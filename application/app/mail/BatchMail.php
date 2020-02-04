@@ -6,6 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use  Illuminate\Support\Str;
+use App\EmailLog;
 
 
 
@@ -21,14 +22,12 @@ class BatchMail extends Mailable
      *
      * @return void
      */
-    public function __construct($emailLog)
+    public function __construct(EmailLog $emailLog)
     {
-     
 
       $this->emailLog = $emailLog;
       $this->subject = $this->emailLog->template->subject;
       $this->viewName = 'mail.'.str::title($this->emailLog->template->name);
-          
      
  
         }
