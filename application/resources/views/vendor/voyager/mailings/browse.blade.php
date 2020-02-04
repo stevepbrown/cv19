@@ -1,8 +1,6 @@
 @extends('voyager::master')
 
 
-
-
 @section('page_title', __('voyager::generic.viewing').' '.$dataType->getTranslatedAttribute('display_name_plural'))
 
 @section('page_header')
@@ -10,7 +8,7 @@
         <h1 class="page-title">
             <i class="{{ $dataType->icon }}"></i> {{ $dataType->getTranslatedAttribute('display_name_plural') }}
         </h1>
-        @can('add', app($dataType->model_name))
+        {{-- @can('add', app($dataType->model_name))
             <a href="{{ route('voyager.'.$dataType->slug.'.create') }}" class="btn btn-success btn-add-new">
                 <i class="voyager-plus"></i> <span>{{ __('voyager::generic.add_new') }}</span>
             </a>
@@ -18,7 +16,7 @@
                
              <i class="voyager-plus"></i> <span>Create new batch</span>
             </a>
-        @endcan
+        @endcan --}}
         @can('delete', app($dataType->model_name))
             @include('voyager::partials.bulk-delete')
         @endcan
@@ -44,6 +42,108 @@
 @stop
 
 @section('content')
+
+
+<div id="div-browse-template" class="page-content browse container-fluid">
+    @include('voyager::alerts')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-bordered">
+                <div class="panel-body">
+                    {{-- @if ($isServerSide)
+                        <form method="get" class="form-search">
+                            <div id="search-input">
+                                <div class="col-2">
+                                    <select id="search_key" name="key">
+                                        @foreach($searchNames as $key => $name)
+                                            <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)) selected @endif>{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <select id="filter" name="filter">
+                                        <option value="contains" @if($search->filter == "contains") selected @endif>contains</option>
+                                        <option value="equals" @if($search->filter == "equals") selected @endif>=</option>
+                                    </select>
+                                </div>
+                                <div class="input-group col-md-12">
+                                    <input type="text" class="form-control" placeholder="{{ __('voyager::generic.search') }}" name="s" value="{{ $search->value }}">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-info btn-lg" type="submit">
+                                            <i class="voyager-search"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            @if (Request::has('sort_order') && Request::has('order_by'))
+                                <input type="hidden" name="sort_order" value="{{ Request::get('sort_order') }}">
+                                <input type="hidden" name="order_by" value="{{ Request::get('order_by') }}">
+                            @endif
+                        </form>
+                    @endif --}}
+                    <div class="table-responsive">
+                        <table id="table-data-table-templates" class="table table-hover">
+                             <thead>
+                                <tr>
+                                    {{-- @if($showCheckboxColumn)
+                                        <th>
+                                            <input type="checkbox" class="select_all">
+                                        </th>
+                                    @endif --}}
+
+                                   
+                                    {{-- @foreach($dataType->browseRows as $row) --}}
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Subject</th>
+                                    <th>Description</th>
+                                    <th>Action</th>   
+                                </tr>
+                            </thead>
+
+                          
+                            <tbody>
+
+                                @foreach ($templates as $template)
+                                    <tr>
+                                        <td>{{$template['id']}}</td> 
+                                        <td>{{$template['name']}}</td> 
+                                        <td>{{$template['subject']}}</td>
+                                        <td>{{$template['description']}}</td>
+                                        <td><a href="./create/{{$template['id']}}" class="btn btn-success btn-add-new">
+                                            <i class="voyager-plus"></i><span>Create new batch</span>
+                                           </a></td>
+                                    </tr>     
+                                @endforeach
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    @if ($isServerSide)
+                        <div class="pull-left">
+                            <div role="status" class="show-res" aria-live="polite">{{ trans_choice(
+                                'voyager::generic.showing_entries', $dataTypeContent->total(), [
+                                    'from' => $dataTypeContent->firstItem(),
+                                    'to' => $dataTypeContent->lastItem(),
+                                    'all' => $dataTypeContent->total()
+                                ]) }}</div>
+                        </div>
+                        <div class="pull-right">
+                            {{ $dataTypeContent->appends([
+                                's' => $search->value,
+                                'filter' => $search->filter,
+                                'key' => $search->key,
+                                'order_by' => $orderBy,
+                                'sort_order' => $sortOrder,
+                                'showSoftDeleted' => $showSoftDeleted,
+                            ])->links() }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
         <div class="row">

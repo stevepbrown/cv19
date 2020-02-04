@@ -8,7 +8,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use App\Person;
 use App\EmailLog;
+use App\EmailTemplate;
 use App\Mail\BatchMail;
+
 
 
 

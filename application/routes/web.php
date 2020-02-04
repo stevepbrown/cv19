@@ -36,9 +36,9 @@ Route::get('/print','PrintController');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
-    // Route::get('mailings/','BatchMailController@index'); 
-    // Route::get('mailings/create/{template_id}','BatchMailController@create');
-    // Route::get('mailngs/send/{batch_id}','BatchMailController@send');
+    // Route::get('mailings','BatchMailController@index');
+    Route::get('mailings/create/{templateId}','BatchMailController@create');
+    Route::get('mailngs/send/{batchId}','BatchMailController@send');
     
     
    

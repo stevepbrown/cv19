@@ -7,6 +7,7 @@ SELECT
 `OGN`.`name` `organisation_name`,
 `P`.`id` `person_id`,
 CONCAT(`P`.`family_name`,', ',`P`.`given_name`) `person_name`,
+(SELECT  CASE (`EAV`.`value`) WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE NULL END) `person_template_active`,
 `P`.`email` `person_email`,
 `PTEMP`.`email_templates_id` `template_id`,
 `TEMPLATE`.`name` `template_name`,
@@ -28,7 +29,8 @@ LEFT JOIN `email_templates` `TEMPLATE` ON `TEMPLATE`.`id` = `PTEMP`.`email_templ
 LEFT JOIN 
 
 (SELECT * FROM `entity_attribute_value`
-WHERE `attribute_id` = 1 AND `app_table_id` = 23) 
+WHERE `attribute_id` = 1 AND `app_table_id` = 23
+) 
  `EAV` ON `EAV`.`key` =  `PTEMP`.`id`
 
 ORDER BY `OGN`.`name`,`P`.`family_name`,`P`.`given_name`

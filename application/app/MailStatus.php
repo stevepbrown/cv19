@@ -15,20 +15,20 @@ protected $table = 'vwEmailStatus';
      * 
      * @var array
      */
-//     protected $guarded = [
+    protected $guarded = [
         
-//                         'organisation_id',
-//                         'organisation_name',
-//                         'person_id',
-//                         'person_name',
-//                         'person_email',
-//                         'template_id','template_name',
-//                         'batch_id',
-//                         'invoked',
-//                         'invoked_when',
-//                         'failed',
-//                         'bounced'
+                        'organisation_id',
+                        'organisation_name',
+                        'person_id',
+                        'person_name',
+                        'person_email',
+                        'template_id','template_name',
+                        'batch_id',
+                        'invoked',
+                        'invoked_when',
+                        'failed',
+                        'bounced'
 
-//                         ];
+                        ];
 
 }

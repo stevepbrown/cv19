@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Person;
+use App\EmailTemplate;
 
 
 
@@ -23,10 +24,11 @@ class EmailLog extends Model
      */
     
     
- public function mailAlreadyLogged($person_id,$template_id) {
+ public function mailAlreadyLogged(Person $person,EmailTemplate $template) {
        
+
         // True if record already added
-        return  (EmailLog::where('person_id', $person_id)->where('template_id', $template_id)->exists());
+        return  (EmailLog::where('person_id', $person->id)->where('template_id',$template->id)->exists());
             
         }
 

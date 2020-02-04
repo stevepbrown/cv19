@@ -21,6 +21,8 @@ class batchMailController extends \TCG\Voyager\Http\Controllers\VoyagerBaseContr
 
 {
 
+protected $templates;
+protected $batches;
 
 
     /*
@@ -40,6 +42,10 @@ DELETE 	/mailings/{photo} 	destroy 	mailings.destroy
 
 public function index(Request $request)
 {
+    $templates = EmailTemplate::select('id','name','subject','description')->get()->toArray();
+
+ 
+    
     // GET THE SLUG, ex. 'posts', 'pages', etc.
     $slug = $this->getSlug($request);
 
@@ -185,7 +191,8 @@ public function index(Request $request)
         'defaultSearchKey',
         'usesSoftDeletes',
         'showSoftDeleted',
-        'showCheckboxColumn'
+        'showCheckboxColumn',
+        'templates'   
     ));
 }
    
@@ -197,14 +204,11 @@ public function index(Request $request)
      */
     public function create(Request $request)
     {
-        
-        $slug = 'mailings';
-        $this->templateId = $request->template_id;
-        $this->currentRequest = $request;
+      
   
-        $this->createBatch($this->currentRequest);
+        $this->createBatch($request);
 
-
+        $slug = 'mailings';    
       
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -276,7 +280,7 @@ public function index(Request $request)
 
     
    
-    protected function createBatch($template_id){
+    protected function createBatch(Request $request){
 
         
      // Fetch the existing logged emails
@@ -288,19 +292,25 @@ public function index(Request $request)
     // Create a new batch_id based upon the highest existing batch_id
     $insBatchId =  ($emailLogs->max('batch_id')+1);
    
-    // Fetch the template from the request
-    $template =  EmailTemplate::where('id',$this->currentRequest->template_id)->first();
+
     
+    // Fetch the template from the request
+    $template =  EmailTemplate::select('id','name','subject','description')->where('id',$request->templateId)->first();
 
     
     foreach($people as $person) {
         
+        
+        
+
         // create a new email log instance
         $emailLog = new EmailLog;
         
+
         // proceed only if no existing log
-        if (!$emailLog->mailAlreadyLogged($person->id,$template->id)){
+        if (!$emailLog->mailAlreadyLogged($person,$template)){
             
+    
             $emailLog->template_id = $template->id;
             $emailLog->batch_id = $insBatchId;
             $emailLog->person_id = $person->id;
