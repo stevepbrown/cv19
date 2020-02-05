@@ -8,6 +8,8 @@ use TCG\Voyager\Facades\Voyager;
 use  Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Arr;
+
 use App\EmailLog;
 use App\EmailTemplate;
 use App\Person;
@@ -17,35 +19,22 @@ use App\mail\BatchMail as BatchMail;
 
 class batchMailController extends \TCG\Voyager\Http\Controllers\VoyagerBaseController
 
-    
+   
 
 {
 
-protected $templates;
-protected $batches;
-
-
-    /*
-
-GET 	/mailings/$batch_id?} 	index 	mailings.index
-GET 	/mailings/create/{template_id} 	create 	mailings.create
-POST 	/mailings 	store 	mailings.store
-GET 	/mailings/{} 	show 	mailings.show
-GET 	/mailings/edit/ 	edit 	mailings.edit
-PUT/PATCH 	/mailings/{photo} 	update 	mailings.update
-DELETE 	/mailings/{photo} 	destroy 	mailings.destroy
-
-    */
-
-
-/* voyager resource methods */
-
+/**
+ * function  index
+ *
+ * Returns a voyager browse view for
+ * email_logs (mailings)
+ * 
+ * @param Request $request
+ * @return view
+ */
 public function index(Request $request)
 {
-    $templates = EmailTemplate::select('id','name','subject','description')->get()->toArray();
 
- 
-    
     // GET THE SLUG, ex. 'posts', 'pages', etc.
     $slug = $this->getSlug($request);
 
@@ -55,8 +44,168 @@ public function index(Request $request)
     // Check permission
     $this->authorize('browse', app($dataType->model_name));
 
-    $getter = $dataType->server_side ? 'paginate' : 'get';
+    
 
+
+    $view = 'voyager::bread.browse';
+
+    if (view()->exists("voyager::$slug.browse")) {
+        $view = "voyager::$slug.browse";
+    }
+
+    return Voyager::view($view, $this->prepareRender($request,$dataType));
+  
+}
+   
+
+    /**
+     * function create
+     * 
+     * Creates a new mail batch -
+     * Obtains voyager model corresponding to slug,
+     * authorises and hands-off to
+     * a separate internal function
+     * to add to the email_log 
+     *  
+     * @param obj $request 
+     * @return void
+     */
+    public function create(Request $request)
+    {
+     
+    // GET THE SLUG, ex. 'posts', 'pages', etc.
+    $slug = $this->getSlug($request);
+
+    // GET THE DataType based on the slug
+    $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
+     
+
+    // Check permission
+    $this->authorize('add', app($dataType->model_name));
+     
+        
+    // create the batch & return a list of accepted / rejected recipients
+    //( based upon whether they have an extant matching log entry)
+    $list = $this->createBatch($request);
+     
+    
+    
+    $view = 'voyager::bread.browse';
+
+    if (view()->exists("voyager::$slug.browse")) {
+        $view = "voyager::$slug.browse";
+    }
+
+    return Voyager::view($view, $this->prepareRender($request,$dataType,$statusLists = $list));
+
+      
+          
+    }
+
+   
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+  
+
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+   
+ 
+    
+   
+    protected function createBatch(Request $request){
+
+    $accepted = collect();
+    $rejected = collect();
+    
+    
+    // Fetch the existing logged emails
+    $emailLogs = EmailLog::all();
+
+    // Fetch all people
+    $people = Person::all();
+    
+    // Create a new batch_id based upon the highest existing batch_id
+    $insBatchId =  ($emailLogs->max('batch_id')+1);
+   
+
+    
+    // Fetch the template from the request
+    $template =  EmailTemplate::select('id','name','subject','description')->where('id',$request->templateId)->first();
+
+    
+    foreach($people as $person) {
+        
+        
+        
+
+        // create a new email log instance
+        $emailLog = new EmailLog;
+        
+
+        // proceed only if no existing log
+        if (!$emailLog->mailAlreadyLogged($person,$template)){
+            
+    
+            $emailLog->template_id = $template->id;
+            $emailLog->batch_id = $insBatchId;
+            $emailLog->person_id = $person->id;
+            $emailLog->save();
+
+            $accepted->push($person->name);
+
+        
+    }   
+
+        else{
+
+            
+            $rejected->push($person->name);
+
+
+        }
+
+       
+}
+
+
+    return ([
+        'accepted'=>$accepted,'rejected'=>$rejected
+        ]);
+    }
+
+
+    private function prepareRender($request,$dataType,array $lists = null) {
+
+        $statusLists = ($lists = null?[]:$lists);
+
+               
+        
+        $templates = EmailTemplate::select('id','name','subject','description')->get()->toArray();
+   
+        $getter = $dataType->server_side ? 'paginate' : 'get';
+        
     $search = (object) ['value' => $request->get('s'), 'key' => $request->get('key'), 'filter' => $request->get('filter')];
 
     $searchNames = [];
@@ -123,11 +272,7 @@ public function index(Request $request)
         $model = false;
     }
 
-    // Check if BREAD is Translatable
-    if (($isModelTranslatable = is_bread_translatable($model))) {
-        $dataTypeContent->load('translations');
-    }
-
+  
     // Check if server side pagination is enabled
     $isServerSide = isset($dataType->server_side) && $dataType->server_side;
 
@@ -171,167 +316,21 @@ public function index(Request $request)
         }
     }
 
-    $view = 'voyager::bread.browse';
-
-    if (view()->exists("voyager::$slug.browse")) {
-        $view = "voyager::$slug.browse";
-    }
-
-    return Voyager::view($view, compact(
+    return compact(
         'actions',
         'dataType',
         'dataTypeContent',
-        'isModelTranslatable',
         'search',
         'orderBy',
         'orderColumn',
         'sortOrder',
         'searchNames',
-        'isServerSide',
         'defaultSearchKey',
         'usesSoftDeletes',
         'showSoftDeleted',
         'showCheckboxColumn',
-        'templates'   
-    ));
-}
-   
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-      
-  
-        $this->createBatch($request);
-
-        $slug = 'mailings';    
-      
-
-        $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
-
-        // Check permission
-        $this->authorize('add', app($dataType->model_name));
-
-        $dataTypeContent = (strlen($dataType->model_name) != 0)
-                            ? new $dataType->model_name()
-                            : false;
-
-        foreach ($dataType->addRows as $key => $row) {
-            $dataType->addRows[$key]['col_width'] = $row->details->width ?? 100;
-        }
-
-        // If a column has a relationship associated with it, we do not want to show that field
-        $this->removeRelationshipField($dataType, 'add');
-
-        // Check if BREAD is Translatable
-        $isModelTranslatable = is_bread_translatable($dataTypeContent);
-
-        $view = 'voyager::bread.edit-add';
-
-        if (view()->exists("voyager::$slug.edit-add")) {
-            $view = "voyager::$slug.edit-add";
-        }
-
-        return Voyager::view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable'));
+        'templates',
+        'statusLists'   
+    );
     }
-
-   
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-  
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-
-/*  resource methods ENDS */
-
-
-
-    
-    protected $batchId;
-    protected $templateId;
-    protected $currentRequest;
-
-    
-   
-    protected function createBatch(Request $request){
-
-        
-     // Fetch the existing logged emails
-    $emailLogs = EmailLog::all();
-
-    // Fetch all people
-    $people = Person::all();
-    
-    // Create a new batch_id based upon the highest existing batch_id
-    $insBatchId =  ($emailLogs->max('batch_id')+1);
-   
-
-    
-    // Fetch the template from the request
-    $template =  EmailTemplate::select('id','name','subject','description')->where('id',$request->templateId)->first();
-
-    
-    foreach($people as $person) {
-        
-        
-        
-
-        // create a new email log instance
-        $emailLog = new EmailLog;
-        
-
-        // proceed only if no existing log
-        if (!$emailLog->mailAlreadyLogged($person,$template)){
-            
-    
-            $emailLog->template_id = $template->id;
-            $emailLog->batch_id = $insBatchId;
-            $emailLog->person_id = $person->id;
-            $emailLog->save();
-                   
-        
-            echo("<p>$person->given_name $person->family_name logged for sending</p>");    
-        
-        }else{
-            echo("<p><strong>REJECTED: $person->given_name $person->family_name</strong> has not been logged</p>");    
-        }
-    }
-
-    return 'Finished';
-
-
-    }
-
-    protected function sendBatch($batch_id){
-
-
-    }
-
 }

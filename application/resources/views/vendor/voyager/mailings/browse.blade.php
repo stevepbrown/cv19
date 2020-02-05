@@ -50,49 +50,11 @@
         <div class="col-md-12">
             <div class="panel panel-bordered">
                 <div class="panel-body">
-                    {{-- @if ($isServerSide)
-                        <form method="get" class="form-search">
-                            <div id="search-input">
-                                <div class="col-2">
-                                    <select id="search_key" name="key">
-                                        @foreach($searchNames as $key => $name)
-                                            <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)) selected @endif>{{ $name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                    <select id="filter" name="filter">
-                                        <option value="contains" @if($search->filter == "contains") selected @endif>contains</option>
-                                        <option value="equals" @if($search->filter == "equals") selected @endif>=</option>
-                                    </select>
-                                </div>
-                                <div class="input-group col-md-12">
-                                    <input type="text" class="form-control" placeholder="{{ __('voyager::generic.search') }}" name="s" value="{{ $search->value }}">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-info btn-lg" type="submit">
-                                            <i class="voyager-search"></i>
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            @if (Request::has('sort_order') && Request::has('order_by'))
-                                <input type="hidden" name="sort_order" value="{{ Request::get('sort_order') }}">
-                                <input type="hidden" name="order_by" value="{{ Request::get('order_by') }}">
-                            @endif
-                        </form>
-                    @endif --}}
+                   
                     <div class="table-responsive">
                         <table id="table-data-table-templates" class="table table-hover">
                              <thead>
                                 <tr>
-                                    {{-- @if($showCheckboxColumn)
-                                        <th>
-                                            <input type="checkbox" class="select_all">
-                                        </th>
-                                    @endif --}}
-
-                                   
-                                    {{-- @foreach($dataType->browseRows as $row) --}}
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Subject</th>
@@ -104,13 +66,15 @@
                           
                             <tbody>
 
+                                
+
                                 @foreach ($templates as $template)
                                     <tr>
                                         <td>{{$template['id']}}</td> 
                                         <td>{{$template['name']}}</td> 
                                         <td>{{$template['subject']}}</td>
                                         <td>{{$template['description']}}</td>
-                                        <td><a href="./create/{{$template['id']}}" class="btn btn-success btn-add-new">
+                                        <td><a href="{{url()->current()}}/create/{{$template['id']}}" class="btn btn-success btn-add-new">
                                             <i class="voyager-plus"></i><span>Create new batch</span>
                                            </a></td>
                                     </tr>     
@@ -119,28 +83,21 @@
                             </tbody>
                         </table>
                     </div>
-                    @if ($isServerSide)
-                        <div class="pull-left">
-                            <div role="status" class="show-res" aria-live="polite">{{ trans_choice(
-                                'voyager::generic.showing_entries', $dataTypeContent->total(), [
-                                    'from' => $dataTypeContent->firstItem(),
-                                    'to' => $dataTypeContent->lastItem(),
-                                    'all' => $dataTypeContent->total()
-                                ]) }}</div>
-                        </div>
-                        <div class="pull-right">
-                            {{ $dataTypeContent->appends([
-                                's' => $search->value,
-                                'filter' => $search->filter,
-                                'key' => $search->key,
-                                'order_by' => $orderBy,
-                                'sort_order' => $sortOrder,
-                                'showSoftDeleted' => $showSoftDeleted,
-                            ])->links() }}
-                        </div>
-                    @endif
-                </div>
+                                   </div>
             </div>
+        </div>
+    </div>
+    
+    {{dd(sizeof($statusLists['rejected']))}}
+    @foreach ($statusLists['rejected'] as $item)
+        <p>{{$item}}</p>
+    @endforeach
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container-fluid"><h4>People accepted in batch</h4></div>
+        </div>
+        <div class="col-md-6">
+            <div class="container-fluid"><h4>People rejected in batch</h4></div>
         </div>
     </div>
 </div>
@@ -150,38 +107,7 @@
             <div class="col-md-12">
                 <div class="panel panel-bordered">
                     <div class="panel-body">
-                        @if ($isServerSide)
-                            <form method="get" class="form-search">
-                                <div id="search-input">
-                                    <div class="col-2">
-                                        <select id="search_key" name="key">
-                                            @foreach($searchNames as $key => $name)
-                                                <option value="{{ $key }}" @if($search->key == $key || (empty($search->key) && $key == $defaultSearchKey)) selected @endif>{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-2">
-                                        <select id="filter" name="filter">
-                                            <option value="contains" @if($search->filter == "contains") selected @endif>contains</option>
-                                            <option value="equals" @if($search->filter == "equals") selected @endif>=</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group col-md-12">
-                                        <input type="text" class="form-control" placeholder="{{ __('voyager::generic.search') }}" name="s" value="{{ $search->value }}">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-info btn-lg" type="submit">
-                                                <i class="voyager-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                                @if (Request::has('sort_order') && Request::has('order_by'))
-                                    <input type="hidden" name="sort_order" value="{{ Request::get('sort_order') }}">
-                                    <input type="hidden" name="order_by" value="{{ Request::get('order_by') }}">
-                                @endif
-                            </form>
-                        @endif
-                        <div class="table-responsive">
+                                            <div class="table-responsive">
                             <table id="dataTable" class="table table-hover">
                                 <thead>
                                     <tr>
@@ -192,20 +118,9 @@
                                         @endif
                                         @foreach($dataType->browseRows as $row)
                                         <th>
-                                            @if ($isServerSide)
-                                                <a href="{{ $row->sortByUrl($orderBy, $sortOrder) }}">
-                                            @endif
+                                         
                                             {{ $row->getTranslatedAttribute('display_name') }}
-                                            @if ($isServerSide)
-                                                @if ($row->isCurrentSortField($orderBy))
-                                                    @if ($sortOrder == 'asc')
-                                                        <i class="voyager-angle-up pull-right"></i>
-                                                    @else
-                                                        <i class="voyager-angle-down pull-right"></i>
-                                                    @endif
-                                                @endif
-                                                </a>
-                                            @endif
+                                           
                                         </th>
                                         @endforeach
                                         <th class="actions text-right">{{ __('voyager::generic.actions') }}</th>
@@ -369,26 +284,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        @if ($isServerSide)
-                            <div class="pull-left">
-                                <div role="status" class="show-res" aria-live="polite">{{ trans_choice(
-                                    'voyager::generic.showing_entries', $dataTypeContent->total(), [
-                                        'from' => $dataTypeContent->firstItem(),
-                                        'to' => $dataTypeContent->lastItem(),
-                                        'all' => $dataTypeContent->total()
-                                    ]) }}</div>
-                            </div>
-                            <div class="pull-right">
-                                {{ $dataTypeContent->appends([
-                                    's' => $search->value,
-                                    'filter' => $search->filter,
-                                    'key' => $search->key,
-                                    'order_by' => $orderBy,
-                                    'sort_order' => $sortOrder,
-                                    'showSoftDeleted' => $showSoftDeleted,
-                                ])->links() }}
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -416,11 +311,7 @@
     </div><!-- /.modal -->
 @stop
 
-@section('css')
-@if(!$dataType->server_side && config('dashboard.data_tables.responsive'))
-    <link rel="stylesheet" href="{{ voyager_asset('lib/css/responsive.dataTables.min.css') }}">
-@endif
-@stop
+
 
 @section('javascript')
     <!-- DataTables -->
@@ -444,13 +335,7 @@
                 });
             @endif
 
-            @if ($isModelTranslatable)
-                $('.side-body').multilingual();
-                //Reinitialise the multilingual features when they change tab
-                $('#dataTable').on('draw.dt', function(){
-                    $('.side-body').data('multilingual').init();
-                })
-            @endif
+     
             $('.select_all').on('click', function(e) {
                 $('input[name="row_id"]').prop('checked', $(this).prop('checked')).trigger('change');
             });

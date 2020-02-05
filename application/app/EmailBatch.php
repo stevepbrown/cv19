@@ -104,14 +104,15 @@ class EmailBatch extends Model
         // Fetch all the logs for mail batch that have not been invoked
         $batchLogs = EmailLog::where('batch_id',$batchId)->where('invoked',!true);
 
-        foreach($batchLogs as $batchLog){
+        // FIXME(SPB): 
+        // foreach($batchLogs as $batchLog){
 
                 
-            $batchLog->
+        //     $batchLog->
 
 
 
-        }
+        // }
 
     }
 
