@@ -29,8 +29,7 @@ class EmailLog extends Model
     
  public function mailAlreadyLogged(Person $person,EmailTemplate $template) {
        
-
-        // True if record already added
+          // True if record already added
         return  (EmailLog::where('person_id', $person->id)->where('template_id',$template->id)->exists());
             
         }
@@ -45,18 +44,5 @@ class EmailLog extends Model
     return $this->belongsTo('App\EmailTemplate','template_id');
 
   } 
-
-
-
-  public static function batchInfo(){
-
-    $allLogs= DB::table('vwEmailStatus')->select('template_name', 'batch_id', 'invoked')
-                ->groupBy('template_name', 'batch_id','invoked')
-                ->get();
-     
-     return $allLogs;           
-  
-  }
-
 
 }

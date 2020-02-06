@@ -6,13 +6,17 @@ use Exception;
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
 use  Illuminate\Support\Facades\Mail;
+// use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
+
 
 use App\EmailLog;
 use App\EmailTemplate;
 use App\Person;
+use App\EmailBatchStatus;
 use App\mail\BatchMail as BatchMail;
 
 
@@ -45,13 +49,13 @@ public function index(Request $request)
     $this->authorize('browse', app($dataType->model_name));
 
     
-
-
     $view = 'voyager::bread.browse';
 
     if (view()->exists("voyager::$slug.browse")) {
         $view = "voyager::$slug.browse";
     }
+
+    
 
     return Voyager::view($view, $this->prepareRender($request,$dataType));
   
@@ -84,75 +88,33 @@ public function index(Request $request)
     $this->authorize('add', app($dataType->model_name));
      
         
-    // create the batch & return a list of accepted / rejected recipients
-    //( based upon whether they have an extant matching log entry)
-    $list = compact($this->createBatch($request),EmailLog::batchInfo());
+    // create the batch 
+    $this->createBatch($request);
 
-
-    dd($list);
-
-
-
-     
-      
-    $view = 'voyager::bread.browse';
-
-    if (view()->exists("voyager::$slug.browse")) {
-        $view = "voyager::$slug.browse";
-    }  
-    
-
-    return Voyager::view($view, $this->prepareRender($request,$dataType,$statusLists = $list));
-
-      
+    //redirect to browse page 
+    return back();
+         
           
     }
 
    
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
   
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-   
- 
-    
    
     protected function createBatch(Request $request){
 
-    $accepted = collect();
-    $rejected = collect();
-    $batchInfo = collect();
-    
+    $countAccepted = 0 ; 
+    $countRejected = 0;
+   
+   
+
     
     // Fetch the existing logged emails
     $emailLogs = EmailLog::all();
 
     // Fetch all people
     $people = Person::all();
-    
+
+   
     // Create a new batch_id based upon the highest existing batch_id
     $insBatchId =  ($emailLogs->max('batch_id')+1);
    
@@ -161,55 +123,59 @@ public function index(Request $request)
     // Fetch the template from the request
     $template =  EmailTemplate::select('id','name','subject','description')->where('id',$request->templateId)->first();
 
+   
     
     foreach($people as $person) {
-        
-        
-        
-
         // create a new email log instance
         $emailLog = new EmailLog;
-        
-
         // proceed only if no existing log
+
+
         if (!$emailLog->mailAlreadyLogged($person,$template)){
-            
-    
+
             $emailLog->template_id = $template->id;
             $emailLog->batch_id = $insBatchId;
             $emailLog->person_id = $person->id;
             $emailLog->save();
-
-            $accepted->push($person->name);
-
-        
+            ++$countAccepted;
     }   
-
         else{
+            unset($emailLog);
+            ++$countRejected;
+        }
+    }
 
-            unset($emailLog); 
-            $rejected->push($person->name);
+ 
+
+        if($countAccepted > 0 ){
+            // create new email batch status instance & populate with required values
+            $emailBatchStatus = new EmailBatchStatus;
+            $emailBatchStatus->batch_id =  $insBatchId;
+            $emailBatchStatus->count_accepted = $countAccepted;
+            $emailBatchStatus->count_rejected = $countRejected;
+            $emailBatchStatus->created_at = today();
+            $emailBatchStatus->save();
+
+            return true;
+
+        } else{
 
 
+            return false;
         }
 
        
-}
-
-    
-
-
-    return ([
-        'accepted'=>$accepted,'rejected'=>$rejected]);
     }
 
 
-    private function prepareRender($request,$dataType,array $lists = null) {
+    private function prepareRender($request,$dataType) {
 
-        $statusLists = ($lists = null?[]:$lists);
+       
+        // NB. Query builder select from VIEW
+        $batchStatusesView =   DB::table('vwEmailBatchStatuses')->orderBy('run_on')->get()->toArray();
 
-               
-        
+       
+
         $templates = EmailTemplate::select('id','name','subject','description')->get()->toArray();
    
         $getter = $dataType->server_side ? 'paginate' : 'get';
@@ -338,7 +304,7 @@ public function index(Request $request)
         'showSoftDeleted',
         'showCheckboxColumn',
         'templates',
-        'statusLists'   
+        'batchStatusesView'   
     );
 
    

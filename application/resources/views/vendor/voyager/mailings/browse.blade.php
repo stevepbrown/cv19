@@ -81,80 +81,71 @@
         </div>
     </div>
   
-    @isset($statusLists)
-    @php
-    $accepted = $statusLists['accepted'];
-    $rejected = $statusLists['rejected'];
-    $batchInfo = $statusLists['batch_info'];
-    @endphp
-    <div class="row">
-        <div class="col-md-6">
-            <div class="container-fluid">
-                <h4>People accepted in batch</h4>
-                <ul>
-                    @if(count($accepted) > 0)
-                    @foreach($accepted as $item)
-                    <li class="text-success">{{$item}}</li>
-                    @endforeach
-                    @else
-                    <p class="text-danger display-4"><strong>No people have been accepted for the batch!</strong></p>
-                    @endif
-                    <ul>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="container-fluid">
-                <h4>People rejected in batch</h4>
-                <ul>
-                    @if(count($rejected) > 0)
-                    @foreach($rejected as $item)
-                    <li class="text-danger display-4">{{$item}}</li>
-                    @endforeach
-                    @else
-                    <p class="text-success"><strong>No people have been rejected for the batch.</strong></p>
-                    @endif
-                    <ul>
-            </div>
-        </div>
-    </div>
+    
+</div>
 
-    <div class="container-fluid">
-    <div id="div-row-batch-info" class="row">
+<div id="div-browse-template" class="page-content browse container-fluid">
+    @include('voyager::alerts')
+    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-bordered">
                 <div class="panel-body">
-
-                    {{dd($batchInfo)}}
                     <div class="table-responsive">
-                        <table id="table-data-table-batch-info" class="table table-hover">
-                            <caption>Batch information</caption>
-                            <thead>
+                        <table id="table-data-table-batch-summary" class="table table-hover">
+                            <caption>Batch Summary Status</caption>
+
+                      
+                            @if(count($batchStatusesView) > 0)
+                                <thead>
                                 <tr>
-                                    <th>Template</th>
-                                    <th>Batch</th>
-                                    <th>Count</th>
-                                   
+                                    <th>Batch ID</th>
+                                    <th>Accepted</th>
+                                    <th>Rejected</th>
+                                    <th>Invoked</th>
+                                    <th>Failed</th>
+                                    <th>Bounced</th>
+                                    <th>Date / Time</th>
+                                    <th>Action</th>
                                 </tr>
+                        
                             </thead>
                             <tbody>
+
+                                {{-- This is an object wrapped in an array (from  DB:: from view)
+                                    so object notation is required!! --}}
+                                @foreach ($batchStatusesView  as $batchStatus)
+                                
+                            
                                 <tr>
-                                    <td>{{$batchInfo['template_id']}}</td>
-                                    <td>{{$batchInfo['batch']}}</td>
-                                    <td>{{$batchInfo['count']}}</td>
+                                    <td>{{$batchStatus->batch_id}}</td> 
+                                    {{-- <td>{{$batchStatus['count_accepted']}}</td>
+                                    <td>{{$batchStatus['count_rejected']}}</td>
+                                    <td>{{$batchStatus['count_invoked']}}</td>
+                                    <td>{{$batchStatus['count_failed']}}</td>
+                                    <td>{{$batchStatus['count_bounced']}}</td>
+                                    <td>{{$batchStatus['run_on']}}</td>
+                                        <td><a href="#"
+                                            class="btn btn-success btn-add-new">
+                                            <i class="voyager-plus"></i><span>Cue</span>
+                                        </a></td>--}}
                                 </tr>
+                                @endforeach
                             </tbody>
+                            @else
+                                <tr>
+                                    <th class="text-warning">No batches have been recorded</th>
+                                </tr>
+                            @endif
+                            
+                            
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
-    
-    </div>
-    @endisset
-</div>
+ </div>
+
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
         <div class="row">
