@@ -3,8 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB; 
 use App\Person;
 use App\EmailTemplate;
+
+
 
 
 
@@ -42,7 +45,18 @@ class EmailLog extends Model
     return $this->belongsTo('App\EmailTemplate','template_id');
 
   } 
+
+
+
+  public static function batchInfo(){
+
+    $allLogs= DB::table('vwEmailStatus')->select('template_name', 'batch_id', 'invoked')
+                ->groupBy('template_name', 'batch_id','invoked')
+                ->get();
+     
+     return $allLogs;           
   
+  }
 
 
 }

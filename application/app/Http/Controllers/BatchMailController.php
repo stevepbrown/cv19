@@ -86,15 +86,21 @@ public function index(Request $request)
         
     // create the batch & return a list of accepted / rejected recipients
     //( based upon whether they have an extant matching log entry)
-    $list = $this->createBatch($request);
+    $list = compact($this->createBatch($request),EmailLog::batchInfo());
+
+
+    dd($list);
+
+
+
      
-    
-    
+      
     $view = 'voyager::bread.browse';
 
     if (view()->exists("voyager::$slug.browse")) {
         $view = "voyager::$slug.browse";
-    }
+    }  
+    
 
     return Voyager::view($view, $this->prepareRender($request,$dataType,$statusLists = $list));
 
@@ -138,6 +144,7 @@ public function index(Request $request)
 
     $accepted = collect();
     $rejected = collect();
+    $batchInfo = collect();
     
     
     // Fetch the existing logged emails
@@ -180,7 +187,7 @@ public function index(Request $request)
 
         else{
 
-            
+            unset($emailLog); 
             $rejected->push($person->name);
 
 
@@ -189,10 +196,11 @@ public function index(Request $request)
        
 }
 
+    
+
 
     return ([
-        'accepted'=>$accepted,'rejected'=>$rejected
-        ]);
+        'accepted'=>$accepted,'rejected'=>$rejected]);
     }
 
 
@@ -332,5 +340,8 @@ public function index(Request $request)
         'templates',
         'statusLists'   
     );
+
+   
+
     }
 }

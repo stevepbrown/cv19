@@ -43,63 +43,117 @@
 
 @section('content')
 
-
 <div id="div-browse-template" class="page-content browse container-fluid">
     @include('voyager::alerts')
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-bordered">
                 <div class="panel-body">
-                   
                     <div class="table-responsive">
                         <table id="table-data-table-templates" class="table table-hover">
-                             <thead>
+                            <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Subject</th>
                                     <th>Description</th>
-                                    <th>Action</th>   
+                                    <th>Action</th>
                                 </tr>
                             </thead>
-
-                          
                             <tbody>
-
-                                
-
                                 @foreach ($templates as $template)
-                                    <tr>
-                                        <td>{{$template['id']}}</td> 
-                                        <td>{{$template['name']}}</td> 
-                                        <td>{{$template['subject']}}</td>
-                                        <td>{{$template['description']}}</td>
-                                        <td><a href="{{url()->current()}}/create/{{$template['id']}}" class="btn btn-success btn-add-new">
+                                <tr>
+                                    <td>{{$template['id']}}</td>
+                                    <td>{{$template['name']}}</td>
+                                    <td>{{$template['subject']}}</td>
+                                    <td>{{$template['description']}}</td>
+                                    <td><a href="/admin/mailings/create/{{$template['id']}}"
+                                            class="btn btn-success btn-add-new">
                                             <i class="voyager-plus"></i><span>Create new batch</span>
-                                           </a></td>
-                                    </tr>     
+                                        </a></td>
+                                </tr>
                                 @endforeach
-                               
                             </tbody>
                         </table>
                     </div>
-                                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    @isset($statusLists)
+    @php
+    $accepted = $statusLists['accepted'];
+    $rejected = $statusLists['rejected'];
+    $batchInfo = $statusLists['batch_info'];
+    @endphp
+    <div class="row">
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <h4>People accepted in batch</h4>
+                <ul>
+                    @if(count($accepted) > 0)
+                    @foreach($accepted as $item)
+                    <li class="text-success">{{$item}}</li>
+                    @endforeach
+                    @else
+                    <p class="text-danger display-4"><strong>No people have been accepted for the batch!</strong></p>
+                    @endif
+                    <ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="container-fluid">
+                <h4>People rejected in batch</h4>
+                <ul>
+                    @if(count($rejected) > 0)
+                    @foreach($rejected as $item)
+                    <li class="text-danger display-4">{{$item}}</li>
+                    @endforeach
+                    @else
+                    <p class="text-success"><strong>No people have been rejected for the batch.</strong></p>
+                    @endif
+                    <ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+    <div id="div-row-batch-info" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-bordered">
+                <div class="panel-body">
+
+                    {{dd($batchInfo)}}
+                    <div class="table-responsive">
+                        <table id="table-data-table-batch-info" class="table table-hover">
+                            <caption>Batch information</caption>
+                            <thead>
+                                <tr>
+                                    <th>Template</th>
+                                    <th>Batch</th>
+                                    <th>Count</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{$batchInfo['template_id']}}</td>
+                                    <td>{{$batchInfo['batch']}}</td>
+                                    <td>{{$batchInfo['count']}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    {{dd(sizeof($statusLists['rejected']))}}
-    @foreach ($statusLists['rejected'] as $item)
-        <p>{{$item}}</p>
-    @endforeach
-    <div class="row">
-        <div class="col-md-6">
-            <div class="container-fluid"><h4>People accepted in batch</h4></div>
-        </div>
-        <div class="col-md-6">
-            <div class="container-fluid"><h4>People rejected in batch</h4></div>
-        </div>
+    
+    
     </div>
+    @endisset
 </div>
     <div class="page-content browse container-fluid">
         @include('voyager::alerts')
