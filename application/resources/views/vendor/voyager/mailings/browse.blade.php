@@ -68,8 +68,8 @@
                                     <td>{{$template['subject']}}</td>
                                     <td>{{$template['description']}}</td>
                                     <td><a href="/admin/mailings/create/{{$template['id']}}"
-                                            class="btn btn-success btn-add-new">
-                                            <i class="voyager-plus"></i><span>Create new batch</span>
+                                            class="btn btn-primary btn-lg" role="button">
+                                            <i class="voyager-play"></i><span>&nbsp;Create new batch</span>
                                         </a></td>
                                 </tr>
                                 @endforeach
@@ -93,8 +93,6 @@
                     <div class="table-responsive">
                         <table id="table-data-table-batch-summary" class="table table-hover">
                             <caption>Batch Summary Status</caption>
-
-                      
                             @if(count($batchStatusesView) > 0)
                                 <thead>
                                 <tr>
@@ -118,16 +116,28 @@
                             
                                 <tr>
                                     <td>{{$batchStatus->batch_id}}</td> 
-                                    {{-- <td>{{$batchStatus['count_accepted']}}</td>
-                                    <td>{{$batchStatus['count_rejected']}}</td>
-                                    <td>{{$batchStatus['count_invoked']}}</td>
-                                    <td>{{$batchStatus['count_failed']}}</td>
-                                    <td>{{$batchStatus['count_bounced']}}</td>
-                                    <td>{{$batchStatus['run_on']}}</td>
-                                        <td><a href="#"
-                                            class="btn btn-success btn-add-new">
-                                            <i class="voyager-plus"></i><span>Cue</span>
-                                        </a></td>--}}
+                                    <td>{{($batchStatus->count_accepted)}}</td>
+                                    <td>{{$batchStatus->count_rejected}}</td>
+                                    <td>{{($batchStatus->count_invoked??$batchStatus->count_invoked??0)}}</td>
+                                    <td>{{($batchStatus->count_failed??$batchStatus->count_failed??0)}}</td>
+                                    <td>{{($batchStatus->count_bounced??$batchStatus->count_bounced??0)}}</td>
+                                    <td>{{$batchStatus->run_on}}</td>
+                                <td>
+                                    
+
+                                </td>        
+                                            @if (($batchStatus->count_invoked??$batchStatus->count_invoked??0)!==0)
+                                            <a id="btn-send-mail" href="mailings/send/{{$batchStatus->batch_id}}"
+                                            class="btn btn-danger" role="button"><i class="voyager-mail"></i>
+                                            <span>&nbsp;Send</span></a>
+                                            @else
+                                            <a id="btn-send-mail" href="btn-send-mail"
+                                            class="btn btn-success" role="button"  aria-disabled="true" disabled><i class="voyager-mail"></i>
+                                            <span>&nbsp;Mail Sent</span></a>
+                                            @endif
+                                    
+                                            
+                                      
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -152,6 +162,7 @@
             <div class="col-md-12">
                 <div class="panel panel-bordered">
                     <div class="panel-body">
+                    
                                             <div class="table-responsive">
                             <table id="dataTable" class="table table-hover">
                                 <thead>

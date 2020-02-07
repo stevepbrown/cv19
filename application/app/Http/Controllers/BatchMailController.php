@@ -99,14 +99,23 @@ public function index(Request $request)
 
    
   
-   
+   /**
+    * function createBatch
+    *
+    * Assembles a batch of emails based upon the template ID
+    * passed in the request. Iterates through all of the people
+    * registered for that template & adds them to the batch, but only 
+    * if they have not been part of a previous batch.
+    *
+    * @param Request $request
+    * @return boolean
+    */
     protected function createBatch(Request $request){
 
     $countAccepted = 0 ; 
     $countRejected = 0;
    
    
-
     
     // Fetch the existing logged emails
     $emailLogs = EmailLog::all();
@@ -160,7 +169,6 @@ public function index(Request $request)
 
         } else{
 
-
             return false;
         }
 
@@ -168,14 +176,27 @@ public function index(Request $request)
     }
 
 
+    /**
+     * private function prepareRender
+     *
+     * Provides common functionality to populate the page 
+     * attributes for a voyager browse / mail view. Most
+     * values are simply duplicated from the standard 
+     * VoyagerBaseController index method. Additional 
+     * properties are appended to provide template / 
+     * batch summary info
+     * 
+     * @param [type] $request
+     * @param [type] $dataType
+     * @return [array]
+     */
     private function prepareRender($request,$dataType) {
-
        
         // NB. Query builder select from VIEW
         $batchStatusesView =   DB::table('vwEmailBatchStatuses')->orderBy('run_on')->get()->toArray();
-
-       
-
+                
+        $nextBatchId = 
+        
         $templates = EmailTemplate::select('id','name','subject','description')->get()->toArray();
    
         $getter = $dataType->server_side ? 'paginate' : 'get';
