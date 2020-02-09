@@ -17,9 +17,9 @@
              <i class="voyager-plus"></i> <span>Create new batch</span>
             </a>
         @endcan --}}
-        @can('delete', app($dataType->model_name))
+        {{-- @can('delete', app($dataType->model_name))
             @include('voyager::partials.bulk-delete')
-        @endcan
+        @endcan --}}
         @can('edit', app($dataType->model_name))
             @if(isset($dataType->order_column) && isset($dataType->order_display_column))
                 <a href="{{ route('voyager.'.$dataType->slug.'.order') }}" class="btn btn-primary btn-add-new">
@@ -67,7 +67,7 @@
                                     <td>{{$template['name']}}</td>
                                     <td>{{$template['subject']}}</td>
                                     <td>{{$template['description']}}</td>
-                                    <td><a href="/admin/mailings/create/{{$template['id']}}"
+                                    <td><a href="{{route('create.mailings', ['templateId' => $template['id']])}}"
                                             class="btn btn-primary btn-lg" role="button">
                                             <i class="voyager-play"></i><span>&nbsp;Create new batch</span>
                                         </a></td>
@@ -125,19 +125,17 @@
                                 <td>
                                     
 
-                                </td>        
-                                            @if (($batchStatus->count_invoked??$batchStatus->count_invoked??0)!==0)
-                                            <a id="btn-send-mail" href="mailings/send/{{$batchStatus->batch_id}}"
-                                            class="btn btn-danger" role="button"><i class="voyager-mail"></i>
-                                            <span>&nbsp;Send</span></a>
-                                            @else
-                                            <a id="btn-send-mail" href="btn-send-mail"
-                                            class="btn btn-success" role="button"  aria-disabled="true" disabled><i class="voyager-mail"></i>
-                                            <span>&nbsp;Mail Sent</span></a>
-                                            @endif
-                                    
-                                            
-                                      
+                                </td> 
+                                <td>       
+                                    @if (($batchStatus->count_invoked??$batchStatus->count_invoked??0)==0)
+                                    <a id="btn-send-mail" href="{{route('send.mailings', ['batchId' => $batchStatus->batch_id])}}" class="btn btn-danger" role="button"><i class="voyager-mail"></i>
+                                    <span>&nbsp;Send</span></a>
+                                    @else
+                                    <a id="btn-send-mail" href="btn-send-mail"
+                                    class="btn btn-success" role="button"  aria-disabled="true" disabled><i class="voyager-mail"></i>
+                                    <span>&nbsp;Mail Sent</span></a>
+                                    @endif
+                                </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -329,11 +327,11 @@
                                             </td>
                                         @endforeach
                                         <td class="no-sort no-click" id="bread-actions">
-                                            @foreach($actions as $action)
+                                            {{-- @foreach($actions as $action)
                                                 @if (!method_exists($action, 'massAction'))
                                                     @include('voyager::bread.partials.actions', ['action' => $action])
                                                 @endif
-                                            @endforeach
+                                            @endforeach --}}
                                         </td>
                                         </tr>
                                     @endforeach

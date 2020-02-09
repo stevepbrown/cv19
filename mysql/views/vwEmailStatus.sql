@@ -24,7 +24,7 @@ FROM `people` `P`
 
 LEFT JOIN `organisations` `OGN` ON `OGN`.`id` = `P`.`organisation_id`
 LEFT JOIN  `email_person_templates` `PTEMP` ON `PTEMP`.`people_id` = `P`.`id`
-LEFT JOIN  `email_logs` `LOGS` ON ((`LOGS`.`person_id` = `P`.`id`) AND (`LOGS`.`template_id` = `PTEMP`.`email_templates_id`))
+JOIN  `email_logs` `LOGS` ON ((`LOGS`.`person_id` = `P`.`id`) AND (`LOGS`.`template_id` = `PTEMP`.`email_templates_id`))
 LEFT JOIN `email_templates` `TEMPLATE` ON `TEMPLATE`.`id` = `PTEMP`.`email_templates_id`
 LEFT JOIN 
 

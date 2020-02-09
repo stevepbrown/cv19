@@ -11,13 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
-
-
 use App\EmailLog;
 use App\EmailTemplate;
 use App\Person;
 use App\EmailBatchStatus;
-use App\mail\BatchMail as BatchMail;
+use App\Mail\TemplateMailer;
 
 
 
@@ -118,43 +116,41 @@ public function index(Request $request)
    
     
     // Fetch the existing logged emails
-    $emailLogs = EmailLog::all();
+    $emailLogs = EmailLog::with(['person','template'])->get();
 
+    
     // Fetch all people
-    $people = Person::all();
-
+    $people = Person::all(); 
    
     // Create a new batch_id based upon the highest existing batch_id
     $insBatchId =  ($emailLogs->max('batch_id')+1);
-   
 
     
-    // Fetch the template from the request
-    $template =  EmailTemplate::select('id','name','subject','description')->where('id',$request->templateId)->first();
-
-   
-    
-    foreach($people as $person) {
-        // create a new email log instance
-        $emailLog = new EmailLog;
-        // proceed only if no existing log
+    foreach($people as $person) 
 
 
-        if (!$emailLog->mailAlreadyLogged($person,$template)){
+        if($emailLogs->where('template_id',$request->templateId)->where('person_id',$person->id)->isEmpty()){
 
-            $emailLog->template_id = $template->id;
+            // create a new email log instance
+            $emailLog = new EmailLog;
+
+            $emailLog->template_id = $request->templateId;
             $emailLog->batch_id = $insBatchId;
             $emailLog->person_id = $person->id;
+            $emailLog->invoked = false;
             $emailLog->save();
             ++$countAccepted;
-    }   
-        else{
+
+
+        }
+
+        else {
+
             unset($emailLog);
             ++$countRejected;
-        }
-    }
 
- 
+        }
+   
 
         if($countAccepted > 0 ){
             // create new email batch status instance & populate with required values
@@ -172,8 +168,12 @@ public function index(Request $request)
             return false;
         }
 
-       
+        //redirect to browse page 
+        return back();
+
     }
+   
+    
 
 
     /**
@@ -327,8 +327,51 @@ public function index(Request $request)
         'templates',
         'batchStatusesView'   
     );
+  
 
-   
+    }
+
+    
+    /**
+     * function send
+     * 
+     * Sends all of the mails in a batch 
+     * that have not been sent previously
+     * 
+     * @param [type] $batchId
+     * @return void
+     */
+    public function send($batchId){
+
+        // Get the batch for the passed batch_id
+        $batch = EmailLog::where('batch_id',$batchId)->with(['person','template'])->get();
+
+                      
+        // Reject any that have been invoked before
+        $batch = $batch->reject(function ($value, $key='invoked') {
+            return $value === true;
+        });
+
+        
+        // Iterate batch to send each mail
+        foreach($batch as $mail){
+
+        // Extract email address from person associated with batch
+        $emailAddress = $mail->person->email;
+     
+
+
+        // Send it 
+        Mail::send(new TemplateMailer($mail));       
+        // Update record, flag as invoked
+        $mail->invoked = true;
+        $mail->save();
+
+
+        }
+
+
+
 
     }
 }

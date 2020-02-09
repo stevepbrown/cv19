@@ -1,7 +1,11 @@
 
+
+
+
 <h1>This is a test email, it is not designed for public transmission</h1>
 
 
+<h2>Hello {{$recipient_given_name}}</h2>
 
 <p style="background-color:#6c757d color:yellow">Should you receive this email in error, my apologies. You are on my mailing list because I am looking for work; I'm using this template to test my mailing database. You will probably receive a 'proper' email from me quite soon!
 
