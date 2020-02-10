@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use App\Scopes\ActiveScope;
 
+
 class Person extends Model
 {
     
@@ -36,6 +37,12 @@ class Person extends Model
        return  $this->hasOne('App\Organisation');
 
     } 
+
+    public function emailPersonTemplates(){
+
+        return $this->hasMany('App\EmailPersonTemplate');
+
+    }
 
     /**
      *  function getNameAttribute

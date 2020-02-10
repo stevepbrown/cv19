@@ -9,6 +9,8 @@
 
 <p style="background-color:#6c757d color:yellow">Should you receive this email in error, my apologies. You are on my mailing list because I am looking for work; I'm using this template to test my mailing database. You will probably receive a 'proper' email from me quite soon!
 
+<h2>In the event that this email 'escapes in the wild', please give me a call on (07729) 673 542 or <a href="mailto:steve.p.brown@outlook.com?Subject={{urlencode ('This is a test email, it is not designed for public transmission') }}">email me on my personal acount</a></h2>
+
 
 Regards,
 

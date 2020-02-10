@@ -100,6 +100,8 @@
                                     <th>Accepted</th>
                                     <th>Rejected</th>
                                     <th>Invoked</th>
+                                    <th>Dispatched</th>
+                                    <th>Sent</th>
                                     <th>Failed</th>
                                     <th>Bounced</th>
                                     <th>Date / Time</th>
@@ -117,25 +119,26 @@
                                 <tr>
                                     <td>{{$batchStatus->batch_id}}</td> 
                                     <td>{{($batchStatus->count_accepted)}}</td>
-                                    <td>{{$batchStatus->count_rejected}}</td>
+                                <td class={{($batchStatus->count_rejected > 1)?"alert-warning":null}}>{{$batchStatus->count_rejected}}</td>
                                     <td>{{($batchStatus->count_invoked??$batchStatus->count_invoked??0)}}</td>
+                                    <td>{{($batchStatus->count_dispatched??$batchStatus->count_dispatched??0)}}</td>
+                                    <td>{{$batchStatus->count_sent}}</td>
                                     <td>{{($batchStatus->count_failed??$batchStatus->count_failed??0)}}</td>
                                     <td>{{($batchStatus->count_bounced??$batchStatus->count_bounced??0)}}</td>
                                     <td>{{$batchStatus->run_on}}</td>
-                                <td>
-                                    
+                                    <td>       
+                                        @if (($batchStatus->count_invoked??$batchStatus->count_invoked??0)==0)
+                                        <a id="btn-send-mail" href="{{route('send.mailings', ['batchId' => $batchStatus->batch_id])}}" class="btn btn-danger" role="button"><i class="voyager-mail"></i>
+                                        <span>&nbsp;Send</span></a>
+                                        @else
+                                            @if($batchStatus->count_accepted = $batchStatus->count_invoked = $batchStatus->count_dispatched = $batchStatus->count_sent)
 
-                                </td> 
-                                <td>       
-                                    @if (($batchStatus->count_invoked??$batchStatus->count_invoked??0)==0)
-                                    <a id="btn-send-mail" href="{{route('send.mailings', ['batchId' => $batchStatus->batch_id])}}" class="btn btn-danger" role="button"><i class="voyager-mail"></i>
-                                    <span>&nbsp;Send</span></a>
-                                    @else
-                                    <a id="btn-send-mail" href="btn-send-mail"
-                                    class="btn btn-success" role="button"  aria-disabled="true" disabled><i class="voyager-mail"></i>
-                                    <span>&nbsp;Mail Sent</span></a>
-                                    @endif
-                                </td>
+                                                <span class="alert-success">Successfully processed</span>
+                                            @else
+                                                <span class="alert-danger">There was an error</span>
+                                            @endif
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

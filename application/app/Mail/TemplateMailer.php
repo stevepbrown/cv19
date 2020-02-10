@@ -38,9 +38,10 @@ array 	$callbacks
        $this->subject = $mail->template->first()->subject;
        $this->view = 'mail.'.$mail->template->name;
        $this->viewData = Arr::add($this->viewData, 'recipient_given_name' ,$mail->person->given_name);
-
-
-
+       $this->viewData = Arr::add($this->viewData, 'template_id' ,$mail->template_id);
+       $this->viewData = Arr::add($this->viewData, 'person_id' ,$mail->person->id); 
+       $this->viewData = Arr::add($this->viewData, 'batch_id' ,$mail->batch_id); 
+       $this->viewData = Arr::add($this->viewData, 'email_log_id' ,$mail->id); 
 
        
     }

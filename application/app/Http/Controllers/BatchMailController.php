@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
 use  Illuminate\Support\Facades\Mail;
-// use Illuminate\Support\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
@@ -16,6 +16,7 @@ use App\EmailTemplate;
 use App\Person;
 use App\EmailBatchStatus;
 use App\Mail\TemplateMailer;
+use App\EmailPersonTemplate;
 
 
 
@@ -118,18 +119,33 @@ public function index(Request $request)
     // Fetch the existing logged emails
     $emailLogs = EmailLog::with(['person','template'])->get();
 
-    
-    // Fetch all people
-    $people = Person::all(); 
    
+
+    // Fetch all people with their associated email templates
+    $people = Person::with('EmailPersonTemplates')->get();
+    
+      
+
     // Create a new batch_id based upon the highest existing batch_id
     $insBatchId =  ($emailLogs->max('batch_id')+1);
-
+ 
+   
     
     foreach($people as $person) 
 
+        // Check that the passed template is active for the person 
+        foreach($person->EmailPersonTemplates as $template) {
 
-        if($emailLogs->where('template_id',$request->templateId)->where('person_id',$person->id)->isEmpty()){
+            if(
+                ($template->email_templates_id == $request->templateId) && ($template->IsActive === false)){
+
+            ++$countRejected;
+            
+            // Bypass, move to next person
+            continue;    
+            }
+            
+            elseif($emailLogs->where('template_id',$request->templateId)->where('person_id',$person->id)->isEmpty()){
 
             // create a new email log instance
             $emailLog = new EmailLog;
@@ -140,38 +156,37 @@ public function index(Request $request)
             $emailLog->invoked = false;
             $emailLog->save();
             ++$countAccepted;
+            }
 
+            else{
 
-        }
-
-        else {
-
-            unset($emailLog);
-            ++$countRejected;
-
+                unset($emailLog);
+                ++$countRejected;
+            }
         }
    
-
+   
+    
         if($countAccepted > 0 ){
-            // create new email batch status instance & populate with required values
-            $emailBatchStatus = new EmailBatchStatus;
-            $emailBatchStatus->batch_id =  $insBatchId;
-            $emailBatchStatus->count_accepted = $countAccepted;
-            $emailBatchStatus->count_rejected = $countRejected;
-            $emailBatchStatus->created_at = today();
-            $emailBatchStatus->save();
+        // create new email batch status instance & populate with required values
+        $emailBatchStatus = new EmailBatchStatus;
+        $emailBatchStatus->batch_id =  $insBatchId;
+        $emailBatchStatus->count_accepted = $countAccepted;
+        $emailBatchStatus->count_rejected = $countRejected;
+        $emailBatchStatus->created_at = today();
+        $emailBatchStatus->save();
 
-            return true;
+        return true;
 
-        } else{
+    } else{
 
-            return false;
-        }
-
-        //redirect to browse page 
-        return back();
-
+        return false;
     }
+
+    //redirect to browse page 
+    return back();
+
+}
    
     
 
@@ -362,13 +377,16 @@ public function index(Request $request)
 
 
         // Send it 
-        Mail::send(new TemplateMailer($mail));       
+        Mail::queue(new TemplateMailer($mail));       
         // Update record, flag as invoked
         $mail->invoked = true;
         $mail->save();
 
 
         }
+
+        //redirect to browse page 
+        return back();
 
 
 

@@ -10,7 +10,7 @@ use App\Scopes\ActiveScope;
 class Organisation extends Model
 {
 
-
+    
     /*
     
     Applying Global Scopes - To assign a global scope to a model, you should override a given model's boot method and use the addGlobalScope method
@@ -36,6 +36,7 @@ class Organisation extends Model
 
     }
 
+    
 
     
 }
