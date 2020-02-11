@@ -5,6 +5,8 @@ SELECT `B`.`batch_id`,
 `B`.`count_rejected`,
 `B`.`created_at` `run_on`,
 `INVOKED_COUNT`.`counter` AS `count_invoked`,
+`DISPATCHED_COUNT`.`counter` AS `count_dispatched`,
+`SENT_COUNT`.`counter` AS `count_sent`,
 `FAILED_COUNT`.`counter` AS `count_failed`,
 `BOUNCED_COUNT`.`counter` AS `count_bounced`
 
@@ -35,5 +37,20 @@ GROUP BY `batch_id` ) `BOUNCED_COUNT`
 
 ON   `BOUNCED_COUNT`.`bounced_batch_id` = `B`.`batch_id`
 
+LEFT JOIN 
+
+(SELECT `batch_id` AS 'sent_batch_id',COUNT(*) `counter` FROM `cv`.`vwEmailStatus`
+WHERE `sent` = 'Y'
+GROUP BY `batch_id` ) `SENT_COUNT`
+
+ON   `SENT_COUNT`.`sent_batch_id` = `B`.`batch_id`
+
+LEFT JOIN
+
+(SELECT `batch_id` AS 'dispatched_batch_id',COUNT(*) `counter` FROM `cv`.`vwEmailStatus`
+WHERE `dispatched` = 'Y'
+GROUP BY `batch_id` ) `DISPATCHED_COUNT`
+
+ON  `DISPATCHED_COUNT`.`dispatched_batch_id` = `B`.`batch_id`
 
 ORDER BY `B`.`created_at` DESC;

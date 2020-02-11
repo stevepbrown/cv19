@@ -15,15 +15,16 @@ CONCAT(`P`.`family_name`,', ',`P`.`given_name`) `person_name`,
 `LOGS`.`batch_id` `batch_id`,
  (SELECT  CASE (`LOGS`.`invoked`) WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE NULL END) `invoked`,
  `LOGS`.`invoked_when` `invoked_when`,
+  (SELECT  CASE (`LOGS`.`dispatched`) WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE NULL END) `dispatched`,
+ (SELECT  CASE (`LOGS`.`sent`) WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE NULL END) `sent`,
  (SELECT  CASE (`LOGS`.`failed`) WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE NULL END) `failed`,
  (SELECT  CASE (`LOGS`.`bounced`)  WHEN 1 THEN 'Y' WHEN 0 THEN 'N' ELSE NULL END) `bounced`,
 `LOGS`.`created_at`
- 
 
 FROM `people` `P`
 
 LEFT JOIN `organisations` `OGN` ON `OGN`.`id` = `P`.`organisation_id`
-LEFT JOIN  `email_person_templates` `PTEMP` ON `PTEMP`.`people_id` = `P`.`id`
+LEFT JOIN  `email_person_templates` `PTEMP` ON `PTEMP`.`person_id` = `P`.`id`
 JOIN  `email_logs` `LOGS` ON ((`LOGS`.`person_id` = `P`.`id`) AND (`LOGS`.`template_id` = `PTEMP`.`email_templates_id`))
 LEFT JOIN `email_templates` `TEMPLATE` ON `TEMPLATE`.`id` = `PTEMP`.`email_templates_id`
 LEFT JOIN 

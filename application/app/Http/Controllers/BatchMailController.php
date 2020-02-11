@@ -371,25 +371,23 @@ public function index(Request $request)
         // Iterate batch to send each mail
         foreach($batch as $mail){
 
+        // Introduce a delay to overcome swiftmailer (550) error Requested action not taken: too many emails per second " 
+        $delay = now()->addSeconds(40);
+
         // Extract email address from person associated with batch
         $emailAddress = $mail->person->email;
      
 
-
         // Send it 
-        Mail::queue(new TemplateMailer($mail));       
+        Mail::to($emailAddress)->later($delay,new TemplateMailer($mail));       
         // Update record, flag as invoked
         $mail->invoked = true;
         $mail->save();
-
-
         }
 
+   
+      
         //redirect to browse page 
         return back();
-
-
-
-
+        }
     }
-}

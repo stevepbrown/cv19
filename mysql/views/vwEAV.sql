@@ -6,7 +6,7 @@ VIEW
 
  AS
     SELECT 
-        `EAV`.`id` `EAV_ID`,
+        `EAV`.`id` ,
         `EAV`.`entity_id` `ENTITY_ID`,
         `EAV`.`attribute_id` `ATTRIBUTE_ID`,
         `A`.`attribute` `ATTRIBUTE`,        

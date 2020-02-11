@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Arr;
 
-class TemplateMailer extends Mailable
+class TemplateMailer extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
@@ -23,16 +23,7 @@ class TemplateMailer extends Mailable
     public function __construct($mail)
     {
     
-        /*
-string 	$subject 	The subject of the message. 	
-protected string 	$markdown 	The Markdown template for the message (if applicable). 	
-string 	$view 	The view to use for the message. 	
-string 	$textView 	The plain text view to use for the message. 	
-array 	$viewData 	The view data for the message. 	
-array 	$attachments 	The attachments for the message. 	
-array 	$rawAttachments 	The raw attachments for the message. 	
-array 	$callbacks
-       */
+
 
 
        $this->subject = $mail->template->first()->subject;
