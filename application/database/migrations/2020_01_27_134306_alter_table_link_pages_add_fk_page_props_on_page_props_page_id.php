@@ -13,11 +13,11 @@ class AlterTableLinkPagesAddFkPagePropsOnPagePropsPageId extends Migration
      */
     public function up()
     {
-        // Schema::table('link_pages', function (Blueprint $table) {
+        Schema::table('link_pages', function (Blueprint $table) {
 
-        //     $table->foreign('page_props_page_id')->references('page_props')->on('page_id');
+            $table->foreign('page_props_page_id')->references('page_props')->on('page_id')->change();
  
-        // });
+        });
     }
 
     /**

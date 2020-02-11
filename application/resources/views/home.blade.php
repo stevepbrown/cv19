@@ -4,6 +4,7 @@
 
 @section('main')
 
+
  {{-- Showcase --}}
  @include('partials.partial_showcase')
 

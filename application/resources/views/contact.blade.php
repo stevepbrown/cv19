@@ -2,7 +2,5 @@
 
 
 @section('main')
-
-<h1>CONTACT!</h1>
-
+<h1>Contact</h1>
 @endsection

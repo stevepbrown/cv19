@@ -66,6 +66,7 @@ use Illuminate\Http\Request;
         $attributes = arr::add($attributes, 'description',$props['meta_description']);
         $attributes = arr::add($attributes, 'keywords',$this->getkeywords());
         $attributes = arr::add($attributes, 'links',$this->getLinks());
+        $attributes = arr::add($attributes, 'hasForm',$props['hasForm']);
 
         
         return $attributes;
@@ -98,9 +99,11 @@ use Illuminate\Http\Request;
 
         $props = $this->getPageAttributes();
 
-   
+        
+        $vw = view($props['name'],$props);
 
-        return view($props['name'],$props);
+        
+        return $vw;
         
     }
    

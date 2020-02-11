@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en-GB">
 
@@ -23,6 +20,18 @@
         <link id="{{$link['attr_id']}}" type="{{$link['link_type']}}" rel="{{$link['rel']}}"  href="{{$link['href']}}" media="{{$link['media']}}">
 
     @endforeach
+
+    @if($hasForm)
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    @else
+
+    <!-- Page not registered as having a form, no CSRF included -->
+
+    @endif
+
+
   
 
 </head>
@@ -37,13 +46,7 @@
             <div class="container mx-auto">
                 <h1 class="display-3">{{$title}}</h1>
             </div>           
-            {{-- Main navigation --}}
-            {{-- Voyager menu , "you can even specify your own view and stylize your menu however you would like. Say for instance that we had a file located at resources/views/my_menu.blade.php ... Then anywhere you wanted to display your menu you can now call:
-
-            menu('main', 'my_menu')""
-            
-            --}}
-            {{menu('main_nav','partials.partial_main_nav')}}
+                      {{menu('main_nav','partials.partial_main_nav')}}
 
 
    
