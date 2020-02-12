@@ -75,7 +75,10 @@ class CVController extends GenericPageController
                         'title'=> $props['title'],
                         'description' => $props['description'],
                         'keywords' => $props['keywords'],
-                        'links' => $props['links']]);
+                        'links' => $props['links'],
+                        'hasForm'=>$props['hasForm']
+                        
+                        ]);
 
             
 

@@ -3,6 +3,6 @@
 
 @section('main')
 
-<h1>BIO!</h1>
+
 
 @endsection

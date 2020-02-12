@@ -3,6 +3,5 @@
 
 @section('main')
 
-<h1>WEBAPP!</h1>
 
 @endsection

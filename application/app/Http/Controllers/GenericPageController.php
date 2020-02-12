@@ -68,7 +68,7 @@ use Illuminate\Http\Request;
         $attributes = arr::add($attributes, 'links',$this->getLinks());
         $attributes = arr::add($attributes, 'hasForm',$props['hasForm']);
 
-        
+           
         return $attributes;
 
     }
