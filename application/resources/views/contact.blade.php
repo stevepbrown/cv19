@@ -5,5 +5,10 @@
 
     {!! Form::open(['url' => '/contact']) !!}
     Laravel form here!
-    {!! Form::close() !!}
+
+   <pre>
+
+   </pre>             
+
+
 @endsection

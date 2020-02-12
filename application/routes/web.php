@@ -14,25 +14,11 @@ use App\Http\Controllers\BatchMailController;
 |
 */
 
+/* <<GET>> */
+
 Route::get('/', 'GenericPageController@show');
 
-// /*
-// Implicit Binding -Laravel automatically resolves Eloquent models defined in routes or controller actions whose type-hinted variable names match a route segment name
-// */
-// Route::get('/contact', function(App\PageProps $pageProps){
-
-//     $pageProps = $pageProps->where('name','contact')->get(['name',
-//     'meta_description',
-//     'slug',
-//     'title',
-//     'page_id'])->toArray();
-
-//     return view('contact')->with($pageProps);
-
-// });
-
-
-Route::get('/contact','GenericPageController@show');
+Route::get('/contact','ContactController@show');
 
 Route::get('/faq','GenericPageController@show');
 
@@ -55,7 +41,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('mailings/create/{templateId}','BatchMailController@create')->name('create.mailings');
     Route::get('mailings/send/{batchId}','BatchMailController@send')->name('send.mailings');
     
-    
    
+/* <<POST>>*/    
+
+Route::post('contact','ContactController@store');
 
 });

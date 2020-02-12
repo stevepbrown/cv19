@@ -25,6 +25,8 @@ use Illuminate\Http\Request;
 
     }
 
+    
+
     public function setRequestPath($request){
 
         $this->requestPath =  ($request->path() !== '/'?"/{$request->path()}":$request->path());
