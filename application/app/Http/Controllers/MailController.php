@@ -13,13 +13,7 @@ class MailController extends Controller
 {
     
     protected $request;
-    /*
-    
-    A standard resource controller does not suffice here, because the uri action
-    verbs eg. mail/create are not compatible with Voyager guards (admin/mail is supported, admin/mail/create)
-    is not. Hence the need to utilise and verify query parameters!
-    
-    */
+   
    
     public function __construct(Request $request)
     {
@@ -29,27 +23,6 @@ class MailController extends Controller
     }
 
 
-
-    /*
-index 	photos.index
-GET 	/photos/create 	create 	photos.create
-POST 	/photos 	store 	photos.store
-GET 	/photos/{photo} 	show 	photos.show
-GET 	/photos/{photo}/edit 	edit 	photos.edit
-PUT/PATCH 	/photos/{photo} 	update 	photos.update
-DELETE 	/photos/{photo} 	destroy
-
-public function(index) {}
-public function(create) {}
-public function(store) {}
-public function(show) {}
-public function(edit) {}
-public function(update) {}
-public function(destroy) {}
-public function(send) {}
-public function() {}
-
-    */
 
     protected function guard()
   {
@@ -62,36 +35,6 @@ public function() {}
     
     return view('vendor.voyager.mailings.browse');
 
-    // // Ensure that the correct query parameters have been passed
-    // if($this->request->query('action') && $this->request->query('id')){
-
-    //     switch($this->request->query('action')){
-
-
-    //         case 'create':
-    //             $this->create();
-    //             break;
-
-    //         case 'send':
-    //             $this->send();
-    //             break;
-            
-    //             default:
-
-    //         session(['alert' =>'Incorrect query parameters!']);
-    //         return view('error');
-
-
-    //     }
-        
-//     }
-
-//     else {
-
-//         session(['alert' =>'Incorrect query parameters!']);
-//         return view('error');
-   
-//  }
 }   
     protected function create(){
 
