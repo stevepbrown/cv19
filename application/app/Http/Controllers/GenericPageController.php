@@ -6,14 +6,13 @@ use App\Link;
 use Illuminate\Support\Collection;
 use illuminate\Support\Arr;
 use illuminate\Support\Str;
-
-
 use Illuminate\Http\Request;
 
  class GenericPageController extends Controller
 {
 
     protected $requestPath;
+    protected $props;
 
 
 
@@ -100,10 +99,10 @@ use Illuminate\Http\Request;
 
     public function show(){
 
-        $props = $this->getPageAttributes();
+        $this->props = $this->getPageAttributes();
 
         
-        $vw = view($props['name'],$props);
+        $vw = view($this->props['name'],$this->props);
 
         
         return $vw;

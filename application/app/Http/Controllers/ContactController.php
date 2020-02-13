@@ -9,20 +9,36 @@ use Illuminate\Support\Arr;
 
 class ContactController extends GenericPageController
 {
-   
+
+   protected $fillable = [
+       'given_name',
+      'family_name',
+      'telephone',
+      'traffic_source_code',
+      'traffic_source_other',
+      'message',
+   ];
  
    public function show(){
 
-      $props = $this->getPageAttributes();
+     parent::show();
+
+      $contactForm = new ContactForm;
+
+      // append the array to the props
+      $this->props = Arr::add($this->props,'contactForm',$contactForm->toArray());
+
 
       // Obtain a list of options for traffic source types
       $trafficSourceTypes = DB::table('traffic_source_types')->select('code','text')->orderBy('code')->get()->toArray();
       
  
       // append the array to the props
-      $props = Arr::add($props,'trafficSourceTypes',$trafficSourceTypes);
+      $this->props = Arr::add($this->props,'trafficSourceTypes',$trafficSourceTypes);
+
       
-      $vw = view($props['name'],$props);
+      
+      $vw = view($this->props['name'],$this->props);
 
       
       return $vw;
@@ -31,12 +47,9 @@ class ContactController extends GenericPageController
    
    public function store(Request $request){
 
-      dd('In store');
-
-      // Create new instance of ContactForm
-    $form = new ContactForm;
-
-
+     
+      // TODO(SPB): Code this
+    
 
 
    }

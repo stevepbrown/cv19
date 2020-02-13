@@ -18,7 +18,7 @@ use App\Http\Controllers\BatchMailController;
 
 Route::get('/', 'GenericPageController@show');
 
-Route::get('/contact','ContactController@show');
+Route::get('/contact','ContactController@show')->name('contact.show');
 
 Route::get('/faq','GenericPageController@show');
 
@@ -29,6 +29,10 @@ Route::get('/aboutapp','GenericPageController@show');
 Route::get('/cv','CVController');
 
 Route::get('/print','PrintController');
+
+/* <<POST>>*/ 
+Route::post('/contact','ContactController@store')->name('contact.store');   
+
 
 
 
@@ -42,8 +46,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('mailings/send/{batchId}','BatchMailController@send')->name('send.mailings');
     
    
-/* <<POST>>*/    
-
-Route::post('contact','ContactController@store')->name('contact.store');
 
 });

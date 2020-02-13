@@ -4,12 +4,20 @@
 
 @section('main')
 
-<form class="needs-validation" novalidate method="post" action="{{$slug}}">
-            
-        
+
+
+{!! Form::model($contactForm, ['route' => ['contact.store']])!!}
+
+
+{{-- CSRF token --}}
+@csrf
+
+<div id="div-validation-container" class="" novalidate>
+          
+         
             <div class="form-group mb-3">
                 <label for="input-given-name">First Name</label>&nbsp;
-                <input type="text" class="form-control" id="input-given-name" placeholder="Given name" required>
+            <input type="text" class="form-control" id="input-given-name" placeholder="Given name" value="{{$contactForm['given_name']}}">
                 <div class="invalid-feedback">
                     Uh oh, error!
                 </div>
@@ -17,7 +25,7 @@
          
             <div class="form-group mb-3">
                 <label for="input-family-name">Second Name</label>
-                <input type="text" class="form-control" id="input-family-name" placeholder="Family name" required>
+                <input type="text" class="form-control" id="input-family-name" placeholder="Family name" >
                 <div class="invalid-feedback">
                     Uh oh, error!
                 </div>
@@ -25,14 +33,14 @@
         
             <div class="form-group mb-3">
                 <label for="input-email">Email</label>
-                <input type="email" class="form-control" id="input-email" placeholder="Contact email address" required>
+                <input type="email" class="form-control" id="input-email" placeholder="Contact email address"  value="" >
                 <div class="invalid-feedback">
                     Uh oh, error!
                 </div>
             </div>
             <div class="form-group mb-3">
-                <label for="input-telephone">Telephone</label>
-                <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline" required>
+                <label for="input-tel">Telephone</label>
+                <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline" >
                 <div class="invalid-feedback">
                     Uh oh, error!
                 </div>
@@ -40,7 +48,7 @@
         
             <div class="form-group mb-3">
                 <label for="input-telephone">Telephone</label>
-                <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline" required>
+                <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline" >
                 <div class="invalid-feedback">
                     Uh oh, error!
                 </div>
@@ -70,7 +78,10 @@
             </div>
         </div>
         <div class="form-group"></div>
-        <button type="button" onclick="submit" class="btn btn-secondary">Submit</button>
+        
+        <button class="btn btn-primary" action="Submit "type="submit">Submit</button>
         </div>
-    </form>
+    </div>
+
+    {!! Form::close() !!}
 @endsection
