@@ -68,6 +68,7 @@ use Illuminate\Http\Request;
         $attributes = arr::add($attributes, 'description',$props['meta_description']);
         $attributes = arr::add($attributes, 'keywords',$this->getkeywords());
         $attributes = arr::add($attributes, 'links',$this->getLinks());
+        $attributes = arr::add($attributes, 'slug',$props['slug']);
         $attributes = arr::add($attributes, 'hasForm',$props['hasForm']);
 
            

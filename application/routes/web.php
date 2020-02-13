@@ -44,6 +44,6 @@ Route::group(['prefix' => 'admin'], function () {
    
 /* <<POST>>*/    
 
-Route::post('contact','ContactController@store');
+Route::post('contact','ContactController@store')->name('contact.store');
 
 });
