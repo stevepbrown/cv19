@@ -23,11 +23,18 @@ class ContactController extends GenericPageController
 
      parent::show();
 
-      $contactForm = new ContactForm;
+        $request = $this->request; 
 
-      // append the array to the props
-      $this->props = Arr::add($this->props,'contactForm',$contactForm->toArray());
-
+        // Add ContactForm session variables
+      //  $request->session()->put('id', null);   
+      //  $request->session()->put('title_id', null);
+      //  $request->session()->put('given_name', null);
+      //  $request->session()->put('family_name', null);
+      //  $request->session()->put('telephone', null);
+      //  $request->session()->put('traffic_source_code', null);
+      //  $request->session()->put('traffic_source_other', null);
+      //  $request->session()->put('message', null);
+      
 
       // Obtain a list of options for traffic source types
       $trafficSourceTypes = DB::table('traffic_source_types')->select('code','text')->orderBy('code')->get()->toArray();
@@ -41,16 +48,15 @@ class ContactController extends GenericPageController
       $vw = view($this->props['name'],$this->props);
 
       
+     
       return $vw;
       
   }
    
    public function store(Request $request){
 
-     
-      // TODO(SPB): Code this
-    
-
+      
+   dd($request->input());
 
    }
 }

@@ -18,7 +18,7 @@ use App\Http\Controllers\BatchMailController;
 
 Route::get('/', 'GenericPageController@show');
 
-Route::get('/contact','ContactController@show')->name('contact.show');
+Route::get('/contact','contactController@show')->name('contact.show');
 
 Route::get('/faq','GenericPageController@show');
 
@@ -31,7 +31,7 @@ Route::get('/cv','CVController');
 Route::get('/print','PrintController');
 
 /* <<POST>>*/ 
-Route::post('/contact','ContactController@store')->name('contact.store');   
+Route::post('/contact/create','ContactController@store')->name('contact.store');   
 
 
 

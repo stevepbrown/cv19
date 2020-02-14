@@ -5,47 +5,50 @@
 @section('main')
 
 
+<form class="needs-validation" method="POST" action="/contact/create" novalidate>
 
-{!! Form::model($contactForm, ['route' => ['contact.store']])!!}
-
-
-{{-- CSRF token --}}
+    
+    {{-- CSRF token --}}
 @csrf
 
-<div id="div-validation-container" class="" novalidate>
-          
-         
+        
+
+
             <div class="form-group mb-3">
                 <label for="input-given-name">First Name</label>&nbsp;
-            <input type="text" class="form-control" id="input-given-name" placeholder="Given name" value="{{$contactForm['given_name']}}">
+            <input type="text" class="form-control" id="input-given-name"  placeholder="Given name" name="given_name" value="wibble">
                 <div class="invalid-feedback">
-                    Uh oh, error!
+                        Uh oh, error!
                 </div>
             </div>
-         
+            
             <div class="form-group mb-3">
                 <label for="input-family-name">Second Name</label>
-                <input type="text" class="form-control" id="input-family-name" placeholder="Family name" >
+                <input type="text" class="form-control" id="input-family-name" placeholder="Family name" name="family_name" >
                 <div class="invalid-feedback">
                     Uh oh, error!
                 </div>
                 </div>
         
-            <div class="form-group mb-3">
-                <label for="input-email">Email</label>
-                <input type="email" class="form-control" id="input-email" placeholder="Contact email address"  value="" >
-                <div class="invalid-feedback">
-                    Uh oh, error!
+       
+                <div class="form-row mb-3">
+                    <div class="col-sm-6 col-md-4">
+                        <label for="input-email">Email</label>
+                        <input type="email" class="form-control" id="input-email" placeholder="Contact email address"  name="" >
+                        <div class="invalid-feedback">
+                            Uh oh, error!
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <label for="input-confirm-email">Email</label>
+                        <input type="email" class="form-control" id="input-confirm-email" placeholder="Re-enter email address">
+                        <div class="invalid-feedback">
+                            Uh oh, error!
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group mb-3">
-                <label for="input-tel">Telephone</label>
-                <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline" >
-                <div class="invalid-feedback">
-                    Uh oh, error!
-                </div>
-            </div>
-        
+          
+                
             <div class="form-group mb-3">
                 <label for="input-telephone">Telephone</label>
                 <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline" >
@@ -78,10 +81,9 @@
             </div>
         </div>
         <div class="form-group"></div>
-        
-        <button class="btn btn-primary" action="Submit "type="submit">Submit</button>
+        <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit">
         </div>
-    </div>
+</form>
 
-    {!! Form::close() !!}
+
 @endsection

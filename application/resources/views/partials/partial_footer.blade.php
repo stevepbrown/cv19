@@ -22,12 +22,3 @@
         </div>
     </div>
 </footer>
-
-{{-- <div class="row">
-        <div class="col-0"></div>
-        <div class="col-10">
-            &copy; Steve Brown {{date('Y')}}
-</div>
-<div class="col-0"></div>
-</div> --}}
-{{-- </footer> --}}

@@ -37,9 +37,8 @@
 </head>
 
 <body>
-    <div id="div-document-container" class="container-fluid px-5">
-        <div id="div-document-container" class="container-fluid">
-            
+    <div id="div-document-container" class="container-fluid m-5">
+                   
             {{-- Uses Spatie/Cooke --}}
             @include('cookieConsent::index')
 
@@ -48,16 +47,13 @@
             </div>           
                       {{menu('main_nav','partials.partial_main_nav')}}
 
-
-   
-
             <main>
                 @yield('main')
             </main>
            {{-- footer --}}
             @include('partials.partial_footer')
             
-        </div>
+    
     </div>
 
     @scripts

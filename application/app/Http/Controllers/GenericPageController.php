@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
  class GenericPageController extends Controller
 {
 
+    protected $request;
     protected $requestPath;
     protected $props;
 
@@ -19,7 +20,8 @@ use Illuminate\Http\Request;
 
     public function __construct(Request $request){
 
-        $this->setRequestPath($request);
+        $this->request = $request;
+        $this->setRequestPath($this->request);
         
 
     }
