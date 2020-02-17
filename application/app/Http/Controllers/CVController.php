@@ -30,11 +30,14 @@ class CVController extends GenericPageController
      */
     public function __invoke()
     {
-        $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
         
+        
+        $employersRoleSort= jobs::select('employer_id','employer','employer_description')->orderByDesc('role_sort');
+
+              
         $employersKeyed  = $employersRoleSort->get()->keyBy('employer_id');
 
-
+   
         $roles =  jobs::select('employer_id','role_id','role','role_sort')->orderByDesc('role_sort')->groupBy('employer_id','role_id','role','role_sort');
 
         $roles =  $roles->select('employer_id','role_id','role')->get();
@@ -42,13 +45,15 @@ class CVController extends GenericPageController
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
       
+
         // Return a collection of skills (with children)
         $skills = Skills::with('children')->get();
+
 
         // Active skills ordered by their sort index
          $skills= $skills->where('is_active',true)
                          ->sortBy('SortOrder');
-                         
+
                          
     
          $qualifications =  Institutions::with('qualifications.modules')->get();
@@ -80,7 +85,7 @@ class CVController extends GenericPageController
                         
                         ]);
 
-            
+        
 
         return $this->vw;                 
 

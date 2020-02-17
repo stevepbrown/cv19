@@ -1,6 +1,6 @@
 CREATE OR REPLACE
     ALGORITHM = UNDEFINED 
-    DEFINER = 'spb'
+    DEFINER = spb@localhost
     SQL SECURITY INVOKER
 VIEW `vwEmployerRoleResponsibility` AS
     SELECT 

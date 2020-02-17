@@ -13,12 +13,16 @@ class CreateTrafficSourceTypesTable extends Migration
      */
     public function up()
     {
+
+        
         Schema::create('traffic_source_types', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->tinyInteger('code')->unique();
             $table->string('text',50);
             $table->timestamps();
         });
+    
+        
     }
 
     /**

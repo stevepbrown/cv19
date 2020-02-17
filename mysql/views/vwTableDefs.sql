@@ -1,6 +1,6 @@
 CREATE 
     ALGORITHM = UNDEFINED 
-    DEFINER = `spb`@`%` 
+    DEFINER = spb@localhost
     SQL SECURITY DEFINER
 VIEW `vwTableDefs` AS
     SELECT 

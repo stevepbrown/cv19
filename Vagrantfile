@@ -55,13 +55,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.notify_forwarder.enable = true
     end
 
+    config.ssh.insert_key = false
+   
 
-    config.ssh do
-
-        config.ssh.insert_key = false
-
-    end
+   
 end
 
 
+  
+
+  
 

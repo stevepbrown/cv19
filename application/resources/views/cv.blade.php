@@ -51,7 +51,7 @@
     <div id="div-cv-jobs">
         <h2>Employment History</h2>
 
-        @foreach ($employers as $employer)
+             @foreach ($employers as $employer)
             <h3 id="h3-employer-{{$employer->employer_id}}">{{$employer->employer}}</h3>
             <p>{{$employer->employer_description}}</p>
             @foreach($roles->where('employer_id',$employer->employer_id) as $role)

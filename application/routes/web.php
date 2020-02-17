@@ -41,7 +41,7 @@ Route::post('/contact/create','ContactController@store')->name('contact.store');
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 
-    Route::get('mailings','BatchMailController@index')->name('browse.mailings');
+    Route::get('mailings','BatchMailController@index')->name('voyager.mailings.index');
     Route::get('mailings/create/{templateId}','BatchMailController@create')->name('create.mailings');
     Route::get('mailings/send/{batchId}','BatchMailController@send')->name('send.mailings');
     
