@@ -18,23 +18,15 @@ class ContactController extends GenericPageController
       'traffic_source_other',
       'message',
    ];
+
+   protected $rules;
  
    public function show(){
 
      parent::show();
 
         $request = $this->request; 
-
-        // Add ContactForm session variables
-      //  $request->session()->put('id', null);   
-      //  $request->session()->put('title_id', null);
-      //  $request->session()->put('given_name', null);
-      //  $request->session()->put('family_name', null);
-      //  $request->session()->put('telephone', null);
-      //  $request->session()->put('traffic_source_code', null);
-      //  $request->session()->put('traffic_source_other', null);
-      //  $request->session()->put('message', null);
-      
+     
 
       // Obtain a list of options for traffic source types
       $trafficSourceTypes = DB::table('traffic_source_types')->select('code','text')->orderBy('code')->get()->toArray();
@@ -56,7 +48,21 @@ class ContactController extends GenericPageController
    public function store(Request $request){
 
       
-   dd($request->input());
+      // Validation $rules
+      $this->rules =  array(
+        'given_name'=>'required|alpha_dash|min:2',
+        'family_name'=>'required|alpha_dash|min:2',
+         'email'=>'required|email|same:confirm_email',
+         'confirm_email'=>'required|email|same:email',
+         'traffic_source'=>'required|numeric',
+         'traffic_source_other'=>'exclude_unless:traffic_source,99|required|alpha_dash|min:4',
+         'telephone'=>'nullable|min:10',
+         'message'=>'required|min:5|max:500'
+      );
+
+      // Validate
+      $request->validate($this->rules);
+     
 
    }
 }

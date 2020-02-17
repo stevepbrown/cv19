@@ -5,6 +5,17 @@
 @section('main')
 
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
 <form class="was-validated" method="POST" action="/contact/create" novalidate>
 
     
@@ -70,13 +81,18 @@
 
             </select>
             </div>
-            <div class="col-12 md-6 form-group">
-                <input id="input-source-other" type="text" class="form-control" placeholder="specify other">
+            <div class="col-12 md-6 form-group" {{($traffic_source_id->value !==99?'hidden':null;)}}>
+                <input id="input-source-other" type="text" class="form-control" placeholder="specify other" name="traffic_source_other">
             </div>
             <div class="invalid-feedback">
                 Uh oh, error!
             </div>
         </div>
+        <div class="form-group">
+            <label for="message">Enquiry</label>
+            <input type="text-area" id="input-textarea-msg" name="message">
+        </div>
+
         <div class="form-group"></div>
         <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit">
         </div>
