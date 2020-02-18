@@ -4,7 +4,6 @@
 
 @section('main')
 
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -24,7 +23,7 @@
 
             <div class="form-group mb-3">
                 <label for="input-given-name">First Name</label>&nbsp;
-            <input type="text" class="form-control" id="input-given-name"  placeholder="Given name" name="given_name" value="wibble" required>
+            <input type="text" class="form-control" id="input-given-name"  placeholder="Given name" name="given_name"  required>
                 <div class="invalid-feedback">
                         Uh oh, error!
                 </div>
@@ -81,8 +80,8 @@
 
             </select>
             </div>
-            <div class="col-12 md-6 form-group" {{($traffic_source_id->value !==99?'hidden':null;)}}>
-                <input id="input-source-other" type="text" class="form-control" placeholder="specify other" name="traffic_source_other">
+            <div class="col-12 md-6 form-group">
+                <input id="input-source-other" type="text" class="form-control invisible" placeholder="specify other" name="traffic_source_other">
             </div>
             <div class="invalid-feedback">
                 Uh oh, error!
@@ -97,6 +96,39 @@
         <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit">
         </div>
 </form>
+
+@push('supplementary_scripts')
+
+<script>
+
+$("document").ready(function () {
+    
+    // Enable / disable logic for traffic source (other, specify)
+    
+    var $selected;
+    
+    $("#select-source-type").change(function(){
+                             
+        $selected = $("#select-source-type option:selected");
+
+        if ($($selected).val() == 99) {
+            $("#input-source-other").removeClass("invisible");
+        }
+        else {
+
+            $("#input-source-other").addClass("invisible");
+            $("#input-source-other").val(null);
+        };
+
+    });
+
+});
+
+
+
+</script>
+
+@endpush
 
 
 @endsection

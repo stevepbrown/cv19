@@ -57,9 +57,8 @@
     </div>
 
     @scripts
-    @slot('sup-scripts')
-    @endslot
     @endscripts
+   
 </body>
 
 

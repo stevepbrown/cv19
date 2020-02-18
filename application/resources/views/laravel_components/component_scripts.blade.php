@@ -3,5 +3,7 @@
     experience the site in its intended form &#46;</noscript>
 <script src="/js/app.js" type="text/javascript"></script>
 
-<slot name="sup-scripts">
-</slot>
+{{-- Stacks
+
+Blade allows you to push to named stacks which can be rendered somewhere else in another view or layout. This can be particularly useful for specifying any JavaScript libraries required by your child  --}}
+@stack('supplementary_scripts')

@@ -39,8 +39,7 @@ class ContactController extends GenericPageController
       
       $vw = view($this->props['name'],$this->props);
 
-      
-     
+          
       return $vw;
       
   }
