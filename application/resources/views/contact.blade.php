@@ -15,7 +15,7 @@
 @endif
 
 
-<form class="was-validated" method="POST" action="/contact/create" novalidate>
+<form id="form-contact" class="not-validated" method="POST" action="/contact/create" novalidate>
 
     
     {{-- CSRF token --}}
@@ -97,6 +97,7 @@
         </div>
 </form>
 
+{{-- This script is pushed onto the named stack & injected where the stack declaration is made (component.scripts) --}}
 @push('supplementary_scripts')
 
 <script>
@@ -121,6 +122,9 @@ $("document").ready(function () {
         };
 
     });
+
+
+    $("#form-contact").validate();
 
 });
 
