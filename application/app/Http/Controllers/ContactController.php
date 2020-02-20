@@ -20,33 +20,31 @@ class ContactController extends GenericPageController
    ];
 
    protected $rules;
- 
+
    public function show(){
 
      parent::show();
 
-        $request = $this->request; 
+      $request = $this->request;
+
      
 
       // Obtain a list of options for traffic source types
       $trafficSourceTypes = DB::table('traffic_source_types')->select('code','text')->orderBy('code')->get()->toArray();
-      
- 
+
+
       // append the array to the props
       $this->props = Arr::add($this->props,'trafficSourceTypes',$trafficSourceTypes);
 
-      
-      
       $vw = view($this->props['name'],$this->props);
 
-          
       return $vw;
-      
+
   }
-   
+
    public function store(Request $request){
 
-      
+
       // Validation $rules
       $this->rules =  array(
         'given_name'=>'required|alpha_dash|min:2',
@@ -61,7 +59,7 @@ class ContactController extends GenericPageController
 
       // Validate
       $request->validate($this->rules);
-     
+
 
    }
 }

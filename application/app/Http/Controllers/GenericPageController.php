@@ -63,6 +63,8 @@ use Illuminate\Http\Request;
 
         $props = $this->getProps()->toArray();
 
+        
+
         $attributes = array();
         $attributes = arr::add($attributes, 'name',$props['name']);
         $attributes = arr::add($attributes, 'title',$props['title']);
@@ -106,7 +108,7 @@ use Illuminate\Http\Request;
         
         $vw = view($this->props['name'],$this->props);
 
-        
+               
         return $vw;
         
     }
