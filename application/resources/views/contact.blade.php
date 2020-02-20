@@ -109,6 +109,7 @@
 
     $("document").ready(function() {
 
+     alert('JS running!');   
      
      $("#select-source-type").change(function(){
                              
@@ -125,7 +126,15 @@
                      
                          });
         
-        $("form").validate()                 
+        $("form").validate({
+
+            form: 'form-contact',
+            debug: true,
+            rules:{},
+            messages:{},
+          
+
+    });                 
        
     }); 
 
