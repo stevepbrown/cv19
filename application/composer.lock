@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a5330215d274e275647f7518860def54",
+    "content-hash": "a7fc1ef2f31b5b8d68cad038558440df",
     "packages": [
         {
             "name": "arrilot/laravel-widgets",
@@ -5181,6 +5181,34 @@
                 "panel"
             ],
             "time": "2019-12-23T21:54:04+00:00"
+        },
+        {
+            "name": "test-hook",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/larapack/test-hook.git",
+                "reference": "v1.0.0"
+            },
+            "require": {
+                "larapack/hooks": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "hook": {
+                    "providers": [
+                        "TestHook\\TestHookServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TestHook\\": "src/"
+                }
+            },
+            "notification-url": "https://larapack.io/downloads",
+            "description": "This is my first hook.",
+            "time": "2020-02-20T14:02:26+00:00"
         },
         {
             "name": "tightenco/collect",

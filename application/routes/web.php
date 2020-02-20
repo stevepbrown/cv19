@@ -1,5 +1,5 @@
 <?php
-use App\Http\Controllers\BatchMailController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +10,8 @@ use App\Http\Controllers\BatchMailController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// DEBUGONLY(SPB): 
+Route::view('/template', 'template');
 Route::get('/', 'GenericPageController@show');
 Route::get('/contact','contactController@show')->name('contact.show');
 Route::get('/faq','GenericPageController@show');
@@ -18,12 +20,16 @@ Route::get('/aboutapp','GenericPageController@show');
 Route::get('/cv','CVController');
 Route::get('/print','PrintController');
 
-Route::post('/contact/create','ContactController@store')->name('contact.store');   
+
+Route::post('/contact/create','ContactController@store')->name('contact.store');
 
 /* 3rd Party Vendor Routes */
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
+Route::group(['prefix' => 'admin'], function()
+    {
+    Voyager::routes();     
     Route::get('mailings','BatchMailController@index')->name('voyager.mailings.index');
     Route::get('mailings/create/{templateId}','BatchMailController@create')->name('create.mailings');
     Route::get('mailings/send/{batchId}','BatchMailController@send')->name('send.mailings');
-});
+     
+});   
+?>
