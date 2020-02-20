@@ -1,7 +1,4 @@
-<html>
-    <head>
-    <meta charset="utf-8">    
-        @head(
+<html>@head(
             //need to pass the page attributes through
             [
                 'title'=>$title,
@@ -9,8 +6,8 @@
                 'keywords'=>$keywords,
                 'links'=>$links,
             ])
-        @endhead
-    </head>
+    @endhead
+   
     <body>
         <div id="div-document-container" class="container-fluid m-5">
                 {{-- Uses Spatie/Cooke --}}

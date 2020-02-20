@@ -109,9 +109,8 @@
 
     $("document").ready(function() {
 
-        alert('Document is ready');
-
-        $("#select-source-type").change(function(){
+     
+     $("#select-source-type").change(function(){
                              
                              $selected = $("#select-source-type option:selected");
                      
@@ -125,7 +124,9 @@
                              };
                      
                          });
-        $("#form-contact").validate();
+        
+        $("form").validate()                 
+       
     }); 
 
 
