@@ -60,8 +60,24 @@ class ContactController extends GenericPageController
       );
 
       // Validate
-      $request->validate($this->rules);
+      
+      if ($request->validate($this->rules)->errors()->count() < 1){
 
+         $contact = new ContactForm;
+
+         $contact->given_name = $input->given_name;
+         $contact->family_name = $input->family_name;
+         $contact->telephone = $input->telephone;
+         $contact->traffic_source_code = $input->traffic_source_code;
+         $contact->traffic_source_other = $input->traffic_source_other;
+         $contact->message = $input->message;
+     
+         $contact->save();
+         
+
+      }
+
+         
 
    }
 }

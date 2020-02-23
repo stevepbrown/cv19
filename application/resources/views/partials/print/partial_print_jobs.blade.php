@@ -6,6 +6,7 @@
         <p>{{$employer->employer_description}}</p>
         @foreach($roles->where('employer_id',$employer->employer_id) as $role)
             <h4 id="h4-role-{{$role->id}}">{{$role->role}}</h4>
+            <p>{{$role->tenure}}</p>
             <ul id="ul-role-{{$role->id}}">
                 @foreach ($responsibilities->where('employer_id',$employer->employer_id)->where('role_id',$role->role_id) as $responsibility)
                     <li id="li-responsibility-{{$responsibility->responsibility_id}}">

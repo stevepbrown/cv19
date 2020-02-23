@@ -115,12 +115,10 @@
             },
             "email":{
                 required:true,
-                email:true,
-                equalTo:"confirm_email"
+           
             },
             "confirm_email":{
                 required:true,
-                email:true,
                 equalTo:"email"
 
             },

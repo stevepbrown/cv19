@@ -28,9 +28,9 @@ class PrintController extends Controller
         $employersKeyed  = $employersRoleSort->get()->keyBy('employer_id');
 
 
-        $roles =  jobs::select('employer_id','role_id','role','role_sort')->orderByDesc('role_sort')->groupBy('employer_id','role_id','role','role_sort');
+        $roles =  jobs::select('employer_id','role_id','role','role_sort','tenure')->orderByDesc('role_sort')->groupBy('employer_id','role_id','role','role_sort','tenure');
 
-        $roles =  $roles->select('employer_id','role_id','role')->get();
+        $roles =  $roles->select('employer_id','role_id','role','tenure')->get();
 
         $responsibilities = jobs::select('responsibility_id','employer_id','role_id','responsibility')->where('role_responsibility_is_active',true)->orderBy('responsibility')->get();
 
