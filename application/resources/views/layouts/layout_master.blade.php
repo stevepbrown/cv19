@@ -9,23 +9,25 @@
     @endhead
    
     <body>
-        @if(env('APP_ENV')!== 'production')
-         @include('laravel_components.component_application_dev_env')
-        @endif
-
-        <div id="div-document-container" class="container-fluid m-5">
+       
+        <div id="div-document-container" class="container-fluid">
                 {{-- Uses Spatie/Cooke --}}
                 @include('cookieConsent::index')
-                <div class="container mx-auto">
-                    <h1 class="display-3">{{$title}}</h1>
-                </div>           
-                        {{menu('main_nav','partials.partial_main_nav')}}
-                <main>
-                    @yield('main')
-                </main>
+       
+                    <h1 class="display-3 text-center">{{$title}}</h1>
+               
+       
+                @if(env('APP_ENV')!== 'production')
+                    @include('laravel_components.component_application_dev_env')
+                @endif                
+       
+                {{menu('main_nav','partials.partial_main_nav')}}
+             <main class="container">
+                @yield('main')
+             </main>
             {{-- footer --}}
                 @include('partials.partial_footer')
-            </div>
+        </div>
         @scripts
         @endscripts
     </body>
