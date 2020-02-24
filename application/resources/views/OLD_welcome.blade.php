@@ -1,10 +1,7 @@
-{{-- home.blade.php --}}
 @extends('layouts.layout_master')
 
 
 @section('main')
-
-
 
 
 
