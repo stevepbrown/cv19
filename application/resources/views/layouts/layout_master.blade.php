@@ -9,6 +9,10 @@
     @endhead
    
     <body>
+        @if(env('APP_ENV')!== 'production')
+         @include('laravel_components.component_application_dev_env')
+        @endif
+
         <div id="div-document-container" class="container-fluid m-5">
                 {{-- Uses Spatie/Cooke --}}
                 @include('cookieConsent::index')

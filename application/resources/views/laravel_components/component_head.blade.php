@@ -7,6 +7,9 @@
         <meta name="description" content="{{$description}}">
         <meta name="keywords" content="{{$keywords}}">
         <meta name="description" content="{{$description}}">
+        @if(env('APP_ENV')!== 'production')
+            <meta name="X-Robots-Tag" content="noindex,nofollow">
+        @endif
         @foreach ($links as $link)
 
         <link id="{{$link['attr_id']}}" type="{{$link['link_type']}}" rel="{{$link['rel']}}" href="{{$link['href']}}"

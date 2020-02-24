@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// DEBUGONLY(SPB): 
-Route::view('/template', 'template');
+
 Route::get('/', 'GenericPageController@show');
 Route::get('/contact','contactController@show')->name('contact.show');
 Route::get('/faq','GenericPageController@show');
