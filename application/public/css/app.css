@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Baloo+Da|Noto+Sans|Oxanium|Squada+One&display=swap);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Baloo+Da|Noto+Sans|Oxanium|Share+Tech+Mono|Squada+One&display=swap);@charset "UTF-8";
 
 /*!
  * Font Awesome Free 5.12.1 by @fontawesome - https://fontawesome.com
@@ -17009,8 +17009,7 @@ a.text-dark:focus {
 }
 
 body {
-  font-family: "Baloo Da";
-  font-stretch: "expanded";
+  font-family: "Oxanium";
   font-size: 1.4rem;
 }
 
