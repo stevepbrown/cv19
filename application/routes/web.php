@@ -11,6 +11,9 @@
 |
 */
 
+// DEBUGONLY(SPB): 
+Route::view('/font-test','font-samples');
+
 Route::get('/', 'GenericPageController@show');
 Route::get('/contact','contactController@show')->name('contact.show');
 Route::get('/faq','GenericPageController@show');

@@ -9,7 +9,7 @@
     @endhead
    
     <body>
-   
+
         <div id="div-document-container" class="container-fluid">
                 {{-- Uses Spatie/Cooke --}}
                 @include('cookieConsent::index')
@@ -22,9 +22,11 @@
                 @endif                
        
                 {{menu('main_nav','partials.partial_main_nav')}}
-             <main class="container">
+             <main class="container my-2">
                 @yield('main')
              </main>
+        </div>  
+        <div id="div-footer-container">   
             {{-- footer --}}
                 @include('partials.partial_footer')
         </div>

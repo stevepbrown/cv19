@@ -1,8 +1,8 @@
 {{-- <footer class="container container-fluid"> --}}
-<footer class="fix-bottom">
+<footer>
     <div class="container container-fluid">
         <div class="row align-items-top">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 my-1">
                 <div class="card h-100">
                     <div class="card-body">
                         <h5 class="card-title">Useful Links</h5>
@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 my-1">
                 <div class="card h-100">
                     <div class="card-body">
                         <h5 class="card-title">Resources</h5>
@@ -20,8 +20,10 @@
                 </div>
             </div>
         </div>
-        <div id="div-badges" class="row border text-danger">
-            <h1>Badges here?</h1>
+        <div id="div-badges" class="row d-none d-lg-block my-1">
+            <div class="col-md-12">
+                <h1>Badges here?</h1>
+            </div>
         </div>
-    </div>
-</footer>
+</footer mb-2>
+</div>

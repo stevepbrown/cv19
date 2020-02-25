@@ -1,6 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+@import url('https://fonts.googleapis.com/css?family=Baloo+Da|Noto+Sans|Oxanium|Squada+One&display=swap');
 
 // icons
 @import "font-awesome/fontawesome.scss";
@@ -12,30 +11,24 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+  body {
+
+    font-family: 'Baloo Da' ,;
+    font-stretch: 'expanded';
+    font-size: 1.4rem;
+    
+  }
+
+  main {
+
+    min-height:75%;
+  }
 
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-//   margin-bottom: 60px; /* Margin bottom by footer height */
-  margin-bottom:270px; /* Margin bottom by footer height */
-}
-
-.fix-bottom {
-  box-sizing:border-box;
-  position: absolute;
-  // height:250px;
-  bottom: 0;
-  // width:90%;
-  margin-top:5px;
-  margin-bottom:15px;
 
 
-   
-}
+
+
 
 
 
