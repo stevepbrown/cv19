@@ -1,4 +1,4 @@
-<html>@head(
+<html lang="en">@head(
             //need to pass the page attributes through
             [
                 'title'=>$title,
@@ -9,7 +9,7 @@
     @endhead
    
     <body>
-       
+   
         <div id="div-document-container" class="container-fluid">
                 {{-- Uses Spatie/Cooke --}}
                 @include('cookieConsent::index')

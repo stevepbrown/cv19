@@ -20,5 +20,8 @@
                 </div>
             </div>
         </div>
+        <div id="div-badges" class="row border text-danger">
+            <h1>Badges here?</h1>
+        </div>
     </div>
 </footer>
