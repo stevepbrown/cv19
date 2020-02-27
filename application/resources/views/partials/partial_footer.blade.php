@@ -1,5 +1,5 @@
 {{-- <footer class="container container-fluid"> --}}
-<footer>
+<footer class="mb-2">
     <div class="container container-fluid">
         <div class="row align-items-top">
             <div class="col-12 col-md-6 my-1">
@@ -20,10 +20,13 @@
                 </div>
             </div>
         </div>
-        <div id="div-badges" class="row d-none d-lg-block my-1">
-            <div class="col-md-12">
-                <h1>Badges here?</h1>
+        <div class="row">
+            <div id="div-badge-flex-container" class="d-none d-lg-flex align-items-center justify-content-between my-1">
+                <img src="" alt="First">
+                <img src="" alt="Second">
+                <img src="" alt="Third">
+                <img src="" alt="Fourth">
             </div>
         </div>
-</footer mb-2>
+    </footer>
 </div>

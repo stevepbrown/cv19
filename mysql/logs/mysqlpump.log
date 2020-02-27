@@ -375,3 +375,26 @@ mysqlpump: [ERROR] (1046) No database selected
 Dump process encountered error and will not continue.
 mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
 Dump process encountered error and will not continue.
+Dump progress: 2/7 tables, 0/131 rows
+Dump progress: 2/7 tables, 0/131 rows
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: Got error: 2002: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2) while connecting to the MySQL server
+mysqlpump: [ERROR] (11) 
+Dump process encountered error and will not continue.
+Dump progress: 2/10 tables, 0/277 rows
+Dump progress: 2/11 tables, 0/277 rows
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.

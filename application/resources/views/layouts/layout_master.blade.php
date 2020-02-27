@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">@head(
             //need to pass the page attributes through
             [

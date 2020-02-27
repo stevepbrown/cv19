@@ -81,6 +81,4 @@
 
     </script>
     @endpush
-    div-cv-skills
-
 @endsection

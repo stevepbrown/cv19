@@ -25,6 +25,10 @@ features:
     - ohmyzsh: false
     - webdriver: false
 
+# Database Backups -Homestead can automatically backup your database when your Vagrant box is destroyed. To utilize this feature, you must be using Vagrant
+
+backup: true
+
 # ports:
 #     - send: 50000
 #       to: 5000

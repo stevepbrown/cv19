@@ -1,5 +1,7 @@
 ## It has been some time since you last worked, what's the story?
 
+When I returned from my Web Technologies course in Australia, I returned to the UK and secured a temporary Mid-level Developer position almost straight away. Prior to working at Suresite I had no knowledge of Laravel, and very little PHP. The position was therefore challenging from the outset, but I did learn a great deal whilst in post. However, I did not enjoy feeling so 'out of my depth' on a regular basis. I knew I wanted to continue to work with Laravel, and so I resolved to take some time to consolidate those skills, on the basis of independent self-directed study. This entailed many sacrifices on my part, and required a great deal of focus & self-discipline. I am pleased to say that I now feel able to offer my services once again, with a significantly enhanced level of competency.   
+
 ## Why did you switch from using the .NET framework to a PHP framework?
 
 I worked with Microsoft technolgies for a long time, having worked as an Analyst Programmer at Birmingham University for nearly 15 years. I wanted to take on a fresh challenge. For me that went going back to college and learning a completely new set of development technologies! It is interesting to know both sides, but ultimately you have to 'pick a horse', and remain with it in order to amass sufficient  information that is current.

@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Baloo+Da|Noto+Sans|Oxanium|Share+Tech+Mono|Squada+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Baloo+Da|Audiowide|Noto+Sans|Oxanium|Share+Tech+Mono|Squada+One&display=swap');
 
 
 // Variables
@@ -8,20 +8,40 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Boostrap Overrides
+$font-family-base:'Oxanium'; 
+
+// Custom colour mapping
+
+$font-family-primary-headings: 'Audiowide';
+// $proj-color-pallette: {
+
+
+
+// }
+
 
 
   body {
 
-    font-family: 'Oxanium';
+    
     font-size: 1.4rem;
-
+    font-family: $font-family-base;
+    background-color: $indigo;
     
   }
 
   main {
 
     min-height:75%;
+  
     
+    h2 {
+      font-family:$font-family-primary-headings;
+      font-stretch: extra-expanded;
+      font-size: 1.7rem;
+      
+    }
     
   }
 
