@@ -32,7 +32,7 @@
 <div class="form-row mb-3">
     <div class="col-10 col-sm-6 col-md-4">
         <label for="input-email">Email</label>
-        <input type="text" class="form-control" id="input-email" placeholder="Contact email address" name="email" tabindex="9" >
+        <input type="text" class="form-control" id="input-email" placeholder="Contact email address" name="email" tabindex="9">
        
     </div>
     <div class="col-10 col-sm-6 col-md-4">
@@ -63,7 +63,7 @@
 </div>
 <div class="form-row mb-3">
     <div class="col-10 col-sm-6">
-        <input id="input-source-other" type="text" class="form-control invisible" placeholder="specify other" name="traffic_source_other" tabindex="13" >
+        <input id="input-source-other" type="text" class="form-control invisible" placeholder="specify other" name="traffic_source_other" tabindex="13">
     </div>
 </div>
 <p>Enquiry</p>
@@ -84,7 +84,7 @@
 </div>
 <div class="form-row">
     <div class="col-lg-2">
-        <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit" tabindex="16" >
+        <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit" tabindex="16" role="button">
     </div>    
 </div>
 </form>
@@ -102,7 +102,8 @@
                                  $("#input-source-other").val(null);
                              };
                          });
-    $("#form-contact").validate({
+    
+        $("#form-contact").validate({
         debug: true,
         rules:{
             "given_name":{
@@ -115,13 +116,10 @@
             },
             "email":{
                 required:true,
+              
            
             },
-            "confirm_email":{
-                required:true,
-                equalTo:"email"
-
-            },
+           
             "traffic_source":{
 
                

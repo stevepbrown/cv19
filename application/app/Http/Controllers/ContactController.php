@@ -46,6 +46,7 @@ class ContactController extends GenericPageController
 
    public function store(Request $request){
 
+      dd('Post received!');
 
       // Validation $rules
       $this->rules =  array(
