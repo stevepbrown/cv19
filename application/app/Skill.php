@@ -31,7 +31,7 @@ class Skill extends Model
      /*
        Appending values to the model will enable those values to be accessible form within the model, as if they were columns in the database, see https://laravel.com/docs/6.x/eloquent-serialization#appending-values-to-json
      */
-    protected $appends = array('is_active','sort_order','suppress_on_print');
+    protected $appends = array('is_active','sort_order','suppress_on_print','icon_class');
     
     /**
      * function children
@@ -120,6 +120,22 @@ class Skill extends Model
         
         return (bool) $result;
     
+    }
+    /**
+     *  function getIconClassAttribute
+     *
+     * @return void
+     */
+    public function getIconClassAttribute(){
+      $qry = DB::table('entity_attribute_value')->select('value')
+        ->where('app_table_id',13) // 'skills'
+        ->where('attribute_id',6) // 'icon'
+        ->where('key',$this->id);
+
+        return $qry->pluck('value')->first();
+        
+        
+
     }
     
 

@@ -1,9 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Baloo+Da|Noto+Sans|Oxanium|Share+Tech+Mono|Squada+One&display=swap');
 
-// icons
-@import "font-awesome/fontawesome.scss";
-@import "font-awesome/regular.scss";
 
 // Variables
 @import 'variables';
@@ -11,16 +8,21 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+
   body {
 
     font-family: 'Oxanium';
     font-size: 1.4rem;
+
     
   }
 
   main {
 
     min-height:75%;
+    
+    
   }
 
 

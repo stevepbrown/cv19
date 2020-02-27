@@ -66,4 +66,21 @@
 
     </div>
 
+    @push('supplementary_scripts')
+    <script>
+
+    $("document").ready(function() {
+
+    // Enable tooltips
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+
+    });
+
+    </script>
+    @endpush
+    div-cv-skills
+
 @endsection
