@@ -112,9 +112,7 @@ return [
             'role_responsibilities',
             // 'settings',
             // 'skills',
-            'telescope_entries',
-            'telescope_entries_tags',
-            'telescope_monitoring',
+            
             'translations',
             'users',
             'user_roles'

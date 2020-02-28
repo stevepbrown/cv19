@@ -9,87 +9,99 @@
         </ul>
     </div>
 @endif
-<form id="form-contact" class="container mt-4 was-valid" method="POST" action="/contact/create">
-{{-- CSRF token --}}
-@csrf
-<div class="form-row mb-3">
-    <div class="col-10 col-sm-6 col-md-4">
-        <label for="input-given-name">First Name</label>&nbsp;
-        <input type="text" class="form-control" id="input-given-name" placeholder="Given name"
-            name="given_name" tabindex="7" autofocus required>
-        
-       
-    </div>
 
-    <div class="col-10 col-sm-6 col-md-4">    
-            <label for="input-family-name">Second Name</label>
-            <input type="text" class="form-control" id="input-family-name" placeholder="Family name"
-                name="family_name"  tabindex="8">
-    </div>
-</div>
-<div class="form-row mb-3">
-</div>
-<div class="form-row mb-3">
-    <div class="col-10 col-sm-6 col-md-4">
-        <label for="input-email">Email</label>
-        <input type="text" class="form-control" id="input-email" placeholder="Contact email address" name="email" tabindex="9">
-       
-    </div>
-    <div class="col-10 col-sm-6 col-md-4">
-        <label for="input-confirm-email">Confirm Email</label>
-        <input type="text" class="form-control" id="input-confirm-email"
-            placeholder="Re-enter email address" name="confirm_email" tabindex="10"  >
-       
-    </div>
-</div>
-<div class="form-row mb-3">
-    <div class="col-10 col-sm-6 col-md-4">
-        <label for="input-telephone">Telephone</label>
-        <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline"
-            name="telephone" tabindex="11" >
-       
-    </div>
-</div>
-<div id="div-source-type" class="form-row mb-3">
-    <div class="col-10 col-sm-6">
-        <label for="select-source-type">How did you hear about me?</label>
-        <select id="select-source-type" class="custom-select" name="traffic_source" tabindex="12" form="form-contact" >
-            <option value=null>-- Please select one --</option>
-            @foreach ($trafficSourceTypes as $item)
-            <option value="{{$item->code}}">{{$item->text}}</option>
-            @endforeach
-        </select>
-    </div>
-</div>
-<div class="form-row mb-3">
-    <div class="col-10 col-sm-6">
-        <input id="input-source-other" type="text" class="form-control invisible" placeholder="specify other" name="traffic_source_other" tabindex="13">
-    </div>
-</div>
-<p>Enquiry</p>
-<div class="form-row mb-3">
-    <div class="col-10">
-        <textarea id="text-area-msg"  name="message" form="form-contact" maxlength="500" name="message" placholder="Outline your enquiry"  wrap="hard" rows="5" cols="50" tabindex="14" ></textarea>
-        
-    </div>
 
-</div>
-<div class="form-row mb-3">
-    <div class="col-10 col-sm-6">
-        <input type="checkbox" id="checkbox-consent" name="consent" tabindex="15" >
-        <label for="checkbox-consent"> I consent to terms</label>
+
+@if ($status == 201)
+    <div class="alert alert-success">
+        <p>Thank-you, your enquiry has been submitted successfully.</p>
+    </div>
+@else
+
+    <form id="form-contact" class="container mt-4 was-valid" method="POST" action="/contact/create">
+    {{-- CSRF token --}}
+    @csrf
+    <div class="form-row mb-3">
+        <div class="col-10 col-sm-6 col-md-4">
+            <label for="input-given-name">First Name</label>&nbsp;
+            <input type="text" class="form-control" id="input-given-name" placeholder="Given name"
+                name="given_name" tabindex="7" autofocus required>
+            
+        
+        </div>
+
+        <div class="col-10 col-sm-6 col-md-4">    
+                <label for="input-family-name">Second Name</label>
+                <input type="text" class="form-control" id="input-family-name" placeholder="Family name"
+                    name="family_name"  tabindex="8">
+        </div>
+    </div>
+    <div class="form-row mb-3">
+    </div>
+    <div class="form-row mb-3">
+        <div class="col-10 col-sm-6 col-md-4">
+            <label for="input-email">Email</label>
+            <input type="text" class="form-control" id="input-email" placeholder="Contact email address" name="email" tabindex="9">
+        
+        </div>
+        <div class="col-10 col-sm-6 col-md-4">
+            <label for="input-confirm-email">Confirm Email</label>
+            <input type="text" class="form-control" id="input-confirm-email"
+                placeholder="Re-enter email address" name="confirm_email" tabindex="10"  >
+        
+        </div>
+    </div>
+    <div class="form-row mb-3">
+        <div class="col-10 col-sm-6 col-md-4">
+            <label for="input-telephone">Telephone</label>
+            <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline"
+                name="telephone" tabindex="11" >
+        
+        </div>
+    </div>
+    <div id="div-source-type" class="form-row mb-3">
+        <div class="col-10 col-sm-6">
+            <label for="select-source-type">How did you hear about me?</label>
+            <select id="select-source-type" class="custom-select" name="traffic_source" tabindex="12" form="form-contact" >
+                <option value=null>-- Please select one --</option>
+                @foreach ($trafficSourceTypes as $item)
+                <option value="{{$item->code}}">{{$item->text}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+    <div class="form-row mb-3">
+        <div class="col-10 col-sm-6">
+            <input id="input-source-other" type="text" class="form-control invisible" placeholder="specify other" name="traffic_source_other" tabindex="13">
+        </div>
+    </div>
+    <p>Enquiry</p>
+    <div class="form-row mb-3">
+        <div class="col-10">
+            <textarea id="text-area-msg"  name="message" form="form-contact" maxlength="500" name="message" placholder="Outline your enquiry"  wrap="hard" rows="5" cols="50" tabindex="14" ></textarea>
+            
+        </div>
+
+    </div>
+    <div class="form-row mb-3">
+        <div class="col-10 col-sm-6">
+            <input type="checkbox" id="checkbox-consent" name="consent" tabindex="15" >
+            <label for="checkbox-consent"> I consent to terms</label>
+        
+        </div> <br>
     
-    </div> <br>
-  
-</div>
-<div class="form-row">
-    <div class="col-lg-2">
-        <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit" tabindex="16" role="button">
-    </div>    
-</div>
-</form>
+    </div>
+    <div class="form-row">
+        <div class="col-lg-2">
+            <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit" tabindex="16" role="button">
+        </div>    
+    </div>
+    </form>
+@endif
+
+
 @scripts
-@push('supplementary_scripts')
+{{-- @push('supplementary_scripts')
  <script id="script-contact">
     $("document").ready(function() {
      $("#select-source-type").change(function(){
@@ -116,6 +128,7 @@
             },
             "email":{
                 required:true,
+                
               
            
             },
@@ -177,6 +190,6 @@
     
 });
  </script>
-@endpush
+@endpush --}}
 @endscripts
 @endsection

@@ -38,15 +38,14 @@ class ContactController extends GenericPageController
 
       $vw = view($this->props['name'],$this->props);
 
-      
-
-      return $vw;
-
+   
+     return $vw->with('status',(app('Illuminate\Http\Response')->status()));
+  
   }
 
    public function store(Request $request){
 
-      dd('Post received!');
+
 
       // Validation $rules
       $this->rules =  array(
@@ -61,22 +60,25 @@ class ContactController extends GenericPageController
       );
 
       // Validate
+      $request->validate($this->rules);
       
-      if ($request->validate($this->rules)->errors()->count() < 1){
-
          $contact = new ContactForm;
 
-         $contact->given_name = $input->given_name;
-         $contact->family_name = $input->family_name;
-         $contact->telephone = $input->telephone;
-         $contact->traffic_source_code = $input->traffic_source_code;
-         $contact->traffic_source_other = $input->traffic_source_other;
-         $contact->message = $input->message;
+         $contact->given_name = $request->input('given_name');
+         $contact->family_name = $request->input('family_name');
+         $contact->telephone = $request->input('telephone');
+         $contact->traffic_source_code = $request->input('traffic_source_code');
+         $contact->traffic_source_other = $request->input('traffic_source_other');
+         $contact->message = $request->input('message');
      
          $contact->save();
+
+         $request->session->flash('status','Thankyou, you\'re message has been sent');
+
+         return back($status = 201, $headers = [], $fallback = false)->with('status',app('Illuminate\Http\Response')->status());
+         
          
 
-      }
 
          
 
