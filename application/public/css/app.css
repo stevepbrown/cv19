@@ -11115,3 +11115,10 @@ main h2 {
   font-size: 1.7rem;
 }
 
+main .error {
+  font-style: italic;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: red;
+}
+

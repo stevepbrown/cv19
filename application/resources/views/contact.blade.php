@@ -20,12 +20,12 @@
 
     <form id="form-contact" class="container mt-4 was-valid" method="POST" action="/contact/create">
     {{-- CSRF token --}}
-    @csrf
+   @csrf
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6 col-md-4">
             <label for="input-given-name">First Name</label>&nbsp;
             <input type="text" class="form-control" id="input-given-name" placeholder="Given name"
-                name="given_name" tabindex="7" autofocus required>
+                name="given_name" tabindex="7" autofocus>
             
         
         </div>
@@ -40,13 +40,13 @@
     </div>
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6 col-md-4">
-            <label for="input-email">Email</label>
-            <input type="text" class="form-control" id="input-email" placeholder="Contact email address" name="email" tabindex="9">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Contact email address" name="email" tabindex="9">
         
         </div>
         <div class="col-10 col-sm-6 col-md-4">
-            <label for="input-confirm-email">Confirm Email</label>
-            <input type="text" class="form-control" id="input-confirm-email"
+            <label for="confirm_email">Confirm Email</label>
+            <input type="text" class="form-control" id="confirm_email"
                 placeholder="Re-enter email address" name="confirm_email" tabindex="10"  >
         
         </div>
@@ -93,7 +93,7 @@
     </div>
     <div class="form-row">
         <div class="col-lg-2">
-            <input class="form-control btn btn-outline-primary my-3 mx-auto" type="submit" value="Submit" tabindex="16" role="button">
+            <input class="form-control btn btn-outline-primary my-3 mx-auto" tabindex="16" role="button" type="submit" value="submit">
         </div>    
     </div>
     </form>
@@ -101,10 +101,11 @@
 
 
 @scripts
-{{-- @push('supplementary_scripts')
+@push('supplementary_scripts')
  <script id="script-contact">
     $("document").ready(function() {
-     $("#select-source-type").change(function(){
+    
+        $("#select-source-type").change(function(){
                              $selected = $("#select-source-type option:selected");
                              if ($($selected).val() == 99) {
                                  $("#input-source-other").removeClass("invisible");
@@ -115,8 +116,29 @@
                              };
                          });
     
+        
+        // static method to check for 'traffic_source_other'
+       $.validator.addMethod( 'trafficOtherRequired',
+        
+        function(){
+
+
+             var trafficSourceParent= $("#traffic_source");
+             var trafficSourceChild = $('#traffic_source_other')   
+
+            var $result =  (trafficSourceParent.val == 99 && trafficSourceChild.length < 1);
+ 
+            return $result;
+
+             
+        } , 'Please specify how you heard about me' ) ;               
+
+        
         $("#form-contact").validate({
-        debug: true,
+
+            
+  
+
         rules:{
             "given_name":{
                 required:true,
@@ -127,11 +149,17 @@
                 minlength:2
             },
             "email":{
-                required:true,
-                
-              
+                required:true
+                                       
            
             },
+            "confirm_email":{
+                required:true,
+                equalTo:'#email'
+                        
+            },
+
+
            
             "traffic_source":{
 
@@ -139,7 +167,16 @@
                 number:true
                 
             },
+            
+            "traffic_source_other":{
+                
+                trafficOtherRequired:true,
+               
+                
+            },
+            
 
+         
             "message":{
                 required:true,
                 minlength:10
@@ -151,19 +188,19 @@
                 required:true
 
             }
-            
-
-
-            
-
         },
 
         messages:{
 
-            "email":{
+            
+            "confirm_email":{
+                
+      
                 equalTo: "The emails provided do not match!"
 
             },
+
+
 
             "traffic_source":{
 
@@ -183,13 +220,17 @@
         }
 
         
-    });
+    }
+       
+    );
+
+  
     
     $(".error").addClass('invalid-error');
 
     
 });
  </script>
-@endpush --}}
+@endpush
 @endscripts
 @endsection

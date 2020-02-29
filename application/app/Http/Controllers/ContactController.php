@@ -45,7 +45,8 @@ class ContactController extends GenericPageController
 
    public function store(Request $request){
 
-
+      
+  
 
       // Validation $rules
       $this->rules =  array(
@@ -59,6 +60,8 @@ class ContactController extends GenericPageController
          'message'=>'required|min:5|max:500'
       );
 
+      dd($request->validate($this->rules));
+
       // Validate
       $request->validate($this->rules);
       
@@ -66,12 +69,14 @@ class ContactController extends GenericPageController
 
          $contact->given_name = $request->input('given_name');
          $contact->family_name = $request->input('family_name');
+         $contact->email = $request->input('email');
          $contact->telephone = $request->input('telephone');
-         $contact->traffic_source_code = $request->input('traffic_source_code');
+         $contact->traffic_source_code = $request->input('traffic_source');
          $contact->traffic_source_other = $request->input('traffic_source_other');
          $contact->message = $request->input('message');
      
          $contact->save();
+
 
          $request->session->flash('status','Thankyou, you\'re message has been sent');
 

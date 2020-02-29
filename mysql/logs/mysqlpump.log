@@ -438,3 +438,43 @@ mysqlpump: [ERROR] (1046) No database selected
 Dump process encountered error and will not continue.
 mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
 Dump process encountered error and will not continue.
+Dump progress: Dump progress: 2/26 tables, 0/886 rows
+2/27 tables, 0/886 rows
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+Dump progress: Dump progress: 22/8 tables, 0/203 rows
+/9 tables, 0/203 rows
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+Dump progress: Dump progress: 2/8 tables, 0/131 rows
+2/19 tables, 0/652 rows
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+Dump progress: Dump progress: 2/13 tables, 0/290 rows
+2/14 tables, 0/592 rows
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1046) No database selected
+Dump process encountered error and will not continue.
+mysqlpump: [ERROR] (1018) Can't read dir of './lost+found/' (errno: 13 - Permission denied)
+Dump process encountered error and will not continue.
