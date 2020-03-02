@@ -48,8 +48,15 @@ use Illuminate\Http\Request;
 
     protected function getKeywords(){
 
-        return $this->buildKeywords($this->getProps()->keywords);
+       
+        if($this->getProps()->keywords->count() >=1){
 
+            return $this->buildKeywords($this->getProps()->keywords);
+ 
+
+        }
+
+        return false;
     }
 
     protected function getLinks() {

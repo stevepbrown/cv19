@@ -55,8 +55,15 @@ $font-family-primary-headings: 'Audiowide';
     }
 
 
+    .asterix-req::after{
 
-
+    font-family: $font-family-sans-serif;
+    color: orangered;
+    content: '\002A';  
+    font-weight: 600;
+    font-size:1.2em;  
+  }
+    
     
   }
 

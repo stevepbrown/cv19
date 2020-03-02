@@ -3,6 +3,8 @@
 
 @section('main')
 
-<h1>ETHICS!</h1>
+@include('partials.partial_terms')
+
+
 
 @endsection

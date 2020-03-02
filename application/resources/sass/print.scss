@@ -18,3 +18,8 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+// Render the URL string after any printed link
+a[href]:after {
+    content: " (" attr(href) ") ";
+  }

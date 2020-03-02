@@ -11111,3 +11111,7 @@ a.text-dark:focus {
   }
 }
 
+a[href]:after {
+  content: " (" attr(href) ") ";
+}
+

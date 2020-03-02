@@ -52,7 +52,7 @@ class ContactController extends GenericPageController
       $this->rules =  array(
         'given_name'=>'required|alpha_dash|min:2',
         'family_name'=>'required|alpha_dash|min:2',
-         'email'=>'required|email|same:confirm_email',
+         'email'=>'required|email|same:confirm_email|unique:contact_forms,email',
          'confirm_email'=>'required|email|same:email',
          'traffic_source'=>'required|numeric',
          'traffic_source_other'=>'exclude_unless:traffic_source,99|required|alpha_dash|min:4',

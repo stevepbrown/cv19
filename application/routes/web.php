@@ -19,6 +19,7 @@ Route::get('/contact','contactController@show')->name('contact.show');
 Route::get('/faq','GenericPageController@show');
 Route::get('/bio','GenericPageController@show');
 Route::get('/aboutapp','GenericPageController@show');
+Route::get('/ethics','GenericPageController@show');
 Route::get('/cv','CVController');
 Route::get('/print','PrintController');
 

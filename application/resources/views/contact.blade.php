@@ -1,5 +1,6 @@
 @extends('layouts.layout_master')
 @section('main')
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -23,46 +24,44 @@
    @csrf
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6 col-md-4">
-            <label for="input-given-name">First Name</label>&nbsp;
+            <label class="asterix-req" for="input-given-name">First Name</label></i>&nbsp;
             <input type="text" class="form-control" id="input-given-name" placeholder="Given name"
-                name="given_name" tabindex="7" autofocus>
-            
-        
+                name="given_name" tabindex="7" value="{{old('given_name')}}"  autofocus>
         </div>
 
         <div class="col-10 col-sm-6 col-md-4">    
-                <label for="input-family-name">Second Name</label>
+                <label class="asterix-req" for="input-family-name">Second Name</label>
                 <input type="text" class="form-control" id="input-family-name" placeholder="Family name"
-                    name="family_name"  tabindex="8">
+                    name="family_name"  tabindex="8" value="{{old('family_name')}}">
         </div>
     </div>
     <div class="form-row mb-3">
     </div>
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6 col-md-4">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="Contact email address" name="email" tabindex="9">
+            <label class="asterix-req" for="email">Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Contact email address" name="email" tabindex="9"  value="{{old('email')}}">
         
         </div>
         <div class="col-10 col-sm-6 col-md-4">
-            <label for="confirm_email">Confirm Email</label>
+            <label class="asterix-req" for="confirm_email">Confirm Email</label>
             <input type="text" class="form-control" id="confirm_email"
-                placeholder="Re-enter email address" name="confirm_email" tabindex="10"  >
+        placeholder="Re-enter email address" name="confirm_email" tabindex="10" value="{{old('confirm_email')}}"  >
         
         </div>
     </div>
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6 col-md-4">
             <label for="input-telephone">Telephone</label>
-            <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline"
-                name="telephone" tabindex="11" >
+            <input type="tel" class="form-control" id="input-tel" placeholder="Mobile or landline (not required), min "
+        name="telephone" tabindex="11" value="{{old('telephone')}}" >
         
         </div>
     </div>
     <div id="div-source-type" class="form-row mb-3">
         <div class="col-10 col-sm-6">
-            <label for="select-source-type">How did you hear about me?</label>
-            <select id="traffic_source" class="custom-select" name="traffic_source" tabindex="12" form="form-contact" >
+            <label class="asterix-req" for="select-source-type">How did you hear about me?</label>
+        <select id="traffic_source" class="custom-select" name="traffic_source" tabindex="12" form="form-contact" selected="{{old('traffic_source')}}">
                 <option value=null>-- Please select one --</option>
                 @foreach ($trafficSourceTypes as $item)
                 <option value="{{$item->code}}">{{$item->text}}</option>
@@ -72,22 +71,24 @@
     </div>
     <div id="div-traffic-source-other-container" class="form-row mb-3 invisible">
         <div class="col-10 col-sm-6">
-            <input id="traffic_source_other" type="text" class="form-control" placeholder="specify other" name="traffic_source_other" tabindex="13">
+        <input id="traffic_source_other" type="text" class="form-control asterix-req" placeholder="specify other" name="traffic_source_other" tabindex="13" value="{{old('traffic_source_other')}}">
         </div>
     </div>
-    <p>Enquiry</p>
+    
+    <form-group>
+    <legend class="asterix-req">Enquiry</legend>
     <div class="form-row mb-3">
         <div class="col-10">
-            <textarea id="text-area-msg"  name="message" form="form-contact" maxlength="500" name="message" placholder="Outline your enquiry"  wrap="hard" rows="5" cols="50" tabindex="14" ></textarea>
+        <textarea id="text-area-msg"  name="message" form="form-contact" maxlength="500" name="message" placholder="Outline your enquiry"  wrap="hard" rows="5" cols="50" tabindex="14" value="{{old('traffic_source_other')}}"></textarea>&nbsp;
             
         </div>
 
     </div>
+    </form-group>
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6">
-            <input type="checkbox" id="checkbox-consent" name="consent" tabindex="15" >
-            <label for="checkbox-consent"> I consent to terms</label>
-        
+        <input type="checkbox" id="checkbox-consent" name="consent" tabindex="15" value="{{old('consent')}}" >
+            <label class="asterix-req" for="checkbox-consent"> <a href="/ethics#section-terms" target="_parent">I consent to terms</a></label>
         </div> <br>
     
     </div>
