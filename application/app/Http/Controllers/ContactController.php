@@ -60,8 +60,7 @@ class ContactController extends GenericPageController
          'message'=>'required|min:5|max:500'
       );
 
-      dd($request->validate($this->rules));
-
+  
       // Validate
       $request->validate($this->rules);
       
@@ -80,12 +79,31 @@ class ContactController extends GenericPageController
 
          $request->session->flash('status','Thankyou, you\'re message has been sent');
 
-         return back($status = 201, $headers = [], $fallback = false)->with('status',app('Illuminate\Http\Response')->status());
+         return back($status = 201, $headers = [], $fallback = false);
+      
+      }
          
-         
+  
 
 
-         
+   
+/**
+ * Render an exception into an HTTP response.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  \Exception  $exception
+ * @return \Illuminate\Http\Response
+ */
+public function render($request, Exception $exception)
+{
+    if ($exception instanceof CustomException) {
+        return response()->view('errors.custom', [], 500);
+    }
+
+    return parent::render($request, $exception);
+}
+             
 
    }
-}
+   
+

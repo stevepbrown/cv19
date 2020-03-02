@@ -10,3 +10,4 @@ phpunit.xml
 /mysql/views/tmp/
 /postgres_backup
 /user-customizations.sh
+/mysql/logs/mysqlpump.log
