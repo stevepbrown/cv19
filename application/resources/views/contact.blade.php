@@ -1,6 +1,8 @@
 @extends('layouts.layout_master')
 @section('main')
 
+
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -27,7 +29,7 @@
             <label class="asterix-req" for="input-given-name">First Name</label></i>&nbsp;
             <input type="text" class="form-control" id="input-given-name" placeholder="Given name"
                 name="given_name" tabindex="7" value="{{old('given_name')}}"  autofocus>
-        </div>
+            </div>
 
         <div class="col-10 col-sm-6 col-md-4">    
                 <label class="asterix-req" for="input-family-name">Second Name</label>
@@ -89,7 +91,7 @@
         <div class="col-10 col-sm-6">
         <input type="checkbox" id="checkbox-consent" name="consent" tabindex="15" value="{{old('consent')}}" >
             <label class="asterix-req" for="checkbox-consent"> <a href="/ethics#section-terms" target="_parent">I consent to terms</a></label>
-        </div> <br>
+                </div> <br>
     
     </div>
     <div class="form-row">
@@ -99,6 +101,33 @@
     </div>
     </form>
 @endif
+
+
+<!-- Button trigger modal -->
+<button type="link" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    I consent to terms
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          @include('partials.partial_terms')
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Accept</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 @scripts
