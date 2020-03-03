@@ -23,7 +23,7 @@
                 @endif                
        
                 {{menu('main_nav','partials.partial_main_nav')}}
-             <main class="container my-2">
+             <main class="container mt-5 mb-3">
                 @yield('main')
              </main>
         </div>  

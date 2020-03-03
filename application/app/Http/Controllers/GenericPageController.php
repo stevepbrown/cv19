@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\PageProps as PageProps;
-use App\Link;
 use Illuminate\Support\Collection;
 use illuminate\Support\Arr;
 use illuminate\Support\Str;
@@ -44,6 +43,8 @@ use Illuminate\Http\Request;
     protected function getProps(){
 
         return PageProps::with('links','keywords')->where('slug',$this->getRequestPath())->first();
+
+
     }
 
     protected function getKeywords(){
@@ -62,7 +63,6 @@ use Illuminate\Http\Request;
     protected function getLinks() {
 
         return $this->getProps()->links->toArray();
-            
     } 
 
 
@@ -70,7 +70,7 @@ use Illuminate\Http\Request;
 
         $props = $this->getProps()->toArray();
 
-        
+       
 
         $attributes = array();
         $attributes = arr::add($attributes, 'name',$props['name']);

@@ -19,8 +19,8 @@ class PageProps extends Model
 
 
     public function links(){
-
-    return $this->belongsToMany('App\Link','link_pages','page_props_page_id','link_id');
+   
+    return $this->belongsToMany('App\Link','link_pages','page_props_id','link_id');
 
     }  
     

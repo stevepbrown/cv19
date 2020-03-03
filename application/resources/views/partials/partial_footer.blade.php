@@ -22,10 +22,7 @@
         </div>
         <div class="row">
             <div id="div-badge-flex-container" class="d-none d-lg-flex align-items-center justify-content-between my-1">
-                <img src="" alt="First">
-                <img src="" alt="Second">
-                <img src="" alt="Third">
-                <img src="" alt="Fourth">
+                <i class="fab fa-github-square"></i>
             </div>
         </div>
     </footer>

@@ -1,28 +1,18 @@
-CREATE OR REPLACE VIEW `cv`.`vwPageLinks` AS
-
-
-SELECT
-
-`page_props`.`page_id` `PAGE_ID`,
-`page_props`.`name` `PAGE_NAME`,
-`links`.`attr_id` `LINK_HTML_ID`,
-`links`.`link_type` `LINK_TYPE`,
-`links`.`href` `LINK_URL`,
-`links`.`rel` `LINK_REL`
-
-
-
-
-
-FROM `cv`.`page_props`
-
-JOIN `cv`.`link_pages` ON `link_pages`.`page_props_page_id` =   `page_props`.`id` 
-JOIN `cv`.`links` ON `links`.`id` = `link_pages`.`link_id` 
-
-ORDER BY  `PAGE_ID`
-
-
-
-
-
- 
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `spb`@`%` 
+    SQL SECURITY DEFINER
+VIEW `vwPageLinks` AS
+    SELECT 
+        `page_props`.`id` AS `PAGE_PROPS_ID`,
+        `page_props`.`page_id` AS `PAGE_PROPS_PAGE_ID`,
+        `page_props`.`name` AS `PAGE_NAME`,
+        `links`.`attr_id` AS `LINK_HTML_ID`,
+        `links`.`link_type` AS `LINK_TYPE`,
+        `links`.`href` AS `LINK_URL`,
+        `links`.`rel` AS `LINK_REL`
+    FROM
+        ((`page_props`
+        JOIN `link_pages` ON ((`link_pages`.`page_props_id` = `page_props`.`id`)))
+        JOIN `links` ON ((`links`.`id` = `link_pages`.`link_id`)))
+    ORDER BY `page_props`.`page_id`
