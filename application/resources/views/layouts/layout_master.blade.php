@@ -12,6 +12,8 @@
     <body>
 
         <div id="div-document-container" class="container-fluid">
+                
+                <header id="header-main">
                 {{-- Uses Spatie/Cooke --}}
                 @include('cookieConsent::index')
        
@@ -23,7 +25,8 @@
                 @endif                
        
                 {{menu('main_nav','partials.partial_main_nav')}}
-             <main class="container mt-5 mb-3">
+             </header>
+             <main class="container my-5">
                 @yield('main')
              </main>
         </div>  

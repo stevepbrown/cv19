@@ -4,21 +4,21 @@
 @section('main')
 
     {{-- SKILLS --}}
-    <div id="div-cv-skills">
-        <h2>Skills</h2>
+    <div id="div-cv-skills" class="container-fluid">
+        <h2 class="display-4">Skills</h2>
             
         @foreach (($skills->where('parent_skill_id',null))->where('isActive','true') as $skill)
             @php        
                 $level = null;
                 $maxLevel = 6;
             @endphp
-                {{-- Render main skills (top-level)  --}}
+            {{-- Render main skills (top-level)  --}}
             <h{{$initialHeaderLevel}} id="h{{$initialHeaderLevel}}-skill-{{$skill->id}}">{{$skill->skill}}</h{{$initialHeaderLevel}}>
             
             {{-- Iterate through any children (recursive)   --}}
-            @if ($skill->children)
+            @unless ($skill->children->count() == 0)
                 @include('partials.partial_skill_iterator',[$level,($skills = $skill->children)])
-            @endif
+            @endunless
         @endforeach
     </div>
 
@@ -26,7 +26,7 @@
 
     {{-- QUALIFICATIONS --}}
     <div id="div-cv-qualifications">
-        <h2>Qualifications</h2>
+        <h2 class="display-4">Qualifications</h2>
         @foreach ($qualifications as $institution)
             <h3 id="h3-institution-{{$institution->id}}">{{$institution->institution}}</h3>
             @foreach ($institution->qualifications as $qualification)
@@ -46,7 +46,7 @@
     </div>
     {{-- EMPLOYMENT HISTORY --}}
     <div id="div-cv-jobs">
-        <h2>Employment History</h2>
+        <h2 class="display-4">Employment History</h2>
 
              @foreach ($employers as $employer)
             <h3 id="h3-employer-{{$employer->employer_id}}">{{$employer->employer}}</h3>

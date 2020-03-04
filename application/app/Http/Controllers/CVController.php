@@ -47,12 +47,15 @@ class CVController extends GenericPageController
       
 
         // Return a collection of skills (with children)
-        $skills = Skills::with('children')->get();
+        $skills = Skills::with('children')->with('children')->get();
 
                
         // Active skills ordered by their sort index
          $skills= $skills->where('is_active',true)
                          ->sortBy('SortOrder');
+
+
+                 
 
          $qualifications =  Institutions::with('qualifications.modules')->get();
     

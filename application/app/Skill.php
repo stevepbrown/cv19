@@ -126,7 +126,7 @@ class Skill extends Model
      *
      * @return void
      */
-    public function getIconClassAttribute(){
+    function getIconClassAttribute(){
       $qry = DB::table('entity_attribute_value')->select('value')
         ->where('app_table_id',13) // 'skills'
         ->where('attribute_id',6) // 'icon'
@@ -135,8 +135,9 @@ class Skill extends Model
         return $qry->pluck('value')->first();
         
         
-
     }
+
+
     
 
 }
