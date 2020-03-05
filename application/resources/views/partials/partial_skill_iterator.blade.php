@@ -1,86 +1,35 @@
 @php
- 
-    
-    // First-time initialisation of header level
-    if(is_null($level)){
-
-      $level = $initialHeaderLevel;
-  
-    }
-    
-    
+// First-time initialisation of header level
+if(is_null($level)){
+$level = $initialHeaderLevel;
+}
+else{
+$level = $level+1;
+}
 @endphp
 <div>
-
-@php
-    $level = $level+1;
-@endphp
-
     <ul id="ul-skill-parent-{{$skills->first->skill_parent_id}}">
         @foreach ($skills->where('isActive','true') as $skill)
-
-      
-        @switch($level)
-
-        @case(($level >= $maxLevel))
-
-        
-        <li>{{$skill->skill}}</li> 
-
-    
-
-        @break
-      
-        @case($maxLevel-1)
-        <li id="li-skill-{{$skill->id}}">
-            <div id="div-skill-{{$skill->id}}-accordion" class="container">
-                
-                <div id="div-div-skill-{{$skill->id}}-collapse-invoke">
+        @if(($level == ($maxLevel -2) || $level == ($maxLevel -3)) && ($skill->children->count() > 0))
+        <div id="div-div-skill-{{$skill->id}}-expand-invoke">
+            <li id="li-skill-{{$skill->id}}">
                 <h{{$level}} id="h{{$level}}-skill-{{$skill->id}}">{{$skill->skill}}
-                    <a class="badge-light" data-toggle="collapse" href="#div-div-skill-{{$skill->id}}-collapse-target" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Link with href
-                      </a>
+                    <a class="badge-light" data-toggle="collapse" href="#div-div-skill-{{$skill->id}}-collapse-target"
+                        role="button" aria-expanded="false"
+                        aria-controls="div-div-skill-{{$skill->id}}-collapse-target"><i
+                            class="fas fa-caret-square-down fa-sm"></i></a>
                     @isset($skill->icon_class)
                     <i class="fas fa-{{$skill->icon_class}} fa-sm fa-fw"
                         title="It has been some time since I used this skill" data-toggle="tooltip"
                         data-placement="right"></i>
                     @endisset
-                    @unless(($skill->children->count() == 0))
-                        <i class="fas fa-caret-square-down"></i>
-                    @endunless
-                </h{{$level}}>
-                </div>
-                
-                @unless ($skill->children->count() == 0)
-                     <div id="div-div-skill-{{$skill->id}}-collapse-target">   
+                    <div id="div-div-skill-{{$skill->id}}-collapse-target" class="collapse">
                         @include('partials.partial_skill_iterator',[$level,($skills = $skill->children)])
-                    </div>   
-                @endif
-            </div>   
-
-            @break
-
-        @case($maxLevel-2)    
-
-        
-            <h{{$level}} id="h{{$level}}-skill-{{$skill->id}}">{{$skill->skill}}
-                @isset($skill->icon_class)
-                <i class="fas fa-{{$skill->icon_class}} fa-sm fa-fw"
-                    title="It has been some time since I used this skill" data-toggle="tooltip"
-                    data-placement="right"></i>
-                @endisset               
-                </h{{$level}}>
-                
-                
-                @unless($skill->children->count() == 0)
-                    @include('partials.partial_skill_iterator',[$level,($skills = $skill->children)])
-                @endunless
-        
-        @break    
-            @default
-
+                    </div>
+            </li>
+        </div>
+        @else
         <li id="li-skill-{{$skill->id}}">
-
             <h{{$level}} id="h{{$level}}-skill-{{$skill->id}}">{{$skill->skill}}
                 @isset($skill->icon_class)
                 <i class="fas fa-{{$skill->icon_class}} fa-sm fa-fw"
@@ -88,12 +37,11 @@
                     data-placement="right"></i>
                 @endisset
             </h{{$level}}>
-        </li>
-        @if ($skill->children->count() > 0)
+            @if ($skill->children->count() > 0)
             @include('partials.partial_skill_iterator',[$level,($skills = $skill->children)])
-        @endif
-        @endswitch
-
+            @endif
+            @endif
+        </li>
         @endforeach
     </ul>
 </div>

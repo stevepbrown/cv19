@@ -17,8 +17,7 @@ mix.autoload({
 
 
 // Regular styling (non-print)
-mix.js(['resources/js/cookie.js','resources/js/main.js'], 'public/js/app.js')
-.sass(['resources/sass/app.scss'], 'public/css');
+ mix.js(['resources/js/cookie.js','resources/js/main.js'], 'public/js/app.js').sass('resources/sass/app.scss', 'public/css');
 
 
 
