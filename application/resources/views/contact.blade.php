@@ -23,14 +23,6 @@ $oldMessage = old('message','n/a');
 @endif
 
 
-{{var_dump(
-    
- ['message'=> old('message','Blank')],
- ['consent'=>old('consent','Blank')]
- )}}
-
-
-
 @if ($status == 201)
     <div class="alert alert-success">
         <p>Thank-you, your enquiry has been submitted successfully.</p>
@@ -320,6 +312,8 @@ $oldMessage = old('message','n/a');
    
         $("#traffic_source_code").trigger('change');
 
+        // since the textarea input type does not support a 'value' attribute, 
+        // any repopulation has to be done programmatically
         repopulateMessage();
       
 
