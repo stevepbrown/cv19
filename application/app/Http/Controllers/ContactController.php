@@ -54,13 +54,12 @@ class ContactController extends GenericPageController
         'family_name'=>'required|alpha_dash|min:2',
          'email'=>'required|email|same:confirm_email|unique:contact_forms,email',
          'confirm_email'=>'required|email|same:email',
-         'traffic_source'=>'required|numeric',
-         'traffic_source_other'=>'exclude_unless:traffic_source,99|required|alpha_dash|min:4',
+         'traffic_source_code'=>'required|numeric',
+         'traffic_source_other'=>'exclude_unless:traffic_source,99|required|min:4',
          'telephone'=>'nullable|min:10',
          'message'=>'required|min:5|max:500'
       );
 
-  
       // Validate
       $request->validate($this->rules);
       
@@ -70,17 +69,21 @@ class ContactController extends GenericPageController
          $contact->family_name = $request->input('family_name');
          $contact->email = $request->input('email');
          $contact->telephone = $request->input('telephone');
-         $contact->traffic_source_code = $request->input('traffic_source');
+         $contact->traffic_source_code = $request->input('traffic_source_code');
          $contact->traffic_source_other = $request->input('traffic_source_other');
          $contact->message = $request->input('message');
-     
+         dd([$contact->message,$request->input('message')]);
+
+      
+        
+
          $contact->save();
 
 
-         $request->session->flash('status','Thankyou, you\'re message has been sent');
+         
 
-         return back($status = 201, $headers = [], $fallback = false);
-      
+         return back($status = 201, $headers = [], $fallback = false)->with('status', '201');
+         
       }
          
   
