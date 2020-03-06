@@ -45,7 +45,7 @@ class ContactController extends GenericPageController
 
    public function store(Request $request){
 
-      
+
   
 
       // Validation $rules
@@ -57,7 +57,9 @@ class ContactController extends GenericPageController
          'traffic_source_code'=>'required|numeric',
          'traffic_source_other'=>'exclude_unless:traffic_source,99|required|min:4',
          'telephone'=>'nullable|min:10',
-         'message'=>'required|min:5|max:500'
+         'message'=>'required|min:5|max:500',
+         'consent'=>'accepted'
+         
       );
 
       // Validate
@@ -72,10 +74,8 @@ class ContactController extends GenericPageController
          $contact->traffic_source_code = $request->input('traffic_source_code');
          $contact->traffic_source_other = $request->input('traffic_source_other');
          $contact->message = $request->input('message');
-         dd([$contact->message,$request->input('message')]);
-
-      
-        
+       
+       
 
          $contact->save();
 

@@ -1,7 +1,16 @@
 @extends('layouts.layout_master')
 @section('main')
 
+@php
+    
+/* Facilitate programmatic insertion of old msg 
+using js by asigning a non null (php)
+variable */
 
+$oldMessage = old('message','n/a');
+
+
+@endphp
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -16,14 +25,8 @@
 
 {{var_dump(
     
-    ['given_name'=>old('given_name','Blank')],
-['family_name'=>old('family_name','Blank')],
- ['email'=>old('email','blank')],
- ['confirm_email'=>old('confirm_email','Blank')],
- ['traffic_source_code'=>old('traffic_source_code','Blank')],
- ['traffic_source_other'=>old('traffic_source_other','Blank')],
- ['telephone'=>old('telephone','Blanks')],
- ['message'=> old('message','blank')]
+ ['message'=> old('message','Blank')],
+ ['consent'=>old('consent','Blank')]
  )}}
 
 
@@ -78,11 +81,16 @@
     <div id="div-source-type" class="form-row mb-3">
         <div class="col-10 col-sm-6">
             <label class="asterix-req" for="traffic_source_code">How did you hear about me?</label>
-        <select id="traffic_source_code" class="custom-select" name="traffic_source_code" tabindex="12" form="form-contact" value="{{old('traffic_source_code')}}">
+        <select id="traffic_source_code" class="custom-select" name="traffic_source_code" tabindex="12" form="form-contact" selected="{{old('traffic_source_code')}}">
                 <option value=null>-- Please select one --</option>
                 @foreach ($trafficSourceTypes as $item)
-                <option value="{{$item->code}}">{{$item->text}}</option>
+                    @if (old('traffic_source_code') == $item->code)
+                        <option value={{$item->code}} selected>{{$item->text}}</option>
+                    @else
+                        <option value={{$item->code}}>{{$item->text}}</option>
+                    @endif
                 @endforeach
+
             </select>
         </div>
     </div>
@@ -103,12 +111,17 @@
     </form-group>
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6">
-                
-            <!-- Button trigger modal -->        
+            {{-- Button trigger modal --}}
            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget">Consent to terms</button>
-            <input type="checkbox" id="checkbox-consent" name="consent" tabindex="15" value="{{old('consent')}}" aria-label="Checkbox for terms" class="m-2 p-0">
+           <input type="checkbox" id="consent" name="consent" tabindex="15" value="true" aria-label="Checkbox for terms" class="m-2 p-0"
+        
+           {{-- Conditionally set the check attribute --}}
+           @if(old('consent') =='true')
+            checked
+           @endif
+           >
         </div>
-    </div>
+    </div>   
     <div class="form-row">
             <div class="col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-3 offset-xl-4">
                 <input class="form-control btn btn-outline-primary my-3 " tabindex="16" role="button" type="submit" value="submit">
@@ -129,7 +142,7 @@
             @include('partials.partial_terms')
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Accept</button>
+          <button type="button" id="btn-terms-accept" class="btn btn-secondary" data-dismiss="modal">Accept</button>
         </div>
       </div>
     </div>
@@ -140,7 +153,6 @@
 
 
   
- 
 
 
 @scripts
@@ -148,34 +160,47 @@
  <script id="script-contact">
     $("document").ready(function () {
 
-        // Due to how HTML5 defines its semantics, the autofocus HTML attribute has no effect in Bootstrap modals. To achieve the same effect, use some custom JavaScript:
-        $('#myModal').on('shown.bs.modal', function () {
-            $('#myInput').trigger('focus')
-        })
-
+        
 
         // Only show the 'How did you hear about me?' specify(other) when 'other'(99) selected.
         function showHideSourceOther() {
+ 
+          
+
+            var selected = $("#traffic_source_code option:selected");
 
             
-            $selected = $("#traffic_source_code option:selected");
-
-            if ($($selected).val() == 99) {
+            if ($(selected).val() == 99) {
                 $("#div-traffic-source-other-container").removeClass("invisible");
+                $("#traffic_source_other").val({{old('traffic_source_other',null)}});
+            
             } else {
                 $("#div-traffic-source-other-container").addClass("invisible");
-                $("#traffic_source_other").val({{old('traffic_source_other')}});
+                $("#traffic_source_other").val(null);
             };
 
 
         };
 
+        function repopulateMessage(){
+
+              // Will always return a string
+            var oldMessage = '{{$oldMessage}}';
+
+            if (oldMessage != 'n/a') {
+
+                $('#message').text(oldMessage);
+                return true;
+
+            }
+
+            return false;
 
 
-        $("#traffic_source_code").change(function () {
-            showHideSourceOther()
-        });
+        }
 
+
+      
 
 
         $.validator.addMethod('trafficOtherRequired',
@@ -183,13 +208,13 @@
             function () {
 
 
-                var $trafficSourceParent = $("#traffic_source_code");
-                var $trafficSourceChild = $('#traffic_source_other')
+                var trafficSourceParent = $("#traffic_source_code");
+                var trafficSourceChild = $('#traffic_source_other')
                              
                 // returns false if fails validation
-                var $result = !($trafficSourceParent.val() == 99 && $trafficSourceChild.val().length < 1);
+                var result = !(trafficSourceParent.val() == 99 && trafficSourceChild.val().length < 1);
 
-                return ($result);
+                return (result);
 
 
 
@@ -288,8 +313,21 @@
 
         $(".error").addClass('invalid-error');
 
+        $("#traffic_source_code").change(function () {
+            showHideSourceOther()
+        });
+
+   
+        $("#traffic_source_code").trigger('change');
+
+        repopulateMessage();
       
-        showHideSourceOther();
+
+
+
+       
+
+       
 
 
     });
