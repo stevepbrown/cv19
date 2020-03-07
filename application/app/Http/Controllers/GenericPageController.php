@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 
         $this->request = $request;
         $this->setRequestPath($this->request);
+        $this->props = $this->getPageAttributes();
         
 
     }
@@ -108,16 +109,16 @@ use Illuminate\Http\Request;
         return Str::replaceLast(',','', $str);
     }
 
-    public function show(){
+    public function index(){
 
-        $this->props = $this->getPageAttributes();
-
-        
+                
         $vw = view($this->props['name'],$this->props);
 
                
         return $vw;
         
     }
+   
+  
    
 }

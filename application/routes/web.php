@@ -13,16 +13,15 @@
 
 // DEBUGONLY(SPB): 
 Route::view('/font-test','font-samples');
-
-Route::get('/', 'GenericPageController@show');
-Route::get('/contact','contactController@show')->name('contact.show');
-Route::get('/faq','GenericPageController@show');
-Route::get('/bio','GenericPageController@show');
-Route::get('/aboutapp','GenericPageController@show');
-Route::get('/ethics','GenericPageController@show');
+Route::get('/', 'GenericPageController@index');
+Route::get('/faq','GenericPageController@index');
+Route::get('/bio','GenericPageController@index');
+Route::get('/aboutapp','GenericPageController@index');
+Route::get('/ethics','GenericPageController@index');
 Route::get('/cv','CVController');
 Route::get('/print','PrintController');
 
+Route::get('/contact/{contact?}','ContactController@show')->name('contact.show');
 
 Route::post('/contact/create','ContactController@store')->name('contact.store');
 

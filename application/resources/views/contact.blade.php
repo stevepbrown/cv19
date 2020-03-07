@@ -57,9 +57,7 @@ $oldMessage = old('message','n/a');
         </div>
         <div class="col-10 col-sm-6 col-md-4">
             <label class="asterix-req" for="confirm_email">Confirm Email</label>
-            <input type="text" class="form-control" id="confirm_email"
-        placeholder="Re-enter email address" name="confirm_email" tabindex="10" value="{{old('confirm_email')}}"  >
-        
+            <input type="text" class="form-control" id="confirm_email" placeholder="Re-enter email address" name="confirm_email" tabindex="10" value="{{old('confirm_email')}}">
         </div>
     </div>
     <div class="form-row mb-3">
@@ -85,27 +83,53 @@ $oldMessage = old('message','n/a');
 
             </select>
         </div>
+        
     </div>
     <div id="div-traffic-source-other-container" class="form-row mb-3 invisible">
         <div class="col-10 col-sm-6">
-        <input id="traffic_source_other" type="text" class="form-control asterix-req" placeholder="specify other" name="traffic_source_other" tabindex="13" value="{{old('traffic_source_other')}}">
+        <input id="traffic_source_other" type="text" class="form-control asterix-req" placeholder="specify other" name="traffic_source_other" tabindex="14" value="{{old('traffic_source_other')}}">
         </div>
     </div>
-    
     <form-group>
     <legend class="asterix-req">Enquiry</legend>
     <div class="form-row mb-3">
         <div class="col-10">
-        <textarea id="message" name="message" form="form-contact" maxlength="500"  placholder="Outline your enquiry"  wrap="hard" rows="6" tabindex="14" value="{{old('message')}}" class="w-100"></textarea>
+        <textarea id="message" name="message" form="form-contact" maxlength="500"  placholder="Outline your enquiry"  wrap="hard" rows="6" tabindex="15" value="{{old('message')}}" class="w-100"></textarea>
             
         </div>
     </div>
     </form-group>
+
+    <div id="div-representation-type" class="form-row mb-3">
+        <div class="col-10 col-sm-6">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="representationType" id="representation-radio-1" value="1" checked>
+                    <label class="form-check-label" for="representation-radio-1">
+                    I represent an agency
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="representationType" id="representation-radio-2" value="2">
+                    <label class="form-check-label" for="representation-radio-2">
+                    I am an employer with a position to fill
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="representationType" id="representation-radio-2" value="99">
+                    <label class="form-check-label" for="representation-radio-3">
+                    Other
+                    </label>
+                </div>
+        </div>
+    </div>
+
+    
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6">
             {{-- Button trigger modal --}}
-           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget">Consent to terms</button>
-           <input type="checkbox" id="consent" name="consent" tabindex="15" value="true" aria-label="Checkbox for terms" class="m-2 p-0"
+           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget" data-src="agency">Consent to terms</button>
+           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget" data-src="non-agency">Agree to data policy</button>
+           <input type="checkbox" id="consent" name="consent" tabindex="16" value="true" aria-label="Checkbox for terms" class="m-2 p-0"
         
            {{-- Conditionally set the check attribute --}}
            @if(old('consent') =='true')
@@ -116,12 +140,14 @@ $oldMessage = old('message','n/a');
     </div>   
     <div class="form-row">
             <div class="col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-3 offset-xl-4">
-                <input class="form-control btn btn-outline-primary my-3 " tabindex="16" role="button" type="submit" value="submit">
+                <input class="form-control btn btn-outline-primary my-3 " tabindex="17" role="button" type="submit" value="submit">
             </div>    
     </div>
   
   <!-- Modal -->
-  <div class="modal fade" id="termsModalTarget" tabindex="-1" role="dialog" aria-labelledby="termsModalTargetTitle" aria-hidden="true">
+<div class="modal fade" id="termsModalTarget" tabindex="-1" role="dialog" aria-labelledby="termsModalTargetTitle" aria-hidden="true"> --}}
+
+    
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -131,7 +157,7 @@ $oldMessage = old('message','n/a');
           </button>
         </div>
         <div class="modal-body">
-            @include('partials.partial_terms')
+            @include('partials.partial_terms_agency')
         </div>
         <div class="modal-footer">
           <button type="button" id="btn-terms-accept" class="btn btn-secondary" data-dismiss="modal">Accept</button>
@@ -307,6 +333,12 @@ $oldMessage = old('message','n/a');
 
         $("#traffic_source_code").change(function () {
             showHideSourceOther()
+        });
+
+        $("input[type='radio']").click(function() {
+
+            alert(event.target.id);
+
         });
 
    

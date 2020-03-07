@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ContactForm;
+use App\Person;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 
 class ContactController extends GenericPageController
 {
+
+   protected $person;
 
    protected $fillable = [
        'given_name',
@@ -21,11 +24,15 @@ class ContactController extends GenericPageController
 
    protected $rules;
 
-   public function show(){
+   public function show(Request $request,$id = null){
 
-     parent::show();
+     if($id){
 
-      $request = $this->request;
+      $this->person = Person::findOrFail($id);
+      
+     }
+
+     
 
      
 
@@ -33,19 +40,19 @@ class ContactController extends GenericPageController
       $trafficSourceTypes = DB::table('traffic_source_types')->select('code','text')->orderBy('code')->get()->toArray();
 
 
+
       // append the array to the props
       $this->props = Arr::add($this->props,'trafficSourceTypes',$trafficSourceTypes);
+       
 
-      $vw = view($this->props['name'],$this->props);
+        $vw = view($this->props['name'],$this->props);
 
-   
+
      return $vw->with('status',(app('Illuminate\Http\Response')->status()));
   
   }
 
    public function store(Request $request){
-
-
   
 
       // Validation $rules
@@ -78,6 +85,7 @@ class ContactController extends GenericPageController
        
 
          $contact->save();
+
 
 
          
