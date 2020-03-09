@@ -5,10 +5,12 @@ cpus: 2
 provider: virtualbox
 name: cv19
 
-authorize: ~/.ssh/id_rsa.pub
+#authorize: ~/.ssh/id_rsa.pub
+authorize: C:\Users\steve\.ssh\id_rsa.pub
 
 keys:
-    - ~/.ssh/id_rsa
+    #- ~/.ssh/id_rsa
+    - C:\Users\steve\.ssh\id_rsa
 
 folders:
     -

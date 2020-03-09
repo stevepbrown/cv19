@@ -1,4 +1,4 @@
-<section id="section-terms-agency">
+<section id="section-terms-agency" class="d-none">
 
 
     <h2>Agency</h2>
@@ -31,7 +31,7 @@
     
     
     
-    ethics, equity, integrity, professional conduct and fair practice 
+    <p>ethics, equity, integrity, professional conduct and fair practice 
     
     Respect for Laws
     
@@ -51,7 +51,7 @@
     
     Members must observe the highest principles of integrity, professionalism, equity and fair practice to maintain the confidentiality and privacy of candidate and client information and should respect the confidentiality of records in accordance with law and good business practice.
     
-    Members and their staff must ensure that they have obtained consent or that they have another legal basis which they can rely on (such consent or legal basis to be documented) before disclosing, transferring, displaying, submitting or seeking confidential or personal information.
+    Members and their staff must ensure that they have obtained consent or that they have another legal basis which they can rely on (such consent or legal basis to be documented) before disclosing, transferring, displaying, submitting or seeking confidential or personal information.</p>
     
     
     

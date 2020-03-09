@@ -99,7 +99,7 @@ $oldMessage = old('message','n/a');
         </div>
     </div>
     </form-group>
-
+    
     <div id="div-representation-type" class="form-row mb-3">
         <div class="col-10 col-sm-6">
                 <div class="form-check">
@@ -127,8 +127,7 @@ $oldMessage = old('message','n/a');
     <div class="form-row mb-3">
         <div class="col-10 col-sm-6">
             {{-- Button trigger modal --}}
-           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget" data-src="agency">Consent to terms</button>
-           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget" data-src="non-agency">Agree to data policy</button>
+           <button type="button" class="btn btn-link" data-toggle="modal" data-target="#termsModalTarget" >Consent to terms</button>
            <input type="checkbox" id="consent" name="consent" tabindex="16" value="true" aria-label="Checkbox for terms" class="m-2 p-0"
         
            {{-- Conditionally set the check attribute --}}
@@ -157,7 +156,11 @@ $oldMessage = old('message','n/a');
           </button>
         </div>
         <div class="modal-body">
+           
             @include('partials.partial_terms_agency')
+            @include('partials.partial_terms_employer')
+            @include('partials.partial_terms_other')
+        
         </div>
         <div class="modal-footer">
           <button type="button" id="btn-terms-accept" class="btn btn-secondary" data-dismiss="modal">Accept</button>
@@ -178,7 +181,8 @@ $oldMessage = old('message','n/a');
  <script id="script-contact">
     $("document").ready(function () {
 
-        
+        // global to hold legal terms based on 
+        var legalTerms;
 
         // Only show the 'How did you hear about me?' specify(other) when 'other'(99) selected.
         function showHideSourceOther() {
@@ -216,6 +220,46 @@ $oldMessage = old('message','n/a');
 
 
         }
+
+        function setLegalModal($value) {
+
+
+            alert('Now you see me?');
+            // The array index corresponding to the selected value
+            var $idx;
+
+            let $linkLabel =[
+                ['Consent to Terms','section-terms-agency'],
+                ['Agree to data policy','section-terms-employer'],
+                ['Do the other','section-terms-other']
+                ];
+
+            switch ($value) {
+                case (1 or 2):
+                
+                    $idx = ($value-1);    
+                
+                    break;
+            
+                case 99:
+                    $idx = 3;   
+                    break;
+            
+                default:
+
+                console.error($this.name + ': an invalid radio button value was passed');
+                    
+            };
+
+
+            
+            let $linkText = $linkLabel[$idx][0];
+            console.info($linkText); 
+            let $sectionID = $linkLabel[$idx][1];
+            console.info($sectionID); 
+            
+       
+        };
 
 
       
@@ -336,8 +380,10 @@ $oldMessage = old('message','n/a');
         });
 
         $("input[type='radio']").click(function() {
-
-            alert(event.target.id);
+            
+            alert('Radio fired');
+        return true;
+            setLegalModal(event.target.value);
 
         });
 
