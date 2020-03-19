@@ -27,5 +27,11 @@
         "get-google-fonts": "^1.2.2",
         "jquery-validation": "^1.19.1",
         "serialize-javascript": "^2.1.2"
-    }
+    },
+    "name": "profile2020",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/stevepbrown/cv19.git",
+    "author": "Steve B",
+    "license": "MIT"
 }
