@@ -38831,10 +38831,10 @@ window.$ = __webpack_provided_window_dot_jQuery = jquery__WEBPACK_IMPORTED_MODUL
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/application/resources/js/cookie.js */"./resources/js/cookie.js");
-__webpack_require__(/*! /home/vagrant/application/resources/js/main.js */"./resources/js/main.js");
-__webpack_require__(/*! /home/vagrant/application/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /home/vagrant/application/resources/sass/print.scss */"./resources/sass/print.scss");
+__webpack_require__(/*! /home/spb/working/application/resources/js/cookie.js */"./resources/js/cookie.js");
+__webpack_require__(/*! /home/spb/working/application/resources/js/main.js */"./resources/js/main.js");
+__webpack_require__(/*! /home/spb/working/application/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /home/spb/working/application/resources/sass/print.scss */"./resources/sass/print.scss");
 
 
 /***/ })

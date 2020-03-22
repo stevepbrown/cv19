@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
     protected $request;
     protected $requestPath;
     protected $props;
+    protected $str;
 
 
 
@@ -101,7 +102,6 @@ use Illuminate\Http\Request;
     protected function buildKeywords(collection $keywords){
         
         
-
         foreach($keywords as $keyword){
             $str = Str::finish((!isset($str)?"":$str),"{$keyword->text},");
         }
