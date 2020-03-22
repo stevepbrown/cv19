@@ -11,3 +11,4 @@ phpunit.xml
 /postgres_backup
 /user-customizations.sh
 /mysql/logs/mysqlpump.log
+/shuffle/

@@ -19,5 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 // Pingbacks
-Route::middleware('auth:api')->post('/pingback','PingbackController');
+// Route::middleware('auth:api')->post('/pingback','PingbackController');
 
