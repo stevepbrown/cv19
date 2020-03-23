@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\PageProps as PageProps;
 use Illuminate\Support\Collection;
